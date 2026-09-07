@@ -57,3 +57,5 @@ Polimento e Testes
 [ ] Otimizar scripts C# e componentes na Unity para evitar quedas de FPS durante ondas grandes.
 
 [ ] Gerar e testar a primeira build executável do jogo.
+
+(Será ambientado pro linux e windows?/unity garante isso?)
