@@ -3,7 +3,67 @@ guid: 080ec45a7db42a37388082b4356b39b5
 ModelImporter:
   serializedVersion: 24501
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Branch.001
+    second: {fileID: 2100000, guid: e0f31858fdec48c4aa5d6b84a30e152d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Branch_2
+    second: {fileID: 2100000, guid: ebf2d9343128e15a79cb6760ad1bb3d1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Branch_6
+    second: {fileID: 2100000, guid: d9b99d481576ad552b7784b53a2d86b4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cutlery.001
+    second: {fileID: 2100000, guid: 5bd665bd830d6e2378551dd32ae1b4a5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cutlery.002
+    second: {fileID: 2100000, guid: a05dfd4c285a1ca0cbc78d3f5759cb7a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Entertainment
+    second: {fileID: 2100000, guid: 0ec65df48c0fa17898bfbb90dc43dae3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plants.002
+    second: {fileID: 2100000, guid: 28134a7cc37e55d349012ff5ee3bfc14, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plastic_10
+    second: {fileID: 2100000, guid: 0006d755fb670f185b59657838099a70, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: atlas_arboles
+    second: {fileID: 2100000, guid: ea011f646462671058c525f6e43329e1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: atlas_cosechas
+    second: {fileID: 2100000, guid: cd0de8c6c13ae8587830b0305dfcf3ac, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: reja_madera
+    second: {fileID: 2100000, guid: 9b6fdc4a4bcb742228370237c95bcf07, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: rejas_tra
+    second: {fileID: 2100000, guid: fad9b59643eb6c68f8bb0fb12277cc13, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
