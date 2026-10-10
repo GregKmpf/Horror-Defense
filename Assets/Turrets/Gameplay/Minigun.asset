@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39b8b953c72edd28bae96a8a093bf648, type: 3}
+  m_Name: Minigun
+  m_EditorClassIdentifier: Assembly-CSharp::TurretDefinition
+  displayName: Minigun
+  icon: {fileID: 0}
+  prefab: {fileID: 2408771427564057844, guid: ba7a8de317d3f5eb78c54b930443d682, type: 3}
+  cost: 125
+  range: 9
+  damage: 6
+  fireInterval: 0.1
+  maxTargets: 1
+  splashRadius: 0
+  priority: 0
+  turnSpeed: 270
+  aimTolerance: 3
+  maxPitch: 70

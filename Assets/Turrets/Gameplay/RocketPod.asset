@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39b8b953c72edd28bae96a8a093bf648, type: 3}
+  m_Name: RocketPod
+  m_EditorClassIdentifier: Assembly-CSharp::TurretDefinition
+  displayName: Rocket Pod
+  icon: {fileID: 0}
+  prefab: {fileID: 6923833793049653852, guid: 27ada3f23e5b1da008de52d5f1a965a0, type: 3}
+  cost: 175
+  range: 14
+  damage: 20
+  fireInterval: 2
+  maxTargets: 1
+  splashRadius: 3
+  priority: 0
+  turnSpeed: 150
+  aimTolerance: 3
+  maxPitch: 70
