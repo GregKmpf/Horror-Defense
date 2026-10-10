@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,6 +6,8 @@ using UnityEngine;
 // from the TurretDefinition. The model only has to follow the package layout: a "tower" child that turns
 // left and right with a "gun" child under it that tilts up and down. A model without them (the force field
 // generator) doesn't aim, it just fires whenever something is in range.
+// Damage lands the moment a shot is fired. Everything you see and hear of it (TurretEffects) only reacts to
+// the events here.
 public class Turret : MonoBehaviour
 {
     public TurretDefinition definition;
@@ -15,11 +18,20 @@ public class Turret : MonoBehaviour
     [Tooltip("Leave empty to find the child called 'gun'")]
     public Transform gun;
 
-    [Tooltip("Where shots come from. Leave empty to use the gun")]
-    public Transform muzzle;
+    [Tooltip("Where shots come from, used in turn. Leave empty to use the children of the gun called 'Muzzle...'")]
+    public Transform[] muzzles;
 
     [Tooltip("Height above an enemy's feet that the turret aims at")]
     public float aimHeight = 1f;
+
+    // A shot left this muzzle
+    public event Action<Transform> Fired;
+
+    // A shot hit this enemy at this point
+    public event Action<Enemy, Vector3> Hit;
+
+    // A shot with splash damage went off at this point
+    public event Action<Vector3, float> Exploded;
 
     public Enemy Target { get; private set; }
 
@@ -31,9 +43,9 @@ public class Turret : MonoBehaviour
     Quaternion gunRest;
     float nextRetarget;
     float nextShot;
+    int nextMuzzle;
 
     bool CanAim => tower != null || gun != null;
-    Vector3 Origin => muzzle != null ? muzzle.position : gun != null ? gun.position : transform.position;
 
     void Awake()
     {
@@ -54,6 +66,38 @@ public class Turret : MonoBehaviour
         {
             gunRest = gun.localRotation;
         }
+
+        if (muzzles == null || muzzles.Length == 0)
+        {
+            muzzles = FindMuzzles();
+        }
+    }
+
+    Transform[] FindMuzzles()
+    {
+        List<Transform> found = new List<Transform>();
+        Transform parent = gun != null ? gun : transform;
+        foreach (Transform child in parent)
+        {
+            if (child.name.StartsWith("Muzzle"))
+            {
+                found.Add(child);
+            }
+        }
+        return found.ToArray();
+    }
+
+    // A model without muzzles fires from the gun, or from the turret itself
+    Transform NextMuzzle()
+    {
+        if (muzzles.Length == 0)
+        {
+            return gun != null ? gun : transform;
+        }
+
+        Transform muzzle = muzzles[nextMuzzle % muzzles.Length];
+        nextMuzzle++;
+        return muzzle;
     }
 
     void Update()
@@ -180,18 +224,19 @@ public class Turret : MonoBehaviour
 
     void Fire()
     {
-        Vector3 origin = Origin;
+        Transform muzzle = NextMuzzle();
+        Fired?.Invoke(muzzle);
 
         PickTargets(Candidates);
         foreach (Enemy enemy in Candidates)
         {
             if (definition.splashRadius > 0f && definition.maxTargets != 0)
             {
-                Splash(enemy, origin);
+                Splash(enemy);
             }
             else
             {
-                Hit(enemy, origin);
+                Strike(enemy);
             }
         }
         Candidates.Clear();
@@ -223,16 +268,19 @@ public class Turret : MonoBehaviour
         }
     }
 
-    void Hit(Enemy enemy, Vector3 origin)
+    void Strike(Enemy enemy)
     {
-        Debug.DrawLine(origin, AimPoint(enemy), Color.yellow, 0.1f);
+        // Where it was hit, in case the damage kills it and it gets destroyed
+        Vector3 point = AimPoint(enemy);
         enemy.TakeDamage(definition.damage);
+        Hit?.Invoke(enemy, point);
     }
 
-    void Splash(Enemy centre, Vector3 origin)
+    void Splash(Enemy centre)
     {
         Vector3 point = centre.transform.position;
-        Debug.DrawLine(origin, AimPoint(centre), Color.red, 0.1f);
+        Hit?.Invoke(centre, AimPoint(centre));
+        Exploded?.Invoke(point, definition.splashRadius);
 
         // TakeDamage can kill an enemy and remove it from Active, so go over a copy
         List<Enemy> nearby = new List<Enemy>(Enemy.Active);

@@ -1,5 +1,67 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2105723558784618393
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4385889128547060161}
+  m_Layer: 0
+  m_Name: Muzzle_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4385889128547060161
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2105723558784618393}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.04, y: 0.56, z: 1.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9135314955505270255}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2190080460005692737
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8850087868975243036}
+  m_Layer: 0
+  m_Name: Muzzle_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8850087868975243036
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2190080460005692737}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.04, y: 0.56, z: 1.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9135314955505270255}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &9135314955505144373
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54,11 +116,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 454618, guid: 0f1d1c43ad06b0f4abbbf56f62d225d1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4385889128547060161}
+    - targetCorrespondingSourceObject: {fileID: 454618, guid: 0f1d1c43ad06b0f4abbbf56f62d225d1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8850087868975243036}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 196122, guid: 0f1d1c43ad06b0f4abbbf56f62d225d1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6923833793049653852}
+    - targetCorrespondingSourceObject: {fileID: 196122, guid: 0f1d1c43ad06b0f4abbbf56f62d225d1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6951871307967990023}
   m_SourcePrefab: {fileID: 100100000, guid: 0f1d1c43ad06b0f4abbbf56f62d225d1, type: 3}
 --- !u!1 &9135314955505003567 stripped
 GameObject:
@@ -80,5 +151,22 @@ MonoBehaviour:
   definition: {fileID: 11400000, guid: 4177fe82289b39acd96dd509e0449e91, type: 2}
   tower: {fileID: 0}
   gun: {fileID: 0}
-  muzzle: {fileID: 0}
+  muzzles: []
   aimHeight: 1
+--- !u!114 &6951871307967990023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9135314955505003567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 477ac66dc077c1c3684bfd5f0004bbc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TurretEffects
+--- !u!4 &9135314955505270255 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 454618, guid: 0f1d1c43ad06b0f4abbbf56f62d225d1, type: 3}
+  m_PrefabInstance: {fileID: 9135314955505144373}
+  m_PrefabAsset: {fileID: 0}

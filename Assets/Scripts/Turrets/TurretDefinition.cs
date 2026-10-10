@@ -46,4 +46,23 @@ public class TurretDefinition : ScriptableObject
 
     [Tooltip("Degrees the gun can look up. The models are made for 70")]
     public float maxPitch = 70f;
+
+    [Header("Effects (all optional)")]
+    [Tooltip("Played at the muzzle every shot. A particle system that doesn't play on awake")]
+    public ParticleSystem muzzleFlashPrefab;
+
+    [Tooltip("A line drawn from the muzzle to every enemy hit: a bullet trail, or an electric arc")]
+    public LineEffect tracerPrefab;
+
+    [Tooltip("Spawned on every enemy hit")]
+    public GameObject impactPrefab;
+
+    [Tooltip("A rocket that flies from the muzzle to the target. The damage doesn't wait for it, the explosion does")]
+    public ProjectileVisual projectilePrefab;
+
+    [Tooltip("Spawned where a splash shot lands, sized to the splash radius")]
+    public GameObject explosionPrefab;
+
+    [Tooltip("A ring that spreads from the turret to its range every shot")]
+    public PulseRing pulsePrefab;
 }

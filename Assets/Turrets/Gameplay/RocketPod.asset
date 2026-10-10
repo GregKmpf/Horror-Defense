@@ -25,3 +25,9 @@ MonoBehaviour:
   turnSpeed: 150
   aimTolerance: 3
   maxPitch: 70
+  muzzleFlashPrefab: {fileID: 4386997385715980346, guid: 4520925b7f8dba4518c04bfca03eb678, type: 3}
+  tracerPrefab: {fileID: 0}
+  impactPrefab: {fileID: 0}
+  projectilePrefab: {fileID: 7467430775027320239, guid: bcdc3d6ecec3dd855ace18ddc49ba33f, type: 3}
+  explosionPrefab: {fileID: 689069178290325073, guid: 98ccfed73e87576fd8d274cfb93de3d9, type: 3}
+  pulsePrefab: {fileID: 0}
