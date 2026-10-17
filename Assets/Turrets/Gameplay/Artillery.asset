@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39b8b953c72edd28bae96a8a093bf648, type: 3}
+  m_Name: Artillery
+  m_EditorClassIdentifier: Assembly-CSharp::TurretDefinition
+  displayName: Artillery
+  icon: {fileID: 0}
+  prefab: {fileID: 8250643962744175630, guid: a50afa23aa2cd04abba66fb899e7d82c, type: 3}
+  cost: 250
+  range: 22
+  damage: 120
+  fireInterval: 3
+  maxTargets: 1
+  splashRadius: 0
+  priority: 3
+  turnSpeed: 90
+  aimTolerance: 3
+  maxPitch: 70
+  muzzleFlashPrefab: {fileID: 3647213426659963086, guid: 8d088899c4338c7d0bd98a2a8c7b0da5, type: 3}
+  tracerPrefab: {fileID: 3361007339481406269, guid: 7234560ab6e0fa058ad0918188b24077, type: 3}
+  impactPrefab: {fileID: 7953961851342587751, guid: ebe62305d486e3ba9b06b4725b5baad6, type: 3}
+  projectilePrefab: {fileID: 0}
+  explosionPrefab: {fileID: 0}
+  pulsePrefab: {fileID: 0}
