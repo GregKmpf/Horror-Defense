@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39b8b953c72edd28bae96a8a093bf648, type: 3}
+  m_Name: Cannon
+  m_EditorClassIdentifier: Assembly-CSharp::TurretDefinition
+  displayName: Cannon
+  icon: {fileID: 0}
+  prefab: {fileID: 6682056345580674551, guid: ac629c7407f1dd8bbacea51f803fc610, type: 3}
+  cost: 100
+  range: 12
+  damage: 25
+  fireInterval: 1
+  maxTargets: 1
+  splashRadius: 0
+  priority: 0
+  turnSpeed: 180
+  aimTolerance: 3
+  maxPitch: 70
+  muzzleFlashPrefab: {fileID: 4386997385715980346, guid: 4520925b7f8dba4518c04bfca03eb678, type: 3}
+  tracerPrefab: {fileID: 4628562408762238483, guid: 42542b265038fb695b5bf48c25f0dc00, type: 3}
+  impactPrefab: {fileID: 6379375562800904429, guid: 867abe15857da0f5c96e8e864d592b4e, type: 3}
+  projectilePrefab: {fileID: 0}
+  explosionPrefab: {fileID: 0}
+  pulsePrefab: {fileID: 0}
