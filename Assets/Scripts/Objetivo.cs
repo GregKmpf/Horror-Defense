@@ -19,6 +19,21 @@ public class Objetivo : MonoBehaviour
         vidaAtual = vidaMaxima;
     }
 
+    void OnEnable()
+    {
+        Enemy.AnyReachedBase += AoInimigoChegar;
+    }
+
+    void OnDisable()
+    {
+        Enemy.AnyReachedBase -= AoInimigoChegar;
+    }
+
+    void AoInimigoChegar(Enemy inimigo)
+    {
+        ReceberDano(inimigo.definition.baseDamage);
+    }
+
     public void ReceberDano(int dano)
     {
         if (vidaAtual <= 0) return;
@@ -41,13 +56,4 @@ public class Objetivo : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, 1.5f);
     }
-
-    void OnTriggerEnter(Collider outro)
-{
-    if (outro.CompareTag("Inimigo"))
-    {
-        ReceberDano(10);
-        Destroy(outro.gameObject); // inimigo some ao chegar
-    }
-}
 }
