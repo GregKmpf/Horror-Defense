@@ -78,6 +78,10 @@ means free and a red one means taken.
 - `Clear()` removes the turret and frees the slot.
 - `TurretSlot.All` lists every slot, for a build UI to highlight and pick from.
 
+The Abandoned Farm has four slots under `TurretSlots`, on the bank west of the barn where the route comes ashore.
+`TurretSlot 1` has a Cannon as its **Starting Turret** so there is a turret in the game until the build UI exists. Clear
+that field when the UI is added.
+
 ## Effects
 
 Everything visible when a turret fires is optional and set in its definition:
