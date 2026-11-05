@@ -1,0 +1,172 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1984119897242602155
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7275427059679410463}
+  m_Layer: 0
+  m_Name: Muzzle_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7275427059679410463
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1984119897242602155}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.9, y: -0.02, z: 2.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1240675500216640465}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8807461952175707461
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1156883543691820075}
+  m_Layer: 0
+  m_Name: Muzzle_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1156883543691820075
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8807461952175707461}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.9, y: -0.02, z: 2.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1240675500216640465}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1240675500217029461
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 194936, guid: 355066ff3acbcc14289bfe674066adcd, type: 3}
+      propertyPath: m_Name
+      value: Turret_Artillery
+      objectReference: {fileID: 0}
+    - target: {fileID: 482538, guid: 355066ff3acbcc14289bfe674066adcd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 482538, guid: 355066ff3acbcc14289bfe674066adcd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 482538, guid: 355066ff3acbcc14289bfe674066adcd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 482538, guid: 355066ff3acbcc14289bfe674066adcd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 482538, guid: 355066ff3acbcc14289bfe674066adcd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 482538, guid: 355066ff3acbcc14289bfe674066adcd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 482538, guid: 355066ff3acbcc14289bfe674066adcd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 482538, guid: 355066ff3acbcc14289bfe674066adcd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 482538, guid: 355066ff3acbcc14289bfe674066adcd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 482538, guid: 355066ff3acbcc14289bfe674066adcd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 405636, guid: 355066ff3acbcc14289bfe674066adcd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7275427059679410463}
+    - targetCorrespondingSourceObject: {fileID: 405636, guid: 355066ff3acbcc14289bfe674066adcd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1156883543691820075}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 194936, guid: 355066ff3acbcc14289bfe674066adcd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8250643962744175630}
+    - targetCorrespondingSourceObject: {fileID: 194936, guid: 355066ff3acbcc14289bfe674066adcd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4522475512354296101}
+  m_SourcePrefab: {fileID: 100100000, guid: 355066ff3acbcc14289bfe674066adcd, type: 3}
+--- !u!4 &1240675500216640465 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 405636, guid: 355066ff3acbcc14289bfe674066adcd, type: 3}
+  m_PrefabInstance: {fileID: 1240675500217029461}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1240675500216920621 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 194936, guid: 355066ff3acbcc14289bfe674066adcd, type: 3}
+  m_PrefabInstance: {fileID: 1240675500217029461}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8250643962744175630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240675500216920621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32b830752ce878b81b5bcffc2fd4a8e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Turret
+  definition: {fileID: 11400000, guid: 5c18e9d1f9d32e3e59e216debfea971d, type: 2}
+  tower: {fileID: 0}
+  gun: {fileID: 0}
+  muzzles: []
+  aimHeight: 1
+--- !u!114 &4522475512354296101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240675500216920621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 477ac66dc077c1c3684bfd5f0004bbc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TurretEffects
