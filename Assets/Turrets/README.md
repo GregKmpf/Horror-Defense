@@ -73,7 +73,8 @@ projectile, they come from the definition of the turret that fires it, so one pr
 - **Turrets never damage enemies. Projectiles do, and only when they collide with one.**
 - Effects only listen to events (`Turret.Fired`, `Projectile.Hit`, `Exploded`, `Expired`). They never touch targeting
   or health.
-- The gun's pitch is set outright, not added to the model's rest pose, because the package models rest tilted up.
+- The gun's pitch is set outright, not added to the model's rest pose, because the package models rest tilted up. A
+  pitch of 0 is level.
 
 ## Targeting
 
@@ -88,6 +89,10 @@ second. It aims at `enemy.Center`, the middle of the enemy's collider. **Target 
 | Strongest | Most health left                   |
 
 **Max Targets** is how many projectiles one shot fires, each at a different enemy (0 = one at every enemy in range).
+
+A turret with a gun only picks enemies the gun can tilt to, so the barrel always points where the projectile goes. The
+gun tilts between **Min Pitch** (-30°, below that the barrels go into the models' own bases) and **Max Pitch** (70°) from
+its horizon. An enemy almost right below a turret is out of reach, and the turret shoots at someone else.
 
 ## Projectiles
 

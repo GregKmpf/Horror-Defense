@@ -4,8 +4,9 @@ using UnityEngine;
 
 // Picks an enemy from Enemy.Active, turns the tower and gun towards it and fires a Projectile at it. All the
 // numbers come from the TurretDefinition. The model only has to follow the package layout: a "tower" child
-// that turns left and right with a "gun" child under it that tilts up and down. A model without them (the
-// force field generator) doesn't aim, it just fires whenever something is in range.
+// that turns left and right with a "gun" child under it that tilts up and down, between the definition's Min
+// and Max Pitch. It only picks enemies the gun can tilt to. A model without them (the force field generator)
+// doesn't aim, it just fires whenever something is in range.
 // The turret never damages anything itself: the projectile does, when it collides with an enemy. Everything
 // you see when it fires (TurretEffects) only reacts to the Fired event.
 public class Turret : MonoBehaviour
@@ -33,6 +34,7 @@ public class Turret : MonoBehaviour
 
     Quaternion towerRest;
     Quaternion gunRest;
+    float muzzleHeight;
     float nextRetarget;
     float nextShot;
     int nextMuzzle;
@@ -62,6 +64,16 @@ public class Turret : MonoBehaviour
         if (muzzles == null || muzzles.Length == 0)
         {
             muzzles = FindMuzzles();
+        }
+
+        // How far above the gun's pivot the barrels are, on average
+        if (gun != null && muzzles.Length > 0)
+        {
+            foreach (Transform muzzle in muzzles)
+            {
+                muzzleHeight += gun.InverseTransformDirection(muzzle.position - gun.position).y;
+            }
+            muzzleHeight /= muzzles.Length;
         }
     }
 
@@ -125,12 +137,41 @@ public class Turret : MonoBehaviour
 
     bool IsValidTarget(Enemy enemy)
     {
-        return enemy != null && enemy.IsAlive && InRange(enemy);
+        return enemy != null && enemy.IsAlive && CanHit(enemy);
     }
 
-    bool InRange(Enemy enemy)
+    // In range, and somewhere the gun can tilt to, so the barrel always points where the projectile goes
+    bool CanHit(Enemy enemy)
     {
-        return (AimPoint(enemy) - transform.position).sqrMagnitude <= definition.range * definition.range;
+        Vector3 point = AimPoint(enemy);
+        if ((point - transform.position).sqrMagnitude > definition.range * definition.range)
+        {
+            return false;
+        }
+        if (gun == null)
+        {
+            return true;
+        }
+
+        float pitch = PitchTo(point);
+        return pitch >= definition.minPitch && pitch <= definition.maxPitch;
+    }
+
+    // Degrees the gun has to tilt above (+) or below (-) its horizon for the barrels to point at the point. The
+    // tower only turns around the turret's up axis, so this is the same whichever way the tower faces
+    float PitchTo(Vector3 point)
+    {
+        Vector3 local = transform.InverseTransformDirection(point - gun.position);
+        float pitch = Mathf.Atan2(local.y, new Vector2(local.x, local.z).magnitude);
+
+        // The barrels sit above the pivot the gun tilts around, so pointing the pivot at the point would send
+        // the barrels' line over it. Tilting down by this much brings the line onto the point.
+        float distance = local.magnitude;
+        if (distance > 0.0001f)
+        {
+            pitch -= Mathf.Asin(Mathf.Clamp(muzzleHeight / distance, -1f, 1f));
+        }
+        return pitch * Mathf.Rad2Deg;
     }
 
     Enemy FindTarget()
@@ -140,7 +181,7 @@ public class Turret : MonoBehaviour
 
         foreach (Enemy enemy in Enemy.Active)
         {
-            if (!InRange(enemy))
+            if (!CanHit(enemy))
             {
                 continue;
             }
@@ -197,12 +238,8 @@ public class Turret : MonoBehaviour
 
         if (gun != null)
         {
-            // In the tower's frame the target is at some angle above or below the horizon
-            Transform frame = tower != null ? tower : transform;
-            Vector3 local = frame.InverseTransformPoint(point) - frame.InverseTransformPoint(gun.position);
-            float horizontal = new Vector2(local.x, local.z).magnitude;
-            float pitch = Mathf.Atan2(local.y, horizontal) * Mathf.Rad2Deg;
-            pitch = Mathf.Clamp(pitch, 0f, definition.maxPitch);
+            // Targets are only picked inside these limits, the clamp just keeps the model out of its own base
+            float pitch = Mathf.Clamp(PitchTo(point), definition.minPitch, definition.maxPitch);
 
             // The model's rest pose is already tilted, so set the pitch outright instead of adding to it
             Vector3 rest = gunRest.eulerAngles;
@@ -252,7 +289,7 @@ public class Turret : MonoBehaviour
 
         foreach (Enemy enemy in Enemy.Active)
         {
-            if (InRange(enemy))
+            if (CanHit(enemy))
             {
                 into.Add(enemy);
             }

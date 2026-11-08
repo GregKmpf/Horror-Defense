@@ -47,6 +47,9 @@ public class TurretDefinition : ScriptableObject
     [Tooltip("Degrees the gun can look up. The models are made for 70")]
     public float maxPitch = 70f;
 
+    [Tooltip("Degrees the gun can look down, as a negative number. Below -30 the barrels go into the models' own bases")]
+    public float minPitch = -30f;
+
     [Header("Projectile")]
     [Tooltip("What the turret fires. The damage only lands when it touches an enemy")]
     public Projectile projectile;

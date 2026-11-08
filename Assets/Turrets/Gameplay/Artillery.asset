@@ -25,6 +25,7 @@ MonoBehaviour:
   turnSpeed: 90
   aimTolerance: 3
   maxPitch: 70
+  minPitch: -30
   projectile: {fileID: 7730569994172768340, guid: aebbe45823b7f453da154922d05bc703, type: 3}
   projectileSpeed: 35
   muzzleFlashPrefab: {fileID: 3647213426659963086, guid: 8d088899c4338c7d0bd98a2a8c7b0da5, type: 3}
