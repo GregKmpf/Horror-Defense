@@ -29,10 +29,10 @@ public class TurretDefinition : ScriptableObject
     [Tooltip("Seconds between shots")]
     public float fireInterval = 1f;
 
-    [Tooltip("How many enemies each shot hits, 0 = every enemy in range")]
+    [Tooltip("How many enemies each shot fires a projectile at, 0 = every enemy in range")]
     public int maxTargets = 1;
 
-    [Tooltip("Also damages everything this close to the target, 0 = only the target. Ignored when Max Targets is 0")]
+    [Tooltip("A hit also damages every enemy this close to it, 0 = only the enemy hit. Ignored when Max Targets is 0")]
     public float splashRadius = 0f;
 
     public TargetPriority priority = TargetPriority.First;
@@ -47,21 +47,16 @@ public class TurretDefinition : ScriptableObject
     [Tooltip("Degrees the gun can look up. The models are made for 70")]
     public float maxPitch = 70f;
 
+    [Header("Projectile")]
+    [Tooltip("What the turret fires. The damage only lands when it touches an enemy")]
+    public Projectile projectile;
+
+    [Tooltip("Metres per second")]
+    public float projectileSpeed = 40f;
+
     [Header("Effects (all optional)")]
     [Tooltip("Played at the muzzle every shot. A particle system that doesn't play on awake")]
     public ParticleSystem muzzleFlashPrefab;
-
-    [Tooltip("A line drawn from the muzzle to every enemy hit: a bullet trail, or an electric arc")]
-    public LineEffect tracerPrefab;
-
-    [Tooltip("Spawned on every enemy hit")]
-    public GameObject impactPrefab;
-
-    [Tooltip("A rocket that flies from the muzzle to the target. The damage doesn't wait for it, the explosion does")]
-    public ProjectileVisual projectilePrefab;
-
-    [Tooltip("Spawned where a splash shot lands, sized to the splash radius")]
-    public GameObject explosionPrefab;
 
     [Tooltip("A ring that spreads from the turret to its range every shot")]
     public PulseRing pulsePrefab;

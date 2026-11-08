@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-// Everything you see when a turret fires. It only listens to the Turret's events and never changes damage or
-// targeting, so a turret without it works the same, it is just invisible. What to spawn comes from the
-// TurretDefinition.
+// What you see when a turret fires. It only listens to the Turret's Fired event and never changes damage or
+// targeting, so a turret without it works the same. What happens when a shot lands is on the projectile
+// (ProjectileEffects). What to spawn comes from the TurretDefinition.
 [RequireComponent(typeof(Turret))]
 public class TurretEffects : MonoBehaviour
 {
@@ -11,7 +11,6 @@ public class TurretEffects : MonoBehaviour
     readonly Dictionary<Transform, ParticleSystem> flashes = new Dictionary<Transform, ParticleSystem>();
 
     Turret turret;
-    Transform muzzle;
 
     TurretDefinition Definition => turret.definition;
 
@@ -23,21 +22,15 @@ public class TurretEffects : MonoBehaviour
     void OnEnable()
     {
         turret.Fired += OnFired;
-        turret.Hit += OnHit;
-        turret.Exploded += OnExploded;
     }
 
     void OnDisable()
     {
         turret.Fired -= OnFired;
-        turret.Hit -= OnHit;
-        turret.Exploded -= OnExploded;
     }
 
     void OnFired(Transform from)
     {
-        muzzle = from;
-
         if (Definition.muzzleFlashPrefab != null)
         {
             if (!flashes.TryGetValue(from, out ParticleSystem flash))
@@ -55,46 +48,5 @@ public class TurretEffects : MonoBehaviour
             PulseRing ring = Instantiate(Definition.pulsePrefab);
             ring.Setup(turret.transform.position, Definition.range);
         }
-    }
-
-    void OnHit(Enemy enemy, Vector3 point)
-    {
-        if (Definition.tracerPrefab != null)
-        {
-            Vector3 start = muzzle != null ? muzzle.position : turret.transform.position + Vector3.up;
-            LineEffect line = Instantiate(Definition.tracerPrefab);
-            line.Show(start, point);
-        }
-
-        if (Definition.impactPrefab != null)
-        {
-            Instantiate(Definition.impactPrefab, point, Quaternion.identity);
-        }
-    }
-
-    void OnExploded(Vector3 point, float radius)
-    {
-        // The rocket's flight is only for show, the explosion waits for it to land
-        if (Definition.projectilePrefab != null && muzzle != null)
-        {
-            ProjectileVisual rocket = Instantiate(Definition.projectilePrefab, muzzle.position, muzzle.rotation);
-            rocket.Launch(point, () => Explode(point, radius));
-        }
-        else
-        {
-            Explode(point, radius);
-        }
-    }
-
-    void Explode(Vector3 point, float radius)
-    {
-        if (Definition.explosionPrefab == null)
-        {
-            return;
-        }
-
-        // The prefab is made for a radius of 1
-        GameObject explosion = Instantiate(Definition.explosionPrefab, point, Quaternion.identity);
-        explosion.transform.localScale = Vector3.one * radius;
     }
 }

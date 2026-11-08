@@ -152,7 +152,6 @@ MonoBehaviour:
   tower: {fileID: 0}
   gun: {fileID: 0}
   muzzles: []
-  aimHeight: 1
 --- !u!114 &3533176973409412782
 MonoBehaviour:
   m_ObjectHideFlags: 0

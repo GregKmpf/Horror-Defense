@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Picks an enemy from Enemy.Active, turns the tower and gun towards it and damages it. All the numbers come
-// from the TurretDefinition. The model only has to follow the package layout: a "tower" child that turns
-// left and right with a "gun" child under it that tilts up and down. A model without them (the force field
-// generator) doesn't aim, it just fires whenever something is in range.
-// Damage lands the moment a shot is fired. Everything you see and hear of it (TurretEffects) only reacts to
-// the events here.
+// Picks an enemy from Enemy.Active, turns the tower and gun towards it and fires a Projectile at it. All the
+// numbers come from the TurretDefinition. The model only has to follow the package layout: a "tower" child
+// that turns left and right with a "gun" child under it that tilts up and down. A model without them (the
+// force field generator) doesn't aim, it just fires whenever something is in range.
+// The turret never damages anything itself: the projectile does, when it collides with an enemy. Everything
+// you see when it fires (TurretEffects) only reacts to the Fired event.
 public class Turret : MonoBehaviour
 {
     public TurretDefinition definition;
@@ -18,20 +18,12 @@ public class Turret : MonoBehaviour
     [Tooltip("Leave empty to find the child called 'gun'")]
     public Transform gun;
 
-    [Tooltip("Where shots come from, used in turn. Leave empty to use the children of the gun called 'Muzzle...'")]
+    [Tooltip("Where shots come from, used in turn. Leave empty to use the children of the gun (or of the turret, " +
+             "when it has no gun) called 'Muzzle...'")]
     public Transform[] muzzles;
-
-    [Tooltip("Height above an enemy's feet that the turret aims at")]
-    public float aimHeight = 1f;
 
     // A shot left this muzzle
     public event Action<Transform> Fired;
-
-    // A shot hit this enemy at this point
-    public event Action<Enemy, Vector3> Hit;
-
-    // A shot with splash damage went off at this point
-    public event Action<Vector3, float> Exploded;
 
     public Enemy Target { get; private set; }
 
@@ -128,7 +120,7 @@ public class Turret : MonoBehaviour
 
     Vector3 AimPoint(Enemy enemy)
     {
-        return enemy.transform.position + Vector3.up * aimHeight;
+        return enemy.Center;
     }
 
     bool IsValidTarget(Enemy enemy)
@@ -224,25 +216,30 @@ public class Turret : MonoBehaviour
 
     void Fire()
     {
+        if (definition.projectile == null)
+        {
+            Debug.LogError($"{definition.name} has no projectile to fire", definition);
+            enabled = false;
+            return;
+        }
+
         Transform muzzle = NextMuzzle();
         Fired?.Invoke(muzzle);
 
+        // One projectile for each enemy this shot is aimed at
         PickTargets(Candidates);
         foreach (Enemy enemy in Candidates)
         {
-            if (definition.splashRadius > 0f && definition.maxTargets != 0)
-            {
-                Splash(enemy);
-            }
-            else
-            {
-                Strike(enemy);
-            }
+            Vector3 toTarget = AimPoint(enemy) - muzzle.position;
+            Quaternion facing = toTarget.sqrMagnitude > 0.0001f ? Quaternion.LookRotation(toTarget) : muzzle.rotation;
+
+            Projectile shot = Instantiate(definition.projectile, muzzle.position, facing);
+            shot.Launch(enemy, definition, transform.position);
         }
         Candidates.Clear();
     }
 
-    // Fills the list with the enemies this shot hits: the target and then the next best ones
+    // Fills the list with the enemies this shot is aimed at: the target and then the next best ones
     void PickTargets(List<Enemy> into)
     {
         into.Clear();
@@ -265,32 +262,6 @@ public class Turret : MonoBehaviour
         {
             into.Sort((a, b) => Score(a).CompareTo(Score(b)));
             into.RemoveRange(definition.maxTargets, into.Count - definition.maxTargets);
-        }
-    }
-
-    void Strike(Enemy enemy)
-    {
-        // Where it was hit, in case the damage kills it and it gets destroyed
-        Vector3 point = AimPoint(enemy);
-        enemy.TakeDamage(definition.damage);
-        Hit?.Invoke(enemy, point);
-    }
-
-    void Splash(Enemy centre)
-    {
-        Vector3 point = centre.transform.position;
-        Hit?.Invoke(centre, AimPoint(centre));
-        Exploded?.Invoke(point, definition.splashRadius);
-
-        // TakeDamage can kill an enemy and remove it from Active, so go over a copy
-        List<Enemy> nearby = new List<Enemy>(Enemy.Active);
-        float radiusSqr = definition.splashRadius * definition.splashRadius;
-        foreach (Enemy enemy in nearby)
-        {
-            if ((enemy.transform.position - point).sqrMagnitude <= radiusSqr)
-            {
-                enemy.TakeDamage(definition.damage);
-            }
         }
     }
 
