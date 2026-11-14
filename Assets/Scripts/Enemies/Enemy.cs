@@ -28,6 +28,9 @@ public class Enemy : MonoBehaviour
     public event Action<Enemy> Died;
 
     public float Health { get; private set; }
+
+    // The definition's Max Health times the difficulty's multiplier, for health bars
+    public float MaxHealth { get; private set; }
     public bool IsAlive { get; private set; }
     public EnemyMovement Movement { get; private set; }
 
@@ -54,7 +57,8 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void Init(EnemyPath path)
+    // The multipliers come from the difficulty, the wave manager passes them
+    public void Init(EnemyPath path, float healthMultiplier = 1f, float speedMultiplier = 1f)
     {
         if (definition == null)
         {
@@ -72,8 +76,9 @@ public class Enemy : MonoBehaviour
             Active.Add(this);
         }
         IsAlive = true;
-        Health = definition.maxHealth;
-        Movement.Init(path, definition.moveSpeed);
+        MaxHealth = definition.maxHealth * healthMultiplier;
+        Health = MaxHealth;
+        Movement.Init(path, definition.moveSpeed * speedMultiplier);
     }
 
     public void TakeDamage(float amount)
