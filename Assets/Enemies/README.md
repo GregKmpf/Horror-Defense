@@ -38,7 +38,8 @@ enemy lives in its own folder here, e.g. `Mimic/`.
 | System       | Uses                                                                         |
 |--------------|------------------------------------------------------------------------------|
 | Wave manager | `Instantiate(prefab)` then `enemy.Init(path)`                                |
-| Towers       | `Enemy.Active`, `IsAlive`, `RemainingDistance` (smallest = closest to base), `TakeDamage()` |
+| Towers       | `Enemy.Active`, `IsAlive`, `RemainingDistance` (smallest = closest to base), `Center` (where they aim) |
+| Projectiles  | Collide with the trigger `SphereCollider` on the Enemy layer, then call `TakeDamage()` |
 | Economy      | `Enemy.AnyDied` → add `enemy.definition.bounty`                              |
 | Base health  | `Enemy.AnyReachedBase` → subtract `enemy.definition.baseDamage`              |
 

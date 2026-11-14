@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // The part of an enemy every other system talks to: the wave manager spawns it and calls Init, towers pick
-// targets from Active and call TakeDamage, the economy and the base listen to AnyDied and AnyReachedBase.
+// targets from Active and their projectiles call TakeDamage when they collide with the enemy's collider, the
+// economy and the base listen to AnyDied and AnyReachedBase.
 // Anything specific to one enemy goes under the prefab's Visual child and only reacts to the events here.
 [RequireComponent(typeof(EnemyMovement))]
 public class Enemy : MonoBehaviour
@@ -33,8 +34,14 @@ public class Enemy : MonoBehaviour
     // For "target first" towers: the smallest value is the closest to the base
     public float RemainingDistance => Movement.RemainingDistance;
 
+    // Where towers aim and projectiles fly to: the middle of the collider projectiles hit
+    public Vector3 Center => hitbox != null && hitbox.enabled ? hitbox.bounds.center : transform.position;
+
+    Collider hitbox;
+
     void Awake()
     {
+        hitbox = GetComponent<Collider>();
         Movement = GetComponent<EnemyMovement>();
         Movement.ReachedEnd += ReachBase;
     }

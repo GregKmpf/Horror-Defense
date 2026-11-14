@@ -25,7 +25,7 @@ Um jogo de **Tower Defense** focado em uma atmosfera de **Horror**, desenvolvido
 
 ## 📋 Requisitos do Trabalho
 
-Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade Virtual (2026/2), com a situação de cada um em **03/11/2026**.
+Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade Virtual (2026/2), com a situação de cada um em **08/11/2026**.
 
 | Legenda | Significado |
 |---|---|
@@ -36,10 +36,9 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 
 ### Resumo da situação
 
-* **Feito ou em PR:** cenário, base, caminho dos inimigos, seis tipos de torre e efeitos visuais.
-* **Parcial, exige mudança no que já existe:** os ataques das torres. O dano é aplicado no momento do disparo, sem projétil que colida com o inimigo, e o trabalho exige esse projétil.
+* **Feito ou em PR:** cenário, base, caminho dos inimigos, seis tipos de torre, projéteis com detecção de colisão e efeitos visuais.
 * **Não iniciado:** ondas, níveis de dificuldade, menu, ranking, vitória, tempo máximo, sons, build e vídeo.
-* **Atenção:** quase tudo está nos PRs [#5][pr5], [#6][pr6] e [#4][pr4], ainda sem merge. Em `main` ainda não há torres.
+* **Atenção:** as torres e os projéteis estão no PR [#6][pr6], ainda sem merge. Em `main` ainda não há torres.
 
 ### Jogo e menu
 
@@ -64,12 +63,12 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 
 | Requisito | Status | Observação |
 |---|---|---|
-| Área de jogo limitada | 🔀 | Fazenda Abandonada: [#1][pr1], restaurada no [#5][pr5] |
-| Base a ser defendida | 🔀 | `Objetivo`, com 100 de vida: [#5][pr5] |
-| Um ou mais pontos de entrada | 🔀 | Um ponto, o início do `Caminho`: [#5][pr5]. Ele começa no rio e precisa de ajuste |
-| Caminho até a base | 🔀 | `EnemyPath` com 5 waypoints: [#2][pr2], [#5][pr5]. A rota passa por dentro do celeiro |
+| Área de jogo limitada | ✅ | Fazenda Abandonada: [#1][pr1], restaurada no [#5][pr5] |
+| Base a ser defendida | ✅ | `Objetivo`, com 100 de vida: [#5][pr5] |
+| Um ou mais pontos de entrada | ✅ | Um ponto, o início do `Caminho`: [#5][pr5]. Ele começa no rio e precisa de ajuste |
+| Caminho até a base | ✅ | `EnemyPath` com 5 waypoints: [#2][pr2], [#5][pr5]. A rota passa por dentro do celeiro |
 | Posições para as estruturas defensivas | 🔀 | 4 `TurretSlot` na cena: [#6][pr6] |
-| Cenário com pelo menos o tamanho de 30 inimigos enfileirados | 🔀 | Rota de 85 m e corpo do Mimic com cerca de 1 m (collider). As pernas o deixam bem mais largo, vale confirmar a escala visualmente |
+| Cenário com pelo menos o tamanho de 30 inimigos enfileirados | ✅ | Rota de 85 m e corpo do Mimic com cerca de 1 m (collider). As pernas o deixam bem mais largo, vale confirmar a escala visualmente |
 
 ### Estruturas defensivas
 
@@ -85,32 +84,32 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 
 | Requisito | Status | Observação |
 |---|---|---|
-| Seguir um caminho predefinido até a base | 🔀 | `EnemyMovement` veio no [#2][pr2]. Na cena atual, depende do [#5][pr5] |
+| Seguir um caminho predefinido até a base | ✅ | `EnemyMovement`: [#2][pr2], configurado na cena pelo [#5][pr5] |
 | Ter vida e receber dano | ✅ | `Enemy`: [#2][pr2] |
 | Ser removido com vida zero | ✅ | `Enemy`: [#2][pr2] |
-| Causar consequência ao chegar à base | 🔀 | Tira vida do `Objetivo`: [#5][pr5] |
+| Causar consequência ao chegar à base | ✅ | Tira vida do `Objetivo`: [#5][pr5] |
 | Quantidade e características variam com a dificuldade | ❌ | Depende do gerenciador de ondas |
 | Pelo menos 2 comportamentos distintos (recomendado) | 🟡 | Só existe o Mimic. O modelo `Enemy_Base` já facilita criar outros |
 
 ### Ataques e projéteis
 
-Hoje o dano é aplicado no momento do disparo (`Turret.cs`). A maioria das torres desenha apenas uma linha até o alvo, e o foguete do Rocket Pod é só visual. Atender a esta seção exige mudar essa lógica, que também é uma regra escrita em `Assets/Turrets/README.md`.
+A torre só mira e dispara. O dano vem do projétil (`Assets/Scripts/Turrets/Projectile.cs`), e só quando ele colide com o inimigo. Detalhes em `Assets/Turrets/README.md`.
 
 | Requisito | Status | Observação |
 |---|---|---|
-| Projétil criado a partir da estrutura | 🟡 | Só o foguete do Rocket Pod, e apenas como efeito visual |
-| Projétil se desloca até o alvo | 🟡 | Idem |
-| Projétil detecta colisão com o inimigo | ❌ | O prefab do inimigo já tem `SphereCollider` e `Rigidbody` para isso |
-| Projétil causa o dano | ❌ | O dano não depende do impacto |
-| Projétil é destruído ao acertar ou sair da área válida | 🟡 | O foguete some ao chegar. Não há limite de área |
+| Projétil criado a partir da estrutura | 🔀 | Cada disparo cria um projétil no cano da torre, um por alvo. Cinco tipos: Shell, Bullet, Heavy Shell, Rocket e Bolt: [#6][pr6] |
+| Projétil se desloca até o alvo | 🔀 | Segue o alvo enquanto ele vive. Se o alvo morrer antes, continua em linha reta: [#6][pr6] |
+| Projétil detecta colisão com o inimigo | 🔀 | `OnTriggerEnter` entre o collider do projétil e o `SphereCollider` do inimigo. A camada `Projectile` só colide com a camada `Enemy`: [#6][pr6] |
+| Projétil causa o dano | 🔀 | Só no impacto. O dano em área usa `Physics.OverlapSphere` na camada `Enemy`: [#6][pr6] |
+| Projétil é destruído ao acertar ou sair da área válida | 🔀 | Ao acertar, ou ao se afastar mais de 1,25 × o alcance da torre (ou após 4 s): [#6][pr6] |
 
 ### Detecção de colisão
 
 | Requisito | Status | Observação |
 |---|---|---|
-| Impacto entre projéteis e inimigos | ❌ | Nenhum script de jogo usa `OnTrigger` ou `OnCollision` nas branches [#5][pr5] e [#6][pr6] |
-| Chegada dos inimigos à base | 🟡 | Funciona pelo fim do caminho, sem colisão. O `Objetivo` tem esse trigger em `main`, mas o [#5][pr5] o remove, então será preciso recolocá-lo |
-| Destruição ou remoção dos inimigos | 🟡 | Funciona por vida zero. Deve passar a vir do impacto do projétil |
+| Impacto entre projéteis e inimigos | 🔀 | `Projectile.OnTriggerEnter`: [#6][pr6] |
+| Chegada dos inimigos à base | 🟡 | Funciona pelo fim do caminho, sem colisão. O [#5][pr5] removeu o trigger que o `Objetivo` tinha, então será preciso recolocá-lo |
+| Destruição ou remoção dos inimigos | 🔀 | Por vida zero, e o dano agora só vem do impacto do projétil: [#6][pr6] |
 
 ### Vitória e derrota
 
@@ -124,8 +123,8 @@ Hoje o dano é aplicado no momento do disparo (`Turret.cs`). A maioria das torre
 
 | Requisito | Status | Observação |
 |---|---|---|
-| Efeitos visuais | 🔀 | Clarão, traçantes, impactos, explosões e pulso: [#3][pr3], [#6][pr6] |
-| Recursos sonoros | ❌ | Não há áudio no projeto. `Assets/Turrets/README.md` diz que os sons foram deixados de lado, mas eles contam na nota |
+| Efeitos visuais | 🔀 | Clarão, projéteis com rastro, impactos, explosões e pulso: [#3][pr3], [#6][pr6] |
+| Recursos sonoros | ❌ | Não há áudio no projeto, e os sons contam na nota |
 
 ### Repositório e apresentação
 
@@ -144,8 +143,8 @@ Hoje o dano é aplicado no momento do disparo (`Turret.cs`). A maioria das torre
 |---|---:|---|
 | Menu principal, com níveis de dificuldade, ranking e informações | 0,5 | ❌ |
 | Modelagem das estruturas, dos inimigos e do cenário: quantidade e variedade | 1,0 | 🟡 Boa variedade de torres, só um inimigo |
-| Movimentação dos inimigos, comportamento das estruturas e projéteis | 2,5 | 🟡 Faltam os projéteis |
-| Interatividade: controle, velocidade, gerenciamento de alvos e colisões | 2,5 | 🟡 Faltam a interação do jogador e as colisões |
+| Movimentação dos inimigos, comportamento das estruturas e projéteis | 2,5 | 🔀 Projéteis no [#6][pr6] |
+| Interatividade: controle, velocidade, gerenciamento de alvos e colisões | 2,5 | 🟡 Falta a interação do jogador. Colisões dos projéteis no [#6][pr6] |
 | Efeitos visuais e recursos sonoros | 1,0 | 🟡 Faltam os sons |
 | Demo em vídeo | 0,5 | ❌ |
 | **Individual:** contribuições no GitHub e domínio na apresentação | 2,0 | Avaliado por integrante |
@@ -168,13 +167,11 @@ Hoje o dano é aplicado no momento do disparo (`Turret.cs`). A maioria das torre
 | PR | Conteúdo | Situação |
 |---|---|---|
 | [#1][pr1] | Fazenda Abandonada na cena | Em `main` |
-| [#2][pr2] | Sistema de inimigos e o Mimic | Em `main`, mas a configuração da cena se perdeu em um merge e volta com o [#5][pr5] |
+| [#2][pr2] | Sistema de inimigos e o Mimic | Em `main`. A configuração da cena, perdida em um merge, voltou com o [#5][pr5] |
 | [#3][pr3] | Sistema de torres | Entrou só em `feat/turrets`. Chega a `main` pelo [#6][pr6] |
-| [#4][pr4] | Câmera: inclinação, zoom e limites | Aberto. Por enquanto só está na cena `CameraTests`, falta levar para a cena principal |
-| [#5][pr5] | Restaura a cena e o sistema de inimigos | Aberto. **Fazer o merge primeiro** |
-| [#6][pr6] | Torres na Fazenda Abandonada | Aberto. Depende do [#5][pr5] |
-
-Ordem de merge sugerida: [#5][pr5], depois [#6][pr6] e depois [#4][pr4].
+| [#4][pr4] | Câmera: inclinação, zoom e limites | Em `main`. Por enquanto só está na cena `CameraTests`, falta levar para a cena principal |
+| [#5][pr5] | Restaura a cena e o sistema de inimigos | Em `main` |
+| [#6][pr6] | Torres na Fazenda Abandonada, com projéteis e detecção de colisão | Aberto, já atualizado com a `main` |
 
 ## 💡 Extras Planejados
 
