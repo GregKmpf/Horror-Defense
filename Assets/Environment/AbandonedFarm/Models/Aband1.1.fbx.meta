@@ -62,6 +62,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: grass
+    second: {fileID: 2100000, guid: 643fa1eb827444f0a9ad2486e3d2df91, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: reja_madera
     second: {fileID: 2100000, guid: 9b6fdc4a4bcb742228370237c95bcf07, type: 2}
   - first:
