@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // Menu principal. A interface (Canvas, painéis e botões) é montada na cena, pelo editor.
-// Este script só tem a lógica: cada botão chama um dos métodos públicos abaixo pelo evento OnClick.
 public class MenuPrincipal : MonoBehaviour
 {
     [Header("Cena do jogo (precisa estar no Build Settings)")]

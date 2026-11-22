@@ -6,10 +6,7 @@ using UnityEngine.SceneManagement;
 
 // Menu de pause: ESC pausa/continua. A interface é o prefab "PauseMenu" (Assets/Resources/PauseMenu.prefab),
 // montado no editor. Este script só tem a lógica e os métodos chamados pelos botões (OnClick).
-//
-// O prefab é criado automaticamente em toda cena de jogo (qualquer uma que não seja a do menu). Assim não
-// mexemos no arquivo da cena AbandonedFarm, que os colegas também editam, e evitamos conflito no Git.
-// Por isso, não coloque o prefab manualmente em nenhuma cena.
+
 public class PauseMenu : MonoBehaviour
 {
     private const string CenaDoMenu = "StartMenu";
@@ -26,25 +23,23 @@ public class PauseMenu : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void Instalar()
     {
-        // Roda uma vez, na primeira cena. Para as próximas, escutamos o evento de carregamento.
-        // O "-=" antes do "+=" evita inscrição duplicada quando o domain reload está desligado.
         SceneManager.sceneLoaded -= AoCarregarCena;
         SceneManager.sceneLoaded += AoCarregarCena;
 
-        CriarSeNecessario(SceneManager.GetActiveScene().name);
+        CriarSeNecessario(SceneManager.GetActiveScene());
     }
 
     private static void AoCarregarCena(Scene cena, LoadSceneMode modo)
     {
         if (modo == LoadSceneMode.Single)
         {
-            CriarSeNecessario(cena.name);
+            CriarSeNecessario(cena);
         }
     }
 
-    private static void CriarSeNecessario(string nomeDaCena)
+    private static void CriarSeNecessario(Scene cena)
     {
-        if (nomeDaCena == CenaDoMenu)
+        if (cena.name == CenaDoMenu)
         {
             return;
         }
@@ -56,22 +51,28 @@ public class PauseMenu : MonoBehaviour
             return;
         }
 
-        GarantirEventSystem();
-        Instantiate(prefab);
+        GarantirEventSystem(cena);
+
+        // Quando este método roda, a cena ativa ainda pode ser a anterior. Por isso movemos o objeto
+        // explicitamente para a cena que acabou de carregar; senão ele seria destruído junto com a antiga.
+        GameObject instancia = Instantiate(prefab);
+        SceneManager.MoveGameObjectToScene(instancia, cena);
     }
 
-    // Sem um EventSystem os botões não recebem clique. O projeto usa só o Input System novo,
-    // então o módulo de entrada precisa ser o InputSystemUIInputModule.
-    private static void GarantirEventSystem()
+    private static void GarantirEventSystem(Scene cena)
     {
-        if (FindAnyObjectByType<EventSystem>() != null)
+        foreach (GameObject raiz in cena.GetRootGameObjects())
         {
-            return;
+            if (raiz.GetComponentInChildren<EventSystem>(true) != null)
+            {
+                return;
+            }
         }
 
         GameObject go = new GameObject("EventSystem");
         go.AddComponent<EventSystem>();
         go.AddComponent<InputSystemUIInputModule>().AssignDefaultActions();
+        SceneManager.MoveGameObjectToScene(go, cena);
     }
 
     // ---------- Ciclo de vida ----------
