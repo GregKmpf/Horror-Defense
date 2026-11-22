@@ -57,6 +57,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: dirt
+    second: {fileID: 2100000, guid: 53b4465255d5b8b6cbf22af041d34307, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: reja_madera
     second: {fileID: 2100000, guid: 9b6fdc4a4bcb742228370237c95bcf07, type: 2}
   - first:
