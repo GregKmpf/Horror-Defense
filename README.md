@@ -46,10 +46,10 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 |---|---|---|
 | Tower Defense 2D ou 3D na Unity, em trio | ✅ | Jogo 3D |
 | Plataforma PC ou mobile (livre) | ❌ | Falta o grupo decidir e gerar a build |
-| Menu para iniciar o jogo | ❌ | |
+| Menu para iniciar o jogo | 🟡 | |
 | Escolha do nível de dificuldade pelo menu | ❌ | |
 | Ranking simples, mostrado no menu | ❌ | |
-| Informações sobre o jogo no menu | ❌ | Consta nos critérios de avaliação |
+| Informações sobre o jogo no menu | 🔀 | Consta nos critérios de avaliação |
 
 ### Níveis de dificuldade e ondas
 
