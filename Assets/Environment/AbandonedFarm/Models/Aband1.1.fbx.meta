@@ -32,6 +32,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Emissor.001
+    second: {fileID: 2100000, guid: 599fd6bd07c3ef8e9a844a795e101193, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Entertainment
     second: {fileID: 2100000, guid: 0ec65df48c0fa17898bfbb90dc43dae3, type: 2}
   - first:
