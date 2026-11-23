@@ -32,6 +32,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Emissor.001
+    second: {fileID: 2100000, guid: 599fd6bd07c3ef8e9a844a795e101193, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Entertainment
     second: {fileID: 2100000, guid: 0ec65df48c0fa17898bfbb90dc43dae3, type: 2}
   - first:
@@ -59,6 +64,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: dirt
     second: {fileID: 2100000, guid: 53b4465255d5b8b6cbf22af041d34307, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: grass
+    second: {fileID: 2100000, guid: 643fa1eb827444f0a9ad2486e3d2df91, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
