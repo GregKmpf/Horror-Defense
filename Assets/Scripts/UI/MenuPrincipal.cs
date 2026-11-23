@@ -11,11 +11,23 @@ public class MenuPrincipal : MonoBehaviour
     [Header("Painéis")]
     [SerializeField] private GameObject painelPrincipal;
     [SerializeField] private GameObject painelSobre;
+    [SerializeField] private GameObject painelDificuldade;
+
+    [Header("Dificuldades (assets da pasta Difficulties)")]
+    [SerializeField] private DifficultyDefinition dificuldadeFacil;
+    [SerializeField] private DifficultyDefinition dificuldadeDificil;
 
     [Header("Efeito do título (opcional)")]
     [SerializeField] private TMP_Text titulo;
     private Color corBase;
     [SerializeField] private bool tremerTitulo = true;
+
+    private enum Painel
+    {
+        Principal,
+        Sobre,
+        Dificuldade,
+    }
 
     private void Awake()
     {
@@ -46,19 +58,31 @@ public class MenuPrincipal : MonoBehaviour
 
     // ---------- Métodos chamados pelos botões (OnClick) ----------
 
-    public void Jogar()
+    // Botão JOGAR: abre a tela de escolha de dificuldade
+    public void MostrarDificuldade()
     {
-        SceneManager.LoadScene(cenaDoJogo);
+        Mostrar(Painel.Dificuldade);
+    }
+
+    // Botões FÁCIL e DIFÍCIL
+    public void IniciarFacil()
+    {
+        Iniciar(dificuldadeFacil);
+    }
+
+    public void IniciarDificil()
+    {
+        Iniciar(dificuldadeDificil);
     }
 
     public void MostrarSobre()
     {
-        AlternarPaineis(false);
+        Mostrar(Painel.Sobre);
     }
 
     public void MostrarPrincipal()
     {
-        AlternarPaineis(true);
+        Mostrar(Painel.Principal);
     }
 
     public void Sair()
@@ -70,16 +94,35 @@ public class MenuPrincipal : MonoBehaviour
 #endif
     }
 
-    // Só um dos dois painéis fica visível por vez
-    private void AlternarPaineis(bool principal)
+    // ---------- Internos ----------
+
+    private void Iniciar(DifficultyDefinition dificuldade)
+    {
+        if (dificuldade == null)
+        {
+            Debug.LogError("MenuPrincipal: dificuldade não configurada no Inspector.", this);
+            return;
+        }
+
+        // O GameManager lê isso ao iniciar a cena do jogo
+        GameManager.SelectedDifficulty = dificuldade;
+        SceneManager.LoadScene(cenaDoJogo);
+    }
+
+    // Só um painel fica visível por vez
+    private void Mostrar(Painel painel)
     {
         if (painelPrincipal != null)
         {
-            painelPrincipal.SetActive(principal);
+            painelPrincipal.SetActive(painel == Painel.Principal);
         }
         if (painelSobre != null)
         {
-            painelSobre.SetActive(!principal);
+            painelSobre.SetActive(painel == Painel.Sobre);
+        }
+        if (painelDificuldade != null)
+        {
+            painelDificuldade.SetActive(painel == Painel.Dificuldade);
         }
     }
 }
