@@ -8,7 +8,7 @@ GameUI.prefab
 ├─ SlotPicker               mouse over a turret slot → highlight, click → select
 ├─ BuildMenu                the panel for the selected slot: build, target priority, sell
 ├─ GameHud                  the top bar, the wave button and the speed buttons
-├─ EndScreen                victory or defeat, with Restart and Menu
+├─ EndScreen                victory or defeat, score and ranking place, with Restart and Menu
 ├─ RangeRing                GroundRing in the world, shows the range of the turret in question
 └─ Canvas                   Screen Space Overlay, 1920 × 1080, sorting order -10 (under the pause menu)
    ├─ TopBar                barn health, wave, time, money
@@ -36,11 +36,20 @@ GameUI.prefab
 
 The mouse is ignored over the UI, while paused and after the game ends.
 
+The **Música** and **Sons** buttons above 1x / 2x aren't in this prefab: `GameAudio` (`Assets/Scripts/Audio`) creates
+them on its own canvas, so they also show in the menu and while paused.
+
 ## Money
 
-`Economy` (on the `Game` object) starts at the difficulty's **Starting Money** (Easy 400, Hard 300), adds each killed
-enemy's **Bounty** (`EnemyDefinition`, 10 for the Mimic) and pays for turrets (`TurretDefinition.cost`). Selling refunds
-**Sell Refund** (70 %) of the cost.
+`Economy` (on the `Game` object) starts at the difficulty's **Starting Money** ($450 on both Easy and Hard), adds each
+killed enemy's **Bounty** (`EnemyDefinition`, 12 for the Mimic) and pays for turrets (`TurretDefinition.cost`). Selling
+refunds **Sell Refund** (70 %) of the cost.
+
+## Score and ranking
+
+The score of a game is the sum of the bounties of the enemies killed in it. When the game ends, `EndScreen` saves it
+with `Ranking.Salvar`, which keeps the 5 best games of each difficulty in `PlayerPrefs` (most points first, ties go to
+the shorter time), and shows the place it got. The start menu's **Ranking** panel lists them.
 
 ## Style
 

@@ -23,7 +23,7 @@ Seres gigantes, parecidos com aracnídeos, invadem uma fazenda abandonada à noi
    git clone https://github.com/GregKmpf/Horror-Defense.git
    ```
 2. Abra a pasta no Unity Hub com a versão **6000.5.10f1** do editor.
-3. O projeto abre na cena `StartMenu`, a primeira do Build Settings. Aperte **Play** e clique em **Jogar**.
+3. O projeto abre na cena `StartMenu`, a primeira do Build Settings. Aperte **Play**, clique em **Jogar** e escolha **Fácil** ou **Difícil**.
 
 Ao rodar a cena `AbandonedFarm` direto, sem passar pelo menu, o jogo usa a dificuldade **Fácil**.
 
@@ -50,7 +50,7 @@ Ao rodar a cena `AbandonedFarm` direto, sem passar pelo menu, o jogo usa a dific
 | Pasta | Conteúdo |
 |---|---|
 | `Assets/Scenes` | `StartMenu` (menu), `AbandonedFarm` (o jogo) e `Teste2.0` (testes) |
-| `Assets/Scripts` | Código, separado por sistema: `Camera`, `Enemies`, `Environment`, `Game`, `Paths`, `Turrets`, `UI` e `Waves` |
+| `Assets/Scripts` | Código, separado por sistema: `Audio`, `Camera`, `Enemies`, `Environment`, `Game`, `Paths`, `Turrets`, `UI` e `Waves` |
 | `Assets/Difficulties` | As dificuldades `Easy` e `Hard`, com as ondas de cada uma |
 | `Assets/Enemies` | Inimigos e o modelo para criar novos. Detalhes em [`Assets/Enemies/README.md`](Assets/Enemies/README.md) |
 | `Assets/Turrets` | Torres, projéteis e efeitos. Detalhes em [`Assets/Turrets/README.md`](Assets/Turrets/README.md) |
@@ -65,7 +65,7 @@ Ao rodar a cena `AbandonedFarm` direto, sem passar pelo menu, o jogo usa a dific
 
 ## 📋 Requisitos do Trabalho
 
-Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade Virtual (2026/2), com a situação de cada um em **23/11/2026**.
+Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade Virtual (2026/2), com a situação de cada um em **24/11/2026**.
 
 | Legenda | Significado |
 |---|---|
@@ -76,8 +76,7 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 
 ### Resumo da situação
 
-* **Feito:** cenário noturno, base, três entradas de inimigos com caminhos marcados no chão, seis tipos de torre, quatro tipos de inimigo, projéteis com detecção de colisão, ondas, duas dificuldades, tempo limite, vitória e derrota com telas de fim, menu inicial, menu de pause, HUD, construção de torres pelo jogador com dinheiro, controle de velocidade, câmera livre e efeitos visuais.
-* **Fora da `main`:** escolha da dificuldade no menu, na branch [`menu-dificuldade`][menu-dificuldade], ainda sem PR.
+* **Feito:** cenário noturno, base, três entradas de inimigos com caminhos marcados no chão, seis tipos de torre, quatro tipos de inimigo, projéteis com detecção de colisão, ondas, duas dificuldades, tempo limite, vitória e derrota com telas de fim, menu inicial com escolha da dificuldade, ranking e informações, menu de pause, HUD, construção de torres pelo jogador com dinheiro, controle de velocidade, câmera livre, efeitos visuais, música e efeitos sonoros.
 * **Não iniciado:** build e vídeo.
 
 ### Jogo e menu
@@ -86,9 +85,9 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 |---|---|---|
 | Tower Defense 2D ou 3D na Unity, em trio | ✅ | Jogo 3D |
 | Plataforma PC ou mobile (livre) | ❌ | Falta o grupo decidir e gerar a build. O Build Settings já tem as cenas `StartMenu` e `AbandonedFarm` |
-| Menu para iniciar o jogo | ✅ | Cena `StartMenu`, com Jogar, Sobre e Sair: [#10][pr10] |
-| Escolha do nível de dificuldade pelo menu | 🔀 | Painel com Fácil e Difícil na branch [`menu-dificuldade`][menu-dificuldade]. Na `main`, Jogar sempre começa no Fácil |
-| Ranking simples, mostrado no menu | ❌ | O `GameManager` já guarda tempo, inimigos mortos e inimigos que chegaram à base |
+| Menu para iniciar o jogo | ✅ | Cena `StartMenu`, com Jogar, Ranking, Sobre e Sair: [#10][pr10], [#23][pr23] |
+| Escolha do nível de dificuldade pelo menu | ✅ | Jogar abre um painel com Fácil e Difícil, que passa a dificuldade escolhida ao `GameManager`: [#23][pr23] |
+| Ranking simples, mostrado no menu | ✅ | As 5 melhores partidas de cada dificuldade, salvas no `PlayerPrefs` (`Ranking`). Os pontos são a soma das recompensas dos inimigos mortos, e o empate fica com o menor tempo. A tela de fim mostra os pontos e a posição da partida: [#23][pr23] |
 | Informações sobre o jogo no menu | ✅ | Painel Sobre, com a história e os integrantes: [#10][pr10] |
 
 ### Níveis de dificuldade e ondas
@@ -184,7 +183,7 @@ A Matriarca tira metade da base, e Cannons e Miniguns sozinhos não a derrubam: 
 | Requisito | Status | Observação |
 |---|---|---|
 | Efeitos visuais | ✅ | Torres: clarão, projéteis com rastro, impactos, explosões e pulso ([#3][pr3], [#6][pr6]). Fazenda: noite com lua, neblina, névoa no chão, lâmpadas que piscam e pós-processamento ([#12][pr12]), com sombras até 150 m da câmera, onde a neblina já esconde tudo ([#22](https://github.com/GregKmpf/Horror-Defense/pull/22)). Menu: título que falha e vinheta ([#10][pr10]) |
-| Recursos sonoros | ✅ | `GameAudio` (`Assets/Scripts/Audio`): música ambiente em loop e efeitos de tiro por torre, explosões, morte dos inimigos, dano na base, construir e vender, cliques, início de onda, vitória e derrota. Todos gerados por código (`SoundSynth`), sem arquivos de áudio |
+| Recursos sonoros | ✅ | `GameAudio` (`Assets/Scripts/Audio`): música ambiente em loop e efeitos de tiro por torre, explosões, morte dos inimigos, dano na base, construir e vender, cliques, início de onda, vitória e derrota. Todos gerados por código (`SoundSynth`), sem arquivos de áudio: [#25][pr25] |
 
 ### Repositório e apresentação
 
@@ -201,11 +200,11 @@ A Matriarca tira metade da base, e Cannons e Miniguns sozinhos não a derrubam: 
 
 | Critério | Pontos | Situação |
 |---|---:|---|
-| Menu principal, com níveis de dificuldade, ranking e informações | 0,5 | 🟡 Menu e Sobre prontos. Dificuldade na branch [`menu-dificuldade`][menu-dificuldade], falta o ranking |
+| Menu principal, com níveis de dificuldade, ranking e informações | 0,5 | ✅ Jogar com escolha de Fácil ou Difícil, Ranking e Sobre: [#10][pr10], [#23][pr23] |
 | Modelagem das estruturas, dos inimigos e do cenário: quantidade e variedade | 1,0 | ✅ Seis torres, quatro tipos de Mimic e cenário caprichado |
 | Movimentação dos inimigos, comportamento das estruturas e projéteis | 2,5 | ✅ |
 | Interatividade: controle, velocidade, gerenciamento de alvos e colisões | 2,5 | ✅ Construção e venda de torres, alvo preferido por torre, velocidade 1x/2x, câmera livre (mover, girar, inclinar e zoom: [#24](https://github.com/GregKmpf/Horror-Defense/pull/24)), pause e colisões |
-| Efeitos visuais e recursos sonoros | 1,0 | ✅ |
+| Efeitos visuais e recursos sonoros | 1,0 | ✅ Noite com neblina, lâmpadas e pós-processamento, efeitos das torres, música e efeitos sonoros: [#12][pr12], [#25][pr25] |
 | Demo em vídeo | 0,5 | ❌ |
 | **Individual:** contribuições no GitHub e domínio na apresentação | 2,0 | Avaliado por integrante |
 | **Total** | **10,0** | |
@@ -239,10 +238,17 @@ A Matriarca tira metade da base, e Cannons e Miniguns sozinhos não a derrubam: 
 | [#11][pr11] | Correções no mapa: domo cinza, árvores flutuando e margens brancas | Em `main` |
 | [#12][pr12] | Noite com lua, neblina, lâmpadas e grama nova | Em `main`, pelo [#13][pr13] |
 | [#13][pr13] | Leva o [#12][pr12] para a `main` | Em `main` |
-| [#15][pr15] | Três entradas de inimigos, com caminhos marcados no chão e passadiço na ponte | Aberto |
-| [#16][pr16] | 12 posições para torres, marcadas no chão | Aberto, depende do [#15][pr15] |
-| [#17][pr17] | Interface durante o jogo: HUD, construção de torres, economia, velocidade e telas de fim | Aberto, depende do [#16][pr16] |
-| [`menu-dificuldade`][menu-dificuldade] | Escolha da dificuldade no menu | Branch sem PR |
+| [#14][pr14] | README atualizado com a situação do projeto | Em `main` |
+| [#15][pr15] | Três entradas de inimigos, com caminhos marcados no chão e passadiço na ponte | Em `main` |
+| [#16][pr16] | 12 posições para torres, marcadas no chão | Em `main` |
+| [#17][pr17] | Interface durante o jogo: HUD, construção de torres, economia, velocidade e telas de fim | Em `main` |
+| [#19][pr19] | Chegada dos inimigos à base por colisão, com um trigger nas portas do celeiro | Em `main` |
+| [#20][pr20] | Três tipos novos de Mimic: Crawler, Brute e Matriarca | Em `main` |
+| [#21][pr21] | Balanceamento do dano à base, da economia, do Difícil e das torres mais fracas | Em `main` |
+| [#22][pr22] | Sombras até 150 m da câmera | Em `main` |
+| [#23][pr23] | Escolha da dificuldade no menu e ranking | Em `main` |
+| [#24][pr24] | Câmera livre: mover, girar, inclinar e zoom (`CameraController`) | Em `main` |
+| [#25][pr25] | Música e efeitos sonoros gerados por código | Em `main` |
 
 ## 💡 Extras Planejados
 
@@ -282,7 +288,14 @@ A lista de recursos de terceiros fica em [`Assets/Credits/THIRD_PARTY_ASSETS.txt
 [pr11]: https://github.com/GregKmpf/Horror-Defense/pull/11
 [pr12]: https://github.com/GregKmpf/Horror-Defense/pull/12
 [pr13]: https://github.com/GregKmpf/Horror-Defense/pull/13
+[pr14]: https://github.com/GregKmpf/Horror-Defense/pull/14
 [pr15]: https://github.com/GregKmpf/Horror-Defense/pull/15
 [pr16]: https://github.com/GregKmpf/Horror-Defense/pull/16
 [pr17]: https://github.com/GregKmpf/Horror-Defense/pull/17
-[menu-dificuldade]: https://github.com/GregKmpf/Horror-Defense/tree/menu-dificuldade
+[pr19]: https://github.com/GregKmpf/Horror-Defense/pull/19
+[pr20]: https://github.com/GregKmpf/Horror-Defense/pull/20
+[pr21]: https://github.com/GregKmpf/Horror-Defense/pull/21
+[pr22]: https://github.com/GregKmpf/Horror-Defense/pull/22
+[pr23]: https://github.com/GregKmpf/Horror-Defense/pull/23
+[pr24]: https://github.com/GregKmpf/Horror-Defense/pull/24
+[pr25]: https://github.com/GregKmpf/Horror-Defense/pull/25

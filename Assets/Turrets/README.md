@@ -192,12 +192,13 @@ No slot has a **Starting Turret**: the player builds every turret with the build
 
 ## Effects
 
-What you see when a turret fires is set in its definition, all optional:
+What you see and hear when a turret fires is set in its definition. The flash and pulse are optional:
 
 | Field            | What it is                                                        | Used by                        |
 |------------------|-------------------------------------------------------------------|--------------------------------|
 | Muzzle Flash     | Particle system played at the muzzle every shot, one per muzzle   | Everything with a gun          |
 | Pulse            | A ring that spreads from the turret to its range every shot       | Shock Generator                |
+| Sound            | Which synthesized shot `GameAudio` plays every shot (`TurretSound`) | Every turret, one sound each |
 
 What you see when a projectile lands is set on its `ProjectileEffects`: an **Impact** spawned where it hits and an
 **Explosion** where its splash goes off, made for a radius of 1 and scaled to the splash radius. When a projectile is
@@ -216,6 +217,6 @@ materials are additive URP particle shaders.
 
 ## Not done yet
 
-- Sounds and recoil.
+- Recoil.
 - Upgrading a turret.
 - Pooling for projectiles and effects. The Minigun creates a few short-lived objects per shot.
