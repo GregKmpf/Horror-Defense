@@ -127,7 +127,7 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 | Seguir um caminho predefinido até a base | ✅ | `EnemyMovement`: [#2][pr2], configurado na cena pelo [#5][pr5]. Três caminhos desde o [#15][pr15] |
 | Ter vida e receber dano | ✅ | `Enemy`: [#2][pr2] |
 | Ser removido com vida zero | ✅ | `Enemy`: [#2][pr2] |
-| Causar consequência ao chegar à base | ✅ | Ao entrar no trigger do `Objetivo`, o inimigo some e tira vida da base: [#5][pr5], [#19](https://github.com/GregKmpf/Horror-Defense/pull/19) |
+| Causar consequência ao chegar à base | ✅ | Tira vida do `Objetivo`: [#5][pr5] |
 | Quantidade e características variam com a dificuldade | ✅ | Número de inimigos e multiplicadores de vida e velocidade: [#8][pr8] |
 | Pelo menos 2 comportamentos distintos (recomendado) | 🟡 | Só existe o Mimic. O modelo `Enemy_Base` já facilita criar outros |
 
