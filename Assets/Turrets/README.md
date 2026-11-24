@@ -54,7 +54,9 @@ All numbers live in the `TurretDefinition` assets in `Gameplay/`.
 5. Pick a **Projectile** and its **Projectile Speed** in the definition. A turret without a projectile logs an error and
    stops.
 6. Pick its effects in the definition (optional, see below).
-7. To test it, put a `TurretSlot` in the scene, set **Starting Turret** to the definition and press Play.
+7. Give it an **Icon** (a picture in `Icons/`) and a one-line **Description**, both shown in the build menu, and add
+   the definition to `GameUI` → `BuildMenu` → **Turrets** (`Assets/UI/GameUI.prefab`).
+8. To test it without the build menu, set a slot's **Starting Turret** to the definition and press Play.
 
 A model that has no `tower` or `gun` child (like the Shock Generator) doesn't aim, it fires whenever something is in
 range.
@@ -87,6 +89,8 @@ second. It aims at `enemy.Center`, the middle of the enemy's collider. **Target 
 | Last      | Furthest from the base             |
 | Closest   | Closest to the turret              |
 | Strongest | Most health left                   |
+
+The player can change it on each turret in the build menu (`Turret.Priority`); until then it's the definition's.
 
 **Max Targets** is how many projectiles one shot fires, each at a different enemy (0 = one at every enemy in range).
 
@@ -184,8 +188,7 @@ path are within 12 m (a Cannon's range) and inside the gun's pitch limits:
 | 11   | Valley                              |        |           | 18          |
 | 12   | Woods                               |        |           | 20          |
 
-`TurretSlot 1` has a Cannon as its **Starting Turret** so there is a turret in the game until the build UI exists. Clear
-that field when the UI is added.
+No slot has a **Starting Turret**: the player builds every turret with the build menu (`Assets/UI/README.md`).
 
 ## Effects
 
@@ -207,13 +210,12 @@ materials are additive URP particle shaders.
 
 | System       | Uses                                                                       |
 |--------------|----------------------------------------------------------------------------|
-| Build UI     | Raycast on the TurretSlot layer, `slot.SetHighlight()`, `slot.IsFree`, `slot.Build(definition)`, `definition.cost` |
-| Economy      | Charge `definition.cost` before calling `Build`                            |
+| Build UI     | `SlotPicker` raycasts on the TurretSlot layer and sets `slot.SetHighlight()`. `BuildMenu` calls `slot.Build(definition)`, `slot.Clear()` and sets `turret.Priority` |
+| Economy      | `Economy.TrySpend(definition.cost)` before `Build`, `Economy.SellValue(definition)` back on `Clear` |
 | Enemies      | A collider on the Enemy layer. Turrets read `Enemy.Active` and `Center`, projectiles call `TakeDamage()` |
 
 ## Not done yet
 
 - Sounds and recoil.
-- A build UI and the economy that spends `cost`.
-- Selling a turret (`TurretSlot.Clear()` exists, nothing refunds it).
+- Upgrading a turret.
 - Pooling for projectiles and effects. The Minigun creates a few short-lived objects per shot.
