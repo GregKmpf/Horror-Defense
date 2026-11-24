@@ -8116,12 +8116,24 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25449b30ff204374ab4cab40d0198918, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CameraZoom
-  zoomStep: 2
-  smoothing: 4
-  maxZoomIn: 15
-  maxZoomOut: 8
-  maxRayStretch: 2.5
+  m_EditorClassIdentifier: Assembly-CSharp::CameraController
+  moveSpeed: 0.9
+  fastMultiplier: 2.5
+  keyTurnSpeed: 90
+  dragTurnSpeed: 0.25
+  minPitch: 25
+  maxPitch: 85
+  zoomPerStep: 0.15
+  minDistance: 15
+  maxDistance: 80
+  boundsCenter: {x: 0, y: 0, z: -5}
+  boundsRadius: 60
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  minHeightAboveGround: 4
+  sharpness: 10
+  heightSharpness: 3
 --- !u!114 &1470715249
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8233,13 +8245,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1470715247}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5073438, y: 0.18259965, z: -0.06764609, w: 0.83945435}
+  m_LocalRotation: {x: 0.4922893, y: 0.219980985, z: -0.130152389, w: 0.832057655}
   m_LocalPosition: {x: -4.01, y: 85.21, z: -40.91}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 61.222, y: 29.618, z: 8.566}
+  m_LocalEulerAnglesHint: {x: 61.222, y: 29.618, z: 0}
 --- !u!1 &1505724369
 GameObject:
   m_ObjectHideFlags: 0
