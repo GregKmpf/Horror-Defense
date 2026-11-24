@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDefinition
   displayName: Matriarch
   icon: {fileID: 0}
-  maxHealth: 1500
+  maxHealth: 1000
   moveSpeed: 2
-  bounty: 100
-  baseDamage: 10
+  bounty: 150
+  baseDamage: 50

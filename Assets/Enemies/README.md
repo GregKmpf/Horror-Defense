@@ -32,12 +32,13 @@ Four kinds of Mimic, from a small, fast swarm to a slow boss. The other three ar
 
 | Type      | Health | Speed   | Bounty | Base damage | Hover | Hitbox radius | Legs                          | Colour                       |
 |-----------|-------:|--------:|-------:|------------:|------:|--------------:|-------------------------------|------------------------------|
-| Crawler   | 40     | 8 m/s   | 5      | 1           | 1.8 m | 0.4 m         | 8, thin, reach 5 m            | Pale bone                    |
-| Mimic     | 100    | 5 m/s   | 10     | 1           | 3 m   | 0.5 m         | 12, reach 9 m                 | Black                        |
-| Brute     | 400    | 3 m/s   | 30     | 3           | 4.5 m | 0.9 m         | 12, thick, reach 12.5 m       | Dark rust                    |
-| Matriarch | 1500   | 2 m/s   | 100    | 10          | 6.5 m | 1.4 m         | 16, very thick, reach 17 m    | Black, with a glowing red heart |
+| Crawler   | 40     | 8 m/s   | 6      | 5           | 1.8 m | 0.4 m         | 8, thin, reach 5 m            | Pale bone                    |
+| Mimic     | 100    | 5 m/s   | 12     | 10          | 3 m   | 0.5 m         | 12, reach 9 m                 | Black                        |
+| Brute     | 320    | 3 m/s   | 40     | 25          | 4.5 m | 0.9 m         | 12, thick, reach 12.5 m       | Dark rust                    |
+| Matriarch | 1000   | 2 m/s   | 150    | 50          | 6.5 m | 1.4 m         | 16, very thick, reach 17 m    | Black, with a glowing red heart |
 
-Health and speed are before the difficulty's multipliers. Each type has, in `Mimic/`:
+Health and speed are before the difficulty's multipliers. Base damage is out of the base's 100 health, so ten
+Mimics or two Matriarchs destroy it. Each type has, in `Mimic/`:
 
 | File                            | What it sets                                                                 |
 |---------------------------------|------------------------------------------------------------------------------|
@@ -100,7 +101,7 @@ waves. With the list empty, the `WaveManager` uses every `EnemyPath` in the scen
 | Difficulty | Wave 1                     | Wave 2                                                   | Wave 3                                                           | Wave 4                                                             |
 |------------|----------------------------|----------------------------------------------------------|------------------------------------------------------------------|--------------------------------------------------------------------|
 | Easy       | 5 Mimics, Bridge           | 4 Mimics West Bank, then 6 Crawlers North Woods          | 10 Mimics and 8 Crawlers, all; a Brute West Bank; the Matriarch North Woods | -                                                    |
-| Hard       | 8 Mimics and 6 Crawlers, all | 6 Mimics West Bank, 8 Crawlers North Woods, 2 Brutes West Bank | 12 Mimics, 12 Crawlers and 3 Brutes, all                    | 14 Mimics, 14 Crawlers and 4 Brutes, all; the Matriarch North Woods |
+| Hard       | 6 Mimics and 4 Crawlers, all | 6 Mimics West Bank, 6 Crawlers North Woods, a Brute West Bank | 12 Mimics, 12 Crawlers and 3 Brutes, all                    | 14 Mimics, 14 Crawlers and 4 Brutes, all; the Matriarch North Woods |
 
 The Matriarch walks the shortest path, North Woods, so the slowest enemy still arrives in time.
 
