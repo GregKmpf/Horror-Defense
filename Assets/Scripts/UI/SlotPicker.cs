@@ -4,7 +4,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 // Lets the player point at and select TurretSlots with the mouse. Pointing at a slot lights it up, a left click
-// selects it (clicking it again lets go), and a right click or a click on anything else lets go.
+// selects it (clicking it again lets go), and a right click or a click on anything else lets go. Dragging with the
+// right button turns the camera (CameraController) instead, so only a release close to the press counts as a click.
 // The mouse is ignored over the UI, while the game is paused, and once it has ended (which also lets go).
 // It only keeps the slots' highlights and says which one is selected; BuildMenu opens the panel for it.
 public class SlotPicker : MonoBehaviour
@@ -14,6 +15,9 @@ public class SlotPicker : MonoBehaviour
 
     public float maxDistance = 500f;
 
+    [Tooltip("How far, in pixels, the mouse can move with the right button held and still count as a click")]
+    public float clickTolerance = 6f;
+
     public TurretSlot Hovered { get; private set; }
     public TurretSlot Selected { get; private set; }
 
@@ -21,6 +25,10 @@ public class SlotPicker : MonoBehaviour
     public event Action<TurretSlot> SelectionChanged;
 
     int slotMask;
+
+    // The right button went down here and the mouse hasn't moved away since, so letting go is a click
+    bool rightClicking;
+    Vector2 rightPressPosition;
 
     static bool GameOver => GameManager.Instance != null && !GameManager.Instance.IsPlaying;
 
@@ -46,15 +54,28 @@ public class SlotPicker : MonoBehaviour
         if (PauseMenu.Pausado || mouse == null || viewCamera == null)
         {
             SetHovered(null);
+            rightClicking = false;
             return;
         }
 
+        Vector2 position = mouse.position.ReadValue();
         bool overUI = EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
-        TurretSlot pointed = overUI ? null : SlotAt(mouse.position.ReadValue());
+        TurretSlot pointed = overUI ? null : SlotAt(position);
         SetHovered(pointed);
 
         if (mouse.rightButton.wasPressedThisFrame)
         {
+            rightClicking = true;
+            rightPressPosition = position;
+        }
+        else if (rightClicking && (position - rightPressPosition).sqrMagnitude > clickTolerance * clickTolerance)
+        {
+            rightClicking = false;
+        }
+
+        if (mouse.rightButton.wasReleasedThisFrame && rightClicking)
+        {
+            rightClicking = false;
             Select(null);
         }
         else if (mouse.leftButton.wasPressedThisFrame && !overUI)
