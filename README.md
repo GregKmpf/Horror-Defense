@@ -64,7 +64,7 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 
 ### Resumo da situação
 
-* **Feito:** cenário noturno, base, caminho, seis tipos de torre, projéteis com detecção de colisão, ondas, duas dificuldades, tempo limite, vitória e derrota, menu inicial, menu de pause e efeitos visuais.
+* **Feito:** cenário noturno, base, três entradas de inimigos com caminhos marcados no chão, seis tipos de torre, projéteis com detecção de colisão, ondas, duas dificuldades, tempo limite, vitória e derrota, menu inicial, menu de pause e efeitos visuais.
 * **Fora da `main`:** escolha da dificuldade no menu, na branch [`menu-dificuldade`][menu-dificuldade], ainda sem PR.
 * **Não iniciado:** ranking, sons, interface para o jogador construir torres, telas de vitória e derrota, HUD, build e vídeo.
 * **Atenção:**
@@ -86,7 +86,7 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 
 | Requisito | Status | Observação |
 |---|---|---|
-| Uma ou mais ondas de inimigos | ✅ | `WaveManager`: [#8][pr8]. O `Mimic (test)` ainda está na cena, fora da contagem das ondas |
+| Uma ou mais ondas de inimigos | ✅ | `WaveManager`: [#8][pr8]. Cada grupo de uma onda vem de uma entrada, ou de todas, alternando: [#15][pr15] |
 | Pelo menos 2 níveis de dificuldade | ✅ | Fácil e Difícil (`Assets/Difficulties`): [#8][pr8] |
 | Pelo menos 5 inimigos no nível mais simples | ✅ | Fácil: 3 ondas, com 5, 8 e 12 Mimics (25 no total) |
 
@@ -101,10 +101,10 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 |---|---|---|
 | Área de jogo limitada | ✅ | Fazenda Abandonada: [#1][pr1], restaurada no [#5][pr5] e corrigida no [#11][pr11] |
 | Base a ser defendida | ✅ | `Objetivo`, com 100 de vida: [#5][pr5] |
-| Um ou mais pontos de entrada | ✅ | Um ponto, o início do `Caminho`: [#5][pr5]. Ele começa no rio e precisa de ajuste |
-| Caminho até a base | ✅ | `EnemyPath` com 5 waypoints: [#2][pr2], [#5][pr5]. A rota passa por dentro do celeiro |
-| Posições para as estruturas defensivas | ✅ | 4 `TurretSlot` na cena: [#6][pr6] |
-| Cenário com pelo menos o tamanho de 30 inimigos enfileirados | ✅ | Rota de 85 m e corpo do Mimic com cerca de 1 m (collider). As pernas o deixam bem mais largo, vale confirmar a escala visualmente |
+| Um ou mais pontos de entrada | ✅ | Três: o rio a leste da ponte, o platô do trailer (oeste) e a mata ao norte: [#15][pr15] |
+| Caminho até a base | ✅ | Um `EnemyPath` por entrada, em `EnemyPaths`, todos até as portas norte do celeiro. Um rastro vermelho no chão mostra cada um, e a ponte tem um passadiço invisível para os inimigos andarem sobre ela: [#15][pr15] |
+| Posições para as estruturas defensivas | ✅ | 4 `TurretSlot` na cena: [#6][pr6]. Os slots 1 e 2 saíram do caminho da ponte no [#15][pr15] |
+| Cenário com pelo menos o tamanho de 30 inimigos enfileirados | ✅ | Rotas de 144 m (ponte), 96 m (oeste) e 75 m (norte), e corpo do Mimic com cerca de 1 m (collider). As pernas o deixam bem mais largo, vale confirmar a escala visualmente |
 
 ### Estruturas defensivas
 
@@ -120,7 +120,7 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 
 | Requisito | Status | Observação |
 |---|---|---|
-| Seguir um caminho predefinido até a base | ✅ | `EnemyMovement`: [#2][pr2], configurado na cena pelo [#5][pr5] |
+| Seguir um caminho predefinido até a base | ✅ | `EnemyMovement`: [#2][pr2], configurado na cena pelo [#5][pr5]. Três caminhos desde o [#15][pr15] |
 | Ter vida e receber dano | ✅ | `Enemy`: [#2][pr2] |
 | Ser removido com vida zero | ✅ | `Enemy`: [#2][pr2] |
 | Causar consequência ao chegar à base | ✅ | Tira vida do `Objetivo`: [#5][pr5] |
@@ -217,6 +217,7 @@ O `GameManager` ([#8][pr8]) controla a partida. Ao terminar, ele congela o tempo
 | [#11][pr11] | Correções no mapa: domo cinza, árvores flutuando e margens brancas | Em `main` |
 | [#12][pr12] | Noite com lua, neblina, lâmpadas e grama nova | Em `main`, pelo [#13][pr13] |
 | [#13][pr13] | Leva o [#12][pr12] para a `main` | Em `main` |
+| [#15][pr15] | Três entradas de inimigos, com caminhos marcados no chão e passadiço na ponte | Aberto |
 | [`menu-dificuldade`][menu-dificuldade] | Escolha da dificuldade no menu | Branch sem PR |
 
 ## 💡 Extras Planejados
@@ -256,4 +257,5 @@ A lista de recursos de terceiros fica em [`Assets/Credits/THIRD_PARTY_ASSETS.txt
 [pr11]: https://github.com/GregKmpf/Horror-Defense/pull/11
 [pr12]: https://github.com/GregKmpf/Horror-Defense/pull/12
 [pr13]: https://github.com/GregKmpf/Horror-Defense/pull/13
+[pr15]: https://github.com/GregKmpf/Horror-Defense/pull/15
 [menu-dificuldade]: https://github.com/GregKmpf/Horror-Defense/tree/menu-dificuldade

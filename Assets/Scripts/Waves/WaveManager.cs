@@ -3,15 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Spawns the waves of a DifficultyDefinition along an EnemyPath. It doesn't decide when the game is won or
-// lost: GameManager calls Begin, listens to AllWavesCleared and calls Stop when the game ends.
+// Spawns the waves of a DifficultyDefinition along the scene's EnemyPaths. It doesn't decide when the game is
+// won or lost: GameManager calls Begin, listens to AllWavesCleared and calls Stop when the game ends.
+// Each path starts at its own entrance. A wave group either walks one path (its Path index) or sends each
+// enemy down the next path in turn, so a wave can come from one side or from all of them at once.
 // A wave is cleared once every enemy it spawned has died or reached the base, then the next one starts after
 // the difficulty's Time Between Waves (or right away, with StartNextWaveNow).
 // Enemies placed by hand in the scene aren't counted, so remove test enemies from the scene before playing.
 public class WaveManager : MonoBehaviour
 {
-    [Tooltip("The route spawned enemies walk. Leave empty to use the first EnemyPath in the scene")]
-    public EnemyPath path;
+    [Tooltip("The routes spawned enemies walk, each from its own entrance. Wave groups pick one by its index " +
+             "in this list. Leave empty to use every EnemyPath in the scene, sorted by name")]
+    public EnemyPath[] paths;
 
     [Tooltip("Optional parent for spawned enemies, to keep the hierarchy tidy")]
     public Transform enemyParent;
@@ -42,15 +45,22 @@ public class WaveManager : MonoBehaviour
 
     public bool IsRunning => routine != null;
 
+    public IReadOnlyList<EnemyPath> Paths => paths;
+
     readonly HashSet<Enemy> alive = new HashSet<Enemy>();
     Coroutine routine;
     bool skipWait;
 
+    // The path the next "in turn" enemy walks. It carries on between groups and waves, so each one starts
+    // where the last left off instead of always at the first path
+    int nextPath;
+
     void Awake()
     {
-        if (path == null)
+        if (paths == null || paths.Length == 0)
         {
-            path = FindAnyObjectByType<EnemyPath>();
+            paths = FindObjectsByType<EnemyPath>();
+            Array.Sort(paths, (a, b) => string.CompareOrdinal(a.name, b.name));
         }
     }
 
@@ -73,17 +83,49 @@ public class WaveManager : MonoBehaviour
             Debug.LogError($"{name} was given a difficulty without waves", this);
             return;
         }
-        if (path == null || path.Count < 2)
+        if (paths == null || paths.Length == 0)
         {
-            Debug.LogError($"{name} needs an EnemyPath with at least two waypoints", this);
+            Debug.LogError($"{name} can't find an EnemyPath in the scene", this);
             return;
         }
+        foreach (EnemyPath path in paths)
+        {
+            if (path == null || path.Count < 2)
+            {
+                Debug.LogError($"Every path of {name} needs at least two waypoints, check its Paths list", this);
+                return;
+            }
+        }
+
+        WarnAboutMissingPaths(difficulty);
 
         Stop();
         Difficulty = difficulty;
         CurrentWave = 0;
+        nextPath = 0;
         alive.Clear();
         routine = StartCoroutine(Run());
+    }
+
+    void WarnAboutMissingPaths(DifficultyDefinition difficulty)
+    {
+        for (int w = 0; w < difficulty.waves.Length; w++)
+        {
+            WaveGroup[] groups = difficulty.waves[w]?.groups;
+            if (groups == null)
+            {
+                continue;
+            }
+            for (int g = 0; g < groups.Length; g++)
+            {
+                if (groups[g] != null && groups[g].path >= paths.Length)
+                {
+                    Debug.LogWarning($"Group {g + 1} of wave {w + 1} in {difficulty.name} walks path {groups[g].path}, " +
+                                     $"but {name} only has {paths.Length} (0 to {paths.Length - 1}). " +
+                                     "It will take turns between every path instead", difficulty);
+                }
+            }
+        }
     }
 
     // Stops spawning. Enemies already on the path stay where they are
@@ -189,7 +231,7 @@ public class WaveManager : MonoBehaviour
 
             for (int n = 0; n < group.count; n++)
             {
-                Spawn(group.prefab);
+                Spawn(group.prefab, PickPath(group));
                 EnemiesToSpawn--;
 
                 if (n < group.count - 1 && group.spawnInterval > 0f)
@@ -202,7 +244,20 @@ public class WaveManager : MonoBehaviour
         EnemiesToSpawn = 0;
     }
 
-    void Spawn(Enemy prefab)
+    // The group's own path, or the next one in turn when it has none (-1) or its index is out of the list
+    EnemyPath PickPath(WaveGroup group)
+    {
+        if (group.path >= 0 && group.path < paths.Length)
+        {
+            return paths[group.path];
+        }
+
+        EnemyPath path = paths[nextPath % paths.Length];
+        nextPath++;
+        return path;
+    }
+
+    void Spawn(Enemy prefab, EnemyPath path)
     {
         Enemy enemy = Instantiate(prefab, path.GetWaypoint(0), Quaternion.identity, enemyParent);
         enemy.Init(path, Difficulty.healthMultiplier, Difficulty.speedMultiplier);

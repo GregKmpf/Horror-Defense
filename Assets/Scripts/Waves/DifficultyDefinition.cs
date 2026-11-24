@@ -17,6 +17,11 @@ public class WaveGroup
     [Tooltip("Seconds to wait before the first enemy of this group")]
     [Min(0f)]
     public float delay = 0f;
+
+    [Tooltip("Where the group comes from: the index of a path in the WaveManager's Paths list (0 is the first). " +
+             "-1 sends each enemy down the next path in turn, so the group comes from every entrance")]
+    [Min(-1)]
+    public int path = -1;
 }
 
 // A wave's groups spawn in order. The next wave only starts once every enemy of this one has died or
