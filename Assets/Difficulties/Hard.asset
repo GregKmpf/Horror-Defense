@@ -14,22 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DifficultyDefinition
   displayName: "Dif\xEDcil"
   description: "Quatro ondas maiores, com todos os tipos de Mimic mais resistentes
-    e r\xE1pidos, e menos tempo."
-  timeLimit: 200
+    e r\xE1pidos."
+  timeLimit: 300
   timeBeforeFirstWave: 10
   timeBetweenWaves: 5
-  startingMoney: 300
-  healthMultiplier: 1.5
-  speedMultiplier: 1.2
+  startingMoney: 450
+  healthMultiplier: 1.3
+  speedMultiplier: 1.1
   waves:
   - groups:
     - prefab: {fileID: 2419891550475240363, guid: a50d1c41b127bcacf8f337c9e160563d, type: 3}
-      count: 8
+      count: 6
       spawnInterval: 1.5
       delay: 0
       path: -1
     - prefab: {fileID: 8594091676651007360, guid: 1488c1bdad436a6c48c671fc39324ce5, type: 3}
-      count: 6
+      count: 4
       spawnInterval: 0.8
       delay: 2
       path: -1

@@ -35,11 +35,11 @@ All numbers live in the `TurretDefinition` assets in `Gameplay/`.
 | Turret         | Range | Damage        | Interval | Cost | Targets   | Projectile             | Speed  | What it does                     |
 |----------------|-------|---------------|----------|------|-----------|------------------------|--------|----------------------------------|
 | Cannon         | 12    | 25            | 1.0 s    | 100  | First     | Shell                  | 45 m/s | Balanced all-rounder             |
-| Rocket Pod     | 14    | 20, splash 3  | 2.0 s    | 175  | First     | Rocket                 | 22 m/s | Area damage against groups       |
+| Rocket Pod     | 14    | 40, splash 3  | 1.5 s    | 175  | First     | Rocket                 | 22 m/s | Area damage against groups       |
 | Artillery      | 22    | 120           | 3.0 s    | 250  | Strongest | Heavy Shell            | 35 m/s | Long range, slow to turn         |
 | Minigun        | 9     | 6             | 0.1 s    | 125  | First     | Bullet                 | 60 m/s | Fast fire against weak enemies   |
 | Heavy          | 13    | 30, splash 2  | 0.4 s    | 400  | First     | Shell                  | 45 m/s | Fast fire and splash together    |
-| Shock Generator| 8     | 8 to everyone | 0.8 s    | 150  | All       | Bolt                   | 30 m/s | A bolt at every enemy in range   |
+| Shock Generator| 8     | 12 to everyone| 0.8 s    | 150  | All       | Bolt                   | 30 m/s | A bolt at every enemy in range   |
 
 ## Adding a new turret
 

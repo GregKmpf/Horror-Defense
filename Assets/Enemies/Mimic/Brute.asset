@@ -16,5 +16,5 @@ MonoBehaviour:
   icon: {fileID: 0}
   maxHealth: 400
   moveSpeed: 3
-  bounty: 30
-  baseDamage: 3
+  bounty: 40
+  baseDamage: 25
