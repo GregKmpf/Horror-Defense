@@ -16,6 +16,15 @@ Seres gigantes, parecidos com aracnídeos, invadem uma fazenda abandonada à noi
 * **Arthur Benedetti** (NyuuDev) - Dev
 * **Guilherme Grosselli** (grosselliguilherme) - Dev
 
+## 🎮 Baixar o Jogo
+
+Builds da `main` no commit [`8c6a63e`](https://github.com/GregKmpf/Horror-Defense/commit/8c6a63e):
+
+| Sistema | Download | Como abrir |
+|---|---|---|
+| Windows | [Windows.zip](https://drive.google.com/file/d/1UBEektrAGNDCISWeeoX_gIDmzKmmaKTo/view?usp=sharing) | Extraia o `.zip` e rode `Windows/HorrorDefense.exe` |
+| Linux | [Linux.tar.gz](https://drive.google.com/file/d/1C1jouVm5jD21cnipmZU1BM3oVLd_VZA3/view?usp=sharing) | Extraia com `tar xzf Linux.tar.gz` e rode `Linux/HorrorDefense.x86_64` |
+
 ## 🚀 Como Executar o Projeto
 
 1. Clone o repositório:
@@ -60,7 +69,7 @@ Ao rodar a cena `AbandonedFarm` direto, sem passar pelo menu, o jogo usa a dific
 
 ## 📦 Entrega
 
-* **Executável do jogo:** _link pendente_
+* **Executável do jogo:** [Windows](https://drive.google.com/file/d/1UBEektrAGNDCISWeeoX_gIDmzKmmaKTo/view?usp=sharing) e [Linux](https://drive.google.com/file/d/1C1jouVm5jD21cnipmZU1BM3oVLd_VZA3/view?usp=sharing). Como abrir em [Baixar o Jogo](#-baixar-o-jogo)
 * **Vídeo demonstrativo:** _link pendente_
 
 ## 📋 Requisitos do Trabalho
@@ -76,15 +85,15 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 
 ### Resumo da situação
 
-* **Feito:** cenário noturno, base, três entradas de inimigos com caminhos marcados no chão, seis tipos de torre, quatro tipos de inimigo, projéteis com detecção de colisão, ondas, duas dificuldades, tempo limite, vitória e derrota com telas de fim, menu inicial com escolha da dificuldade, ranking e informações, menu de pause, HUD, construção de torres pelo jogador com dinheiro, controle de velocidade, câmera livre, efeitos visuais, música e efeitos sonoros.
-* **Não iniciado:** build e vídeo.
+* **Feito:** cenário noturno, base, três entradas de inimigos com caminhos marcados no chão, seis tipos de torre, quatro tipos de inimigo, projéteis com detecção de colisão, ondas, duas dificuldades, tempo limite, vitória e derrota com telas de fim, menu inicial com escolha da dificuldade, ranking e informações, menu de pause, HUD, construção de torres pelo jogador com dinheiro, controle de velocidade, câmera livre, efeitos visuais, música e efeitos sonoros, e build para Windows e Linux.
+* **Não iniciado:** vídeo.
 
 ### Jogo e menu
 
 | Requisito | Status | Observação |
 |---|---|---|
 | Tower Defense 2D ou 3D na Unity, em trio | ✅ | Jogo 3D |
-| Plataforma PC ou mobile (livre) | ❌ | Falta o grupo decidir e gerar a build. O Build Settings já tem as cenas `StartMenu` e `AbandonedFarm` |
+| Plataforma PC ou mobile (livre) | ✅ | PC, com builds para Windows e Linux: [Baixar o Jogo](#-baixar-o-jogo) |
 | Menu para iniciar o jogo | ✅ | Cena `StartMenu`, com Jogar, Ranking, Sobre e Sair: [#10][pr10], [#23][pr23] |
 | Escolha do nível de dificuldade pelo menu | ✅ | Jogar abre um painel com Fácil e Difícil, que passa a dificuldade escolhida ao `GameManager`: [#23][pr23] |
 | Ranking simples, mostrado no menu | ✅ | As 5 melhores partidas de cada dificuldade, salvas no `PlayerPrefs` (`Ranking`). Os pontos são a soma das recompensas dos inimigos mortos, e o empate fica com o menor tempo. A tela de fim mostra os pontos e a posição da partida: [#23][pr23] |
@@ -192,7 +201,7 @@ A Matriarca tira metade da base, e Cannons e Miniguns sozinhos não a derrubam: 
 | Repositório no GitHub compartilhado com `rafaelrieder` | ✅ | Eliminatório |
 | Commits de todos os integrantes | ✅ | Os três já têm commits |
 | Somente código-fonte e dependências pertinentes | ✅ | O `Assets.tar.gz` foi removido no [#8][pr8] |
-| Link do executável no README | ❌ | |
+| Link do executável no README | ✅ | [Baixar o Jogo](#-baixar-o-jogo) |
 | Link do vídeo demonstrativo no README | ❌ | |
 | Apresentação de 10 min + até 5 min de perguntas | ❌ | Em 24/11/2026. Exige domínio do projeto por todo o trio |
 
@@ -264,8 +273,6 @@ Ideias do grupo que não são exigidas pelo trabalho:
 - [x] Telas de vitória e derrota com opção de reiniciar: [#17][pr17]
 - [x] Balanceamento do dano das torres contra a vida e a velocidade dos inimigos, e do dano dos inimigos contra a vida da base: [#21](https://github.com/GregKmpf/Horror-Defense/pull/21)
 - [ ] Otimização para manter o FPS em ondas grandes
-
-**Em aberto:** gerar build para Linux, Windows ou ambos? O trabalho deixa a plataforma livre, e a Unity gera uma build separada para cada sistema.
 
 ## 🙏 Créditos
 
