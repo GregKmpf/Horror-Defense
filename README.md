@@ -2,9 +2,14 @@
 
 Um jogo de **Tower Defense** focado em uma atmosfera de **Horror**, desenvolvido na Unity. Enfrente ondas de inimigos aterrorizantes construindo e gerenciando suas defesas.
 
+Seres gigantes, parecidos com aracnídeos, invadem uma fazenda abandonada à noite. Posicione suas torres e impeça que eles destruam a base.
+
+![A Fazenda Abandonada à noite, com uma torre em frente ao celeiro](Docs/Screenshots/atmosphere-game-after.jpg)
+
 ## 🛠️ Tecnologias
-* **Engine:** Unity
+* **Engine:** Unity 6000.5.10f1, com URP
 * **Linguagem:** C#
+* **Entrada:** Input System
 
 ## 👥 Integrantes
 * **Gregori Yago Kempf** (GregKmpf/204034) - Dev
@@ -17,6 +22,29 @@ Um jogo de **Tower Defense** focado em uma atmosfera de **Horror**, desenvolvido
    ```bash
    git clone https://github.com/GregKmpf/Horror-Defense.git
    ```
+2. Abra a pasta no Unity Hub com a versão **6000.5.10f1** do editor.
+3. O projeto abre na cena `StartMenu`, a primeira do Build Settings. Aperte **Play** e clique em **Jogar**.
+
+Ao rodar a cena `AbandonedFarm` direto, sem passar pelo menu, o jogo usa a dificuldade **Fácil**.
+
+### Controles
+
+| Tecla | Ação |
+|---|---|
+| Scroll do mouse | Zoom em direção ao cursor |
+| `Esc` | Pausa: continuar, reiniciar ou voltar ao menu |
+
+## 📁 Estrutura
+
+| Pasta | Conteúdo |
+|---|---|
+| `Assets/Scenes` | `StartMenu` (menu), `AbandonedFarm` (o jogo) e `Teste2.0` (testes) |
+| `Assets/Scripts` | Código, separado por sistema: `Camera`, `Enemies`, `Environment`, `Game`, `Paths`, `Turrets`, `UI` e `Waves` |
+| `Assets/Difficulties` | As dificuldades `Easy` e `Hard`, com as ondas de cada uma |
+| `Assets/Enemies` | Inimigos e o modelo para criar novos. Detalhes em [`Assets/Enemies/README.md`](Assets/Enemies/README.md) |
+| `Assets/Turrets` | Torres, projéteis e efeitos. Detalhes em [`Assets/Turrets/README.md`](Assets/Turrets/README.md) |
+| `Assets/Environment` | A fazenda e a atmosfera noturna (céu, névoa, materiais) |
+| `Docs/Screenshots` | Imagens usadas nos PRs |
 
 ## 📦 Entrega
 
@@ -25,60 +53,68 @@ Um jogo de **Tower Defense** focado em uma atmosfera de **Horror**, desenvolvido
 
 ## 📋 Requisitos do Trabalho
 
-Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade Virtual (2026/2), com a situação de cada um em **08/11/2026**.
+Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade Virtual (2026/2), com a situação de cada um em **23/11/2026**.
 
 | Legenda | Significado |
 |---|---|
 | ✅ | Feito e já está em `main` |
-| 🔀 | Feito, mas aguardando o merge de um PR aberto |
+| 🔀 | Feito, mas ainda fora da `main` (em outra branch ou em PR aberto) |
 | 🟡 | Parcial: existe, mas não atende ao requisito por completo |
 | ❌ | Não iniciado |
 
 ### Resumo da situação
 
-* **Feito ou em PR:** cenário, base, caminho dos inimigos, seis tipos de torre, projéteis com detecção de colisão e efeitos visuais.
-* **Não iniciado:** ondas, níveis de dificuldade, menu, ranking, vitória, tempo máximo, sons, build e vídeo.
-* **Atenção:** as torres e os projéteis estão no PR [#6][pr6], ainda sem merge. Em `main` ainda não há torres.
+* **Feito:** cenário noturno, base, caminho, seis tipos de torre, projéteis com detecção de colisão, ondas, duas dificuldades, tempo limite, vitória e derrota, menu inicial, menu de pause e efeitos visuais.
+* **Fora da `main`:** escolha da dificuldade no menu, na branch [`menu-dificuldade`][menu-dificuldade], ainda sem PR.
+* **Não iniciado:** ranking, sons, interface para o jogador construir torres, telas de vitória e derrota, HUD, build e vídeo.
+* **Atenção:**
+  * Quando a partida termina, o jogo só congela e mostra o resultado no Console. Não há tela de fim nem HUD com o tempo restante, a onda ou a vida da base.
+  * Com os números atuais, a base não chega a ser destruída: tem 100 de vida, o Mimic tira 1 e a dificuldade Difícil tem 56 inimigos. Um inimigo que chega à base também conta para encerrar a onda, então dá para vencer sem defender.
 
 ### Jogo e menu
 
 | Requisito | Status | Observação |
 |---|---|---|
 | Tower Defense 2D ou 3D na Unity, em trio | ✅ | Jogo 3D |
-| Plataforma PC ou mobile (livre) | ❌ | Falta o grupo decidir e gerar a build |
-| Menu para iniciar o jogo | 🟡 | |
-| Escolha do nível de dificuldade pelo menu | ❌ | |
-| Ranking simples, mostrado no menu | ❌ | |
-| Informações sobre o jogo no menu | 🔀 | Consta nos critérios de avaliação |
+| Plataforma PC ou mobile (livre) | ❌ | Falta o grupo decidir e gerar a build. O Build Settings já tem as cenas `StartMenu` e `AbandonedFarm` |
+| Menu para iniciar o jogo | ✅ | Cena `StartMenu`, com Jogar, Sobre e Sair: [#10][pr10] |
+| Escolha do nível de dificuldade pelo menu | 🔀 | Painel com Fácil e Difícil na branch [`menu-dificuldade`][menu-dificuldade]. Na `main`, Jogar sempre começa no Fácil |
+| Ranking simples, mostrado no menu | ❌ | O `GameManager` já guarda tempo, inimigos mortos e inimigos que chegaram à base |
+| Informações sobre o jogo no menu | ✅ | Painel Sobre, com a história e os integrantes: [#10][pr10] |
 
 ### Níveis de dificuldade e ondas
 
 | Requisito | Status | Observação |
 |---|---|---|
-| Uma ou mais ondas de inimigos | ❌ | Não há gerenciador de ondas, a cena tem só o `Mimic (test)` |
-| Pelo menos 2 níveis de dificuldade | ❌ | Devem variar quantidade e/ou características de inimigos e ondas |
-| Pelo menos 5 inimigos no nível mais simples | ❌ | Depende do gerenciador de ondas |
+| Uma ou mais ondas de inimigos | ✅ | `WaveManager`: [#8][pr8]. O `Mimic (test)` ainda está na cena, fora da contagem das ondas |
+| Pelo menos 2 níveis de dificuldade | ✅ | Fácil e Difícil (`Assets/Difficulties`): [#8][pr8] |
+| Pelo menos 5 inimigos no nível mais simples | ✅ | Fácil: 3 ondas, com 5, 8 e 12 Mimics (25 no total) |
+
+| Dificuldade | Ondas | Inimigos | Vida | Velocidade | Tempo limite | Antes da 1ª onda | Entre ondas |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Fácil | 3 | 25 | ×1,0 | ×1,0 | 240 s | 15 s | 8 s |
+| Difícil | 4 | 56 | ×1,5 | ×1,2 | 200 s | 10 s | 5 s |
 
 ### Ambiente e área de jogo
 
 | Requisito | Status | Observação |
 |---|---|---|
-| Área de jogo limitada | ✅ | Fazenda Abandonada: [#1][pr1], restaurada no [#5][pr5] |
+| Área de jogo limitada | ✅ | Fazenda Abandonada: [#1][pr1], restaurada no [#5][pr5] e corrigida no [#11][pr11] |
 | Base a ser defendida | ✅ | `Objetivo`, com 100 de vida: [#5][pr5] |
 | Um ou mais pontos de entrada | ✅ | Um ponto, o início do `Caminho`: [#5][pr5]. Ele começa no rio e precisa de ajuste |
 | Caminho até a base | ✅ | `EnemyPath` com 5 waypoints: [#2][pr2], [#5][pr5]. A rota passa por dentro do celeiro |
-| Posições para as estruturas defensivas | 🔀 | 4 `TurretSlot` na cena: [#6][pr6] |
+| Posições para as estruturas defensivas | ✅ | 4 `TurretSlot` na cena: [#6][pr6] |
 | Cenário com pelo menos o tamanho de 30 inimigos enfileirados | ✅ | Rota de 85 m e corpo do Mimic com cerca de 1 m (collider). As pernas o deixam bem mais largo, vale confirmar a escala visualmente |
 
 ### Estruturas defensivas
 
 | Requisito | Status | Observação |
 |---|---|---|
-| Pelo menos 2 tipos com comportamentos distintos | 🔀 | 6 tipos: Cannon, Rocket Pod, Artillery, Minigun, Heavy e Shock Generator: [#3][pr3], [#6][pr6] |
-| Detectar inimigos por alcance | 🔀 | [#3][pr3], [#6][pr6] |
-| Selecionar um alvo | 🔀 | Prioridades First, Last, Closest e Strongest: [#3][pr3], [#6][pr6] |
-| Atacar, causar dano e aguardar um intervalo | 🔀 | [#3][pr3], [#6][pr6] |
-| Jogador posiciona ou ativa as estruturas durante o jogo | 🟡 | `TurretSlot.Build()` existe ([#6][pr6]), mas falta a interface. Hoje só há uma torre fixa de teste no `TurretSlot 1` |
+| Pelo menos 2 tipos com comportamentos distintos | ✅ | 6 tipos: Cannon, Rocket Pod, Artillery, Minigun, Heavy e Shock Generator: [#3][pr3], [#6][pr6] |
+| Detectar inimigos por alcance | ✅ | [#3][pr3], [#6][pr6] |
+| Selecionar um alvo | ✅ | Prioridades First, Last, Closest e Strongest: [#3][pr3], [#6][pr6] |
+| Atacar, causar dano e aguardar um intervalo | ✅ | [#3][pr3], [#6][pr6] |
+| Jogador posiciona ou ativa as estruturas durante o jogo | 🟡 | `TurretSlot.Build()` existe ([#6][pr6]), mas falta a interface. Hoje só há um Cannon fixo no `TurretSlot 1` |
 
 ### Inimigos
 
@@ -88,43 +124,45 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 | Ter vida e receber dano | ✅ | `Enemy`: [#2][pr2] |
 | Ser removido com vida zero | ✅ | `Enemy`: [#2][pr2] |
 | Causar consequência ao chegar à base | ✅ | Tira vida do `Objetivo`: [#5][pr5] |
-| Quantidade e características variam com a dificuldade | ❌ | Depende do gerenciador de ondas |
+| Quantidade e características variam com a dificuldade | ✅ | Número de inimigos e multiplicadores de vida e velocidade: [#8][pr8] |
 | Pelo menos 2 comportamentos distintos (recomendado) | 🟡 | Só existe o Mimic. O modelo `Enemy_Base` já facilita criar outros |
 
 ### Ataques e projéteis
 
-A torre só mira e dispara. O dano vem do projétil (`Assets/Scripts/Turrets/Projectile.cs`), e só quando ele colide com o inimigo. Detalhes em `Assets/Turrets/README.md`.
+A torre só mira e dispara. O dano vem do projétil (`Assets/Scripts/Turrets/Projectile.cs`), e só quando ele colide com o inimigo. Detalhes em [`Assets/Turrets/README.md`](Assets/Turrets/README.md).
 
 | Requisito | Status | Observação |
 |---|---|---|
-| Projétil criado a partir da estrutura | 🔀 | Cada disparo cria um projétil no cano da torre, um por alvo. Cinco tipos: Shell, Bullet, Heavy Shell, Rocket e Bolt: [#6][pr6] |
-| Projétil se desloca até o alvo | 🔀 | Segue o alvo enquanto ele vive. Se o alvo morrer antes, continua em linha reta: [#6][pr6] |
-| Projétil detecta colisão com o inimigo | 🔀 | `OnTriggerEnter` entre o collider do projétil e o `SphereCollider` do inimigo. A camada `Projectile` só colide com a camada `Enemy`: [#6][pr6] |
-| Projétil causa o dano | 🔀 | Só no impacto. O dano em área usa `Physics.OverlapSphere` na camada `Enemy`: [#6][pr6] |
-| Projétil é destruído ao acertar ou sair da área válida | 🔀 | Ao acertar, ou ao se afastar mais de 1,25 × o alcance da torre (ou após 4 s): [#6][pr6] |
+| Projétil criado a partir da estrutura | ✅ | Cada disparo cria um projétil no cano da torre, um por alvo. Cinco tipos: Shell, Bullet, Heavy Shell, Rocket e Bolt: [#6][pr6] |
+| Projétil se desloca até o alvo | ✅ | Segue o alvo enquanto ele vive. Se o alvo morrer antes, continua em linha reta: [#6][pr6] |
+| Projétil detecta colisão com o inimigo | ✅ | `OnTriggerEnter` entre o collider do projétil e o `SphereCollider` do inimigo. A camada `Projectile` só colide com a camada `Enemy`: [#6][pr6] |
+| Projétil causa o dano | ✅ | Só no impacto. O dano em área usa `Physics.OverlapSphere` na camada `Enemy`: [#6][pr6] |
+| Projétil é destruído ao acertar ou sair da área válida | ✅ | Ao acertar, ou ao se afastar mais de 1,25 × o alcance da torre (ou após 4 s): [#6][pr6] |
 
 ### Detecção de colisão
 
 | Requisito | Status | Observação |
 |---|---|---|
-| Impacto entre projéteis e inimigos | 🔀 | `Projectile.OnTriggerEnter`: [#6][pr6] |
+| Impacto entre projéteis e inimigos | ✅ | `Projectile.OnTriggerEnter`: [#6][pr6] |
 | Chegada dos inimigos à base | 🟡 | Funciona pelo fim do caminho, sem colisão. O [#5][pr5] removeu o trigger que o `Objetivo` tinha, então será preciso recolocá-lo |
-| Destruição ou remoção dos inimigos | 🔀 | Por vida zero, e o dano agora só vem do impacto do projétil: [#6][pr6] |
+| Destruição ou remoção dos inimigos | ✅ | Por vida zero, e o dano só vem do impacto do projétil: [#6][pr6] |
 
 ### Vitória e derrota
 
+O `GameManager` ([#8][pr8]) controla a partida. Ao terminar, ele congela o tempo e dispara os eventos `onVictory` e `onDefeat`, que ainda não têm nada ligado. Ele também já tem `Restart()` e `GoToMenu()` para os botões da futura tela de fim.
+
 | Requisito | Status | Observação |
 |---|---|---|
-| Vitória ao resistir às ondas ou cumprir a missão | ❌ | |
-| Derrota quando a vida da base chega a zero | 🟡 | Dispara o evento `aoSerDestruido` e um log, mas o jogo não termina: [#5][pr5] |
-| Tempo máximo para a missão, com derrota ao esgotar | ❌ | Obrigatório, pode variar com a dificuldade |
+| Vitória ao resistir às ondas ou cumprir a missão | 🟡 | Vence ao acabarem todas as ondas, mas sem tela. Inimigos que chegam à base também contam para acabar a onda |
+| Derrota quando a vida da base chega a zero | 🟡 | Funciona, mas sem tela. Com 100 de vida na base e 1 de dano por Mimic, não acontece em nenhuma das dificuldades |
+| Tempo máximo para a missão, com derrota ao esgotar | 🟡 | 240 s no Fácil e 200 s no Difícil, com derrota ao esgotar. O tempo restante não aparece na tela |
 
 ### Efeitos e som
 
 | Requisito | Status | Observação |
 |---|---|---|
-| Efeitos visuais | 🔀 | Clarão, projéteis com rastro, impactos, explosões e pulso: [#3][pr3], [#6][pr6] |
-| Recursos sonoros | ❌ | Não há áudio no projeto, e os sons contam na nota |
+| Efeitos visuais | ✅ | Torres: clarão, projéteis com rastro, impactos, explosões e pulso ([#3][pr3], [#6][pr6]). Fazenda: noite com lua, neblina, névoa no chão, lâmpadas que piscam e pós-processamento ([#12][pr12]). Menu: título que falha e vinheta ([#10][pr10]) |
+| Recursos sonoros | ❌ | Não há áudio no projeto, e os sons contam na nota. O pause já pausa o `AudioListener` |
 
 ### Repositório e apresentação
 
@@ -132,19 +170,19 @@ A torre só mira e dispara. O dano vem do projétil (`Assets/Scripts/Turrets/Pro
 |---|---|---|
 | Repositório no GitHub compartilhado com `rafaelrieder` | ✅ | Eliminatório |
 | Commits de todos os integrantes | ✅ | Os três já têm commits |
-| Somente código-fonte e dependências pertinentes | 🟡 | Remover `Assets.tar.gz`, que está versionado |
+| Somente código-fonte e dependências pertinentes | ✅ | O `Assets.tar.gz` foi removido no [#8][pr8] |
 | Link do executável no README | ❌ | |
 | Link do vídeo demonstrativo no README | ❌ | |
-| Apresentação de 10 min + até 5 min de perguntas | ❌ | Exige domínio do projeto por todo o trio |
+| Apresentação de 10 min + até 5 min de perguntas | ❌ | Em 24/11/2026. Exige domínio do projeto por todo o trio |
 
 ## 🎯 Critérios de Avaliação
 
 | Critério | Pontos | Situação |
 |---|---:|---|
-| Menu principal, com níveis de dificuldade, ranking e informações | 0,5 | ❌ |
-| Modelagem das estruturas, dos inimigos e do cenário: quantidade e variedade | 1,0 | 🟡 Boa variedade de torres, só um inimigo |
-| Movimentação dos inimigos, comportamento das estruturas e projéteis | 2,5 | 🔀 Projéteis no [#6][pr6] |
-| Interatividade: controle, velocidade, gerenciamento de alvos e colisões | 2,5 | 🟡 Falta a interação do jogador. Colisões dos projéteis no [#6][pr6] |
+| Menu principal, com níveis de dificuldade, ranking e informações | 0,5 | 🟡 Menu e Sobre prontos. Dificuldade na branch [`menu-dificuldade`][menu-dificuldade], falta o ranking |
+| Modelagem das estruturas, dos inimigos e do cenário: quantidade e variedade | 1,0 | 🟡 Boa variedade de torres e cenário caprichado, só um inimigo |
+| Movimentação dos inimigos, comportamento das estruturas e projéteis | 2,5 | ✅ |
+| Interatividade: controle, velocidade, gerenciamento de alvos e colisões | 2,5 | 🟡 Alvos, colisões, zoom e pause prontos. Falta o jogador construir torres |
 | Efeitos visuais e recursos sonoros | 1,0 | 🟡 Faltam os sons |
 | Demo em vídeo | 0,5 | ❌ |
 | **Individual:** contribuições no GitHub e domínio na apresentação | 2,0 | Avaliado por integrante |
@@ -168,26 +206,42 @@ A torre só mira e dispara. O dano vem do projétil (`Assets/Scripts/Turrets/Pro
 |---|---|---|
 | [#1][pr1] | Fazenda Abandonada na cena | Em `main` |
 | [#2][pr2] | Sistema de inimigos e o Mimic | Em `main`. A configuração da cena, perdida em um merge, voltou com o [#5][pr5] |
-| [#3][pr3] | Sistema de torres | Entrou só em `feat/turrets`. Chega a `main` pelo [#6][pr6] |
-| [#4][pr4] | Câmera: inclinação, zoom e limites | Em `main`. Por enquanto só está na cena `CameraTests`, falta levar para a cena principal |
+| [#3][pr3] | Sistema de torres | Em `main`, pelo [#6][pr6] |
+| [#4][pr4] | Câmera: inclinação, zoom e limites | Substituído pelo [#9][pr9], que removeu o `CameraController` e a cena `CameraTests` |
 | [#5][pr5] | Restaura a cena e o sistema de inimigos | Em `main` |
-| [#6][pr6] | Torres na Fazenda Abandonada, com projéteis e detecção de colisão | Aberto, já atualizado com a `main` |
+| [#6][pr6] | Torres na Fazenda Abandonada, com projéteis e detecção de colisão | Em `main` |
+| [#7][pr7] | Requisitos do trabalho e situação no README | Em `main` |
+| [#8][pr8] | Ondas, dificuldades e `GameManager`. Remove o `Assets.tar.gz` | Em `main` |
+| [#9][pr9] | Câmera 2.0: novo posicionamento e zoom pelo scroll (`CameraZoom`) | Em `main` |
+| [#10][pr10] | Menu inicial e menu de pause | Em `main` |
+| [#11][pr11] | Correções no mapa: domo cinza, árvores flutuando e margens brancas | Em `main` |
+| [#12][pr12] | Noite com lua, neblina, lâmpadas e grama nova | Em `main`, pelo [#13][pr13] |
+| [#13][pr13] | Leva o [#12][pr12] para a `main` | Em `main` |
+| [`menu-dificuldade`][menu-dificuldade] | Escolha da dificuldade no menu | Branch sem PR |
 
 ## 💡 Extras Planejados
 
 Ideias do grupo que não são exigidas pelo trabalho:
 
-- [ ] Upgrade e venda de torres
+- [ ] Upgrade e venda de torres (`TurretSlot.Clear()` já existe)
 - [ ] Economia: recursos ganhos ao derrotar monstros (`cost` e `bounty` já existem nos dados, falta o sistema)
-- [ ] Pós-processamento com iluminação sombria, vinheta e névoa
+- [x] Pós-processamento com iluminação sombria, vinheta e névoa: [#12][pr12]
 - [ ] Animações de ataque, movimentação e destruição
-- [ ] Tela de pause
-- [ ] HUD com vida da base, recursos, número da onda e seleção de torres
-- [ ] Telas de vitória e game over com opção de reiniciar
-- [ ] Balanceamento do dano das torres contra a vida e a velocidade dos inimigos
+- [x] Tela de pause: [#10][pr10]
+- [ ] HUD com vida da base, recursos, número da onda, tempo restante e seleção de torres (o `WaveManager` e o `GameManager` já expõem esses dados)
+- [ ] Telas de vitória e game over com opção de reiniciar (o `GameManager` já tem os eventos e os métodos)
+- [ ] Balanceamento do dano das torres contra a vida e a velocidade dos inimigos, e do dano dos inimigos contra a vida da base
 - [ ] Otimização para manter o FPS em ondas grandes
 
 **Em aberto:** gerar build para Linux, Windows ou ambos? O trabalho deixa a plataforma livre, e a Unity gera uma build separada para cada sistema.
+
+## 🙏 Créditos
+
+* **Fazenda Abandonada:** [Abandoned Farm | PS1 Environment Asset](https://mcpato.itch.io/abandoned-farm-psx-environment-asset), de McPato, sob licença CC BY 4.0
+* **Torres:** modelos do pacote Sci-Fi Turrets
+* **Fonte do menu:** IM Fell English SC
+
+A lista de recursos de terceiros fica em [`Assets/Credits/THIRD_PARTY_ASSETS.txt`](Assets/Credits/THIRD_PARTY_ASSETS.txt).
 
 [pr1]: https://github.com/GregKmpf/Horror-Defense/pull/1
 [pr2]: https://github.com/GregKmpf/Horror-Defense/pull/2
@@ -195,3 +249,11 @@ Ideias do grupo que não são exigidas pelo trabalho:
 [pr4]: https://github.com/GregKmpf/Horror-Defense/pull/4
 [pr5]: https://github.com/GregKmpf/Horror-Defense/pull/5
 [pr6]: https://github.com/GregKmpf/Horror-Defense/pull/6
+[pr7]: https://github.com/GregKmpf/Horror-Defense/pull/7
+[pr8]: https://github.com/GregKmpf/Horror-Defense/pull/8
+[pr9]: https://github.com/GregKmpf/Horror-Defense/pull/9
+[pr10]: https://github.com/GregKmpf/Horror-Defense/pull/10
+[pr11]: https://github.com/GregKmpf/Horror-Defense/pull/11
+[pr12]: https://github.com/GregKmpf/Horror-Defense/pull/12
+[pr13]: https://github.com/GregKmpf/Horror-Defense/pull/13
+[menu-dificuldade]: https://github.com/GregKmpf/Horror-Defense/tree/menu-dificuldade
