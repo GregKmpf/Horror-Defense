@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Minigun
   m_EditorClassIdentifier: Assembly-CSharp::TurretDefinition
   displayName: Minigun
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 2e27914a6a3688348b3adfc1dad00d8d, type: 3}
+  description: Muitos tiros fracos, de perto.
   prefab: {fileID: 2408771427564057844, guid: ba7a8de317d3f5eb78c54b930443d682, type: 3}
   cost: 125
   range: 9

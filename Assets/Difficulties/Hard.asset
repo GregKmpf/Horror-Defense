@@ -17,6 +17,7 @@ MonoBehaviour:
   timeLimit: 200
   timeBeforeFirstWave: 10
   timeBetweenWaves: 5
+  startingMoney: 300
   healthMultiplier: 1.5
   speedMultiplier: 1.2
   waves:

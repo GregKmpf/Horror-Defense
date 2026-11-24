@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Heavy
   m_EditorClassIdentifier: Assembly-CSharp::TurretDefinition
   displayName: Heavy Turret
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: f648560128f3c6ab2b6eac766bbb4c83, type: 3}
+  description: Tiros rápidos com dano em área. Cara.
   prefab: {fileID: 602508820740039809, guid: 5f3f9a9a06cccef24b8a0ef6a73c5e6c, type: 3}
   cost: 400
   range: 13

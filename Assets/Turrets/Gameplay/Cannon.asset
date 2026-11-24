@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Cannon
   m_EditorClassIdentifier: Assembly-CSharp::TurretDefinition
   displayName: Cannon
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 5038e5667b3a7506e94676d9139de6b0, type: 3}
+  description: Equilibrada, boa contra tudo.
   prefab: {fileID: 6682056345580674551, guid: ac629c7407f1dd8bbacea51f803fc610, type: 3}
   cost: 100
   range: 12

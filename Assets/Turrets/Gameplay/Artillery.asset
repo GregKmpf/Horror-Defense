@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Artillery
   m_EditorClassIdentifier: Assembly-CSharp::TurretDefinition
   displayName: Artillery
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 7b80699473648a6c581693af1958f825, type: 3}
+  description: Alcance longo e dano alto. Mira o inimigo mais forte, mas gira devagar.
   prefab: {fileID: 8250643962744175630, guid: a50afa23aa2cd04abba66fb899e7d82c, type: 3}
   cost: 250
   range: 22
