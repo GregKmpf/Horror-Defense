@@ -95,7 +95,7 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 | Dificuldade | Ondas | Inimigos | Vida | Velocidade | Tempo limite | Antes da 1ª onda | Entre ondas | Dinheiro inicial |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
 | Fácil | 3 | 35 | ×1,0 | ×1,0 | 240 s | 15 s | 8 s | $450 |
-| Difícil | 4 | 86 | ×1,3 | ×1,1 | 300 s | 10 s | 5 s | $450 |
+| Difícil | 4 | 83 | ×1,2 | ×1,1 | 300 s | 10 s | 5 s | $450 |
 
 ### Ambiente e área de jogo
 
@@ -126,7 +126,7 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 | Ter vida e receber dano | ✅ | `Enemy`: [#2][pr2] |
 | Ser removido com vida zero | ✅ | `Enemy`: [#2][pr2] |
 | Causar consequência ao chegar à base | ✅ | Tira vida do `Objetivo`: [#5][pr5] |
-| Quantidade e características variam com a dificuldade | ✅ | Número e tipos de inimigos, e multiplicadores de vida e velocidade: [#8][pr8], [#20](https://github.com/GregKmpf/Horror-Defense/pull/20). O Fácil tem 1 Brute, o Difícil tem 9 |
+| Quantidade e características variam com a dificuldade | ✅ | Número e tipos de inimigos, e multiplicadores de vida e velocidade: [#8][pr8], [#20](https://github.com/GregKmpf/Horror-Defense/pull/20). O Fácil tem 1 Brute, o Difícil tem 8 |
 | Pelo menos 2 comportamentos distintos (recomendado) | ✅ | Quatro tipos de Mimic: **Crawler** (pequeno, rápido e frágil), **Mimic**, **Brute** (grande, lento e resistente) e **Matriarca** (enorme e muito lenta, chega no fim da última onda). Cada um tem vida, velocidade, recompensa, dano à base, tamanho, pernas e cor próprios: [#20](https://github.com/GregKmpf/Horror-Defense/pull/20). Detalhes em [`Assets/Enemies/README.md`](Assets/Enemies/README.md#mimic-types) |
 
 ### Ataques e projéteis
@@ -157,18 +157,20 @@ O `GameManager` ([#8][pr8]) controla a partida. Ao terminar, ele congela o tempo
 |---|---|---|
 | Vitória ao resistir às ondas ou cumprir a missão | ✅ | Vence ao acabarem todas as ondas, com tela de vitória: [#17][pr17]. Inimigos que chegam à base também contam para acabar a onda, mas cada um tira vida dela |
 | Derrota quando a vida da base chega a zero | ✅ | Com tela de derrota: [#17][pr17]. Cada inimigo que chega tira dos 100 de vida da base: 5 (Crawler), 10 (Mimic), 25 (Brute) ou 50 (Matriarca). Sem torres, a base cai na 2ª onda nas duas dificuldades: [#21](https://github.com/GregKmpf/Horror-Defense/pull/21) |
-| Tempo máximo para a missão, com derrota ao esgotar | ✅ | 240 s no Fácil e 300 s no Difícil, que tem uma onda a mais, com derrota ao esgotar. As ondas levam cerca de 155 s e 250 s. O tempo restante fica no HUD e fica vermelho nos últimos 30 s: [#17][pr17], [#21](https://github.com/GregKmpf/Horror-Defense/pull/21) |
+| Tempo máximo para a missão, com derrota ao esgotar | ✅ | 240 s no Fácil e 300 s no Difícil, que tem uma onda a mais, com derrota ao esgotar. As ondas levam cerca de 145 s e 220 s. O tempo restante fica no HUD e fica vermelho nos últimos 30 s: [#17][pr17], [#21](https://github.com/GregKmpf/Horror-Defense/pull/21) |
 
 #### Balanceamento
 
-Testado com um script que joga partidas inteiras no editor, comprando torres numa ordem fixa assim que tem dinheiro: [#21](https://github.com/GregKmpf/Horror-Defense/pull/21).
+Testado com um script que joga partidas inteiras no editor, comprando torres numa ordem fixa assim que tem dinheiro, com o trigger da base do [#19](https://github.com/GregKmpf/Horror-Defense/pull/19): [#21](https://github.com/GregKmpf/Horror-Defense/pull/21).
 
 | Defesa | Fácil | Difícil |
 |---|---|---|
 | Nenhuma torre | Derrota na 2ª onda | Derrota na 2ª onda |
 | 2 Cannons e nada mais | Derrota na 3ª onda | - |
-| Cannons e Miniguns nas portas do celeiro | Vitória com 50 de vida (a Matriarca passa) | Vitória com 25 de vida, ou derrota na 4ª onda |
-| O mesmo, mais Artillery no caminho da Matriarca | Vitória com 100 de vida | Vitória com 75 de vida |
+| Cannons e Miniguns nas portas do celeiro, depois mais torres | Vitória com 50 de vida (a Matriarca passa) | Vitória com 45 de vida (a Matriarca passa) |
+| Portas do celeiro e Artillery no caminho da Matriarca | Vitória com 100 de vida | Vitória com 25 de vida (a Artillery chega tarde e a Matriarca passa) |
+
+A Matriarca tira metade da base, e Cannons e Miniguns sozinhos não a derrubam: é o trabalho da Artillery.
 
 ### Efeitos e som
 

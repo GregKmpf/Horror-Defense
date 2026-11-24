@@ -18,7 +18,7 @@ MonoBehaviour:
   prefab: {fileID: 6682056345580674551, guid: ac629c7407f1dd8bbacea51f803fc610, type: 3}
   cost: 100
   range: 12
-  damage: 25
+  damage: 30
   fireInterval: 1
   maxTargets: 1
   splashRadius: 0
