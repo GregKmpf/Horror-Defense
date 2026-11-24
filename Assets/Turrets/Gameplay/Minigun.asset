@@ -31,3 +31,4 @@ MonoBehaviour:
   projectileSpeed: 60
   muzzleFlashPrefab: {fileID: 8004637776698353156, guid: b0f295063c254cae8894cbeb0c860ac4, type: 3}
   pulsePrefab: {fileID: 0}
+  sound: 1

@@ -37,6 +37,8 @@ Ao rodar a cena `AbandonedFarm` direto, sem passar pelo menu, o jogo usa a dific
 | `1x` / `2x` (canto inferior direito) | Velocidade do jogo |
 | Chamar agora (abaixo da onda) | Começa a próxima onda sem esperar |
 | `Esc` | Pausa: continuar, reiniciar ou voltar ao menu |
+| `Música` / `Sons` (acima da velocidade) | Liga e desliga a música e os efeitos sonoros. A escolha fica salva |
+| `M` | Liga e desliga a música |
 
 ## 📁 Estrutura
 
@@ -71,7 +73,7 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 
 * **Feito:** cenário noturno, base, três entradas de inimigos com caminhos marcados no chão, seis tipos de torre, quatro tipos de inimigo, projéteis com detecção de colisão, ondas, duas dificuldades, tempo limite, vitória e derrota com telas de fim, menu inicial, menu de pause, HUD, construção de torres pelo jogador com dinheiro, controle de velocidade e efeitos visuais.
 * **Fora da `main`:** escolha da dificuldade no menu, na branch [`menu-dificuldade`][menu-dificuldade], ainda sem PR.
-* **Não iniciado:** ranking, sons, build e vídeo.
+* **Não iniciado:** build e vídeo.
 
 ### Jogo e menu
 
@@ -177,7 +179,7 @@ A Matriarca tira metade da base, e Cannons e Miniguns sozinhos não a derrubam: 
 | Requisito | Status | Observação |
 |---|---|---|
 | Efeitos visuais | ✅ | Torres: clarão, projéteis com rastro, impactos, explosões e pulso ([#3][pr3], [#6][pr6]). Fazenda: noite com lua, neblina, névoa no chão, lâmpadas que piscam e pós-processamento ([#12][pr12]), com sombras até 150 m da câmera, onde a neblina já esconde tudo ([#22](https://github.com/GregKmpf/Horror-Defense/pull/22)). Menu: título que falha e vinheta ([#10][pr10]) |
-| Recursos sonoros | ❌ | Não há áudio no projeto, e os sons contam na nota. O pause já pausa o `AudioListener` |
+| Recursos sonoros | ✅ | `GameAudio` (`Assets/Scripts/Audio`): música ambiente em loop e efeitos de tiro por torre, explosões, morte dos inimigos, dano na base, construir e vender, cliques, início de onda, vitória e derrota. Todos gerados por código (`SoundSynth`), sem arquivos de áudio |
 
 ### Repositório e apresentação
 
@@ -198,7 +200,7 @@ A Matriarca tira metade da base, e Cannons e Miniguns sozinhos não a derrubam: 
 | Modelagem das estruturas, dos inimigos e do cenário: quantidade e variedade | 1,0 | ✅ Seis torres, quatro tipos de Mimic e cenário caprichado |
 | Movimentação dos inimigos, comportamento das estruturas e projéteis | 2,5 | ✅ |
 | Interatividade: controle, velocidade, gerenciamento de alvos e colisões | 2,5 | ✅ Construção e venda de torres, alvo preferido por torre, velocidade 1x/2x, zoom, pause e colisões |
-| Efeitos visuais e recursos sonoros | 1,0 | 🟡 Faltam os sons |
+| Efeitos visuais e recursos sonoros | 1,0 | ✅ |
 | Demo em vídeo | 0,5 | ❌ |
 | **Individual:** contribuições no GitHub e domínio na apresentação | 2,0 | Avaliado por integrante |
 | **Total** | **10,0** | |

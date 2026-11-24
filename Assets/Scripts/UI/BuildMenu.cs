@@ -177,6 +177,7 @@ public class BuildMenu : MonoBehaviour
         }
 
         slot.Build(option.Turret);
+        GameAudio.Play(Sfx.Build);
         Open(slot);
     }
 
@@ -192,6 +193,7 @@ public class BuildMenu : MonoBehaviour
             Economy.Instance.Add(Economy.Instance.SellValue(slot.Occupant.definition));
         }
         slot.Clear();
+        GameAudio.Play(Sfx.Sell);
         Open(slot);
     }
 

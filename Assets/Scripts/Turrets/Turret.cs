@@ -275,6 +275,7 @@ public class Turret : MonoBehaviour
 
         Transform muzzle = NextMuzzle();
         Fired?.Invoke(muzzle);
+        GameAudio.PlayTurretShot(definition.sound);
 
         // One projectile for each enemy this shot is aimed at
         PickTargets(Candidates);
