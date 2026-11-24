@@ -170,6 +170,7 @@ public class Projectile : MonoBehaviour
         if (splashRadius > 0f)
         {
             Exploded?.Invoke(point, splashRadius);
+            GameAudio.Play(Sfx.Explosion);
         }
         Finish();
     }

@@ -11,6 +11,17 @@ public enum TargetPriority
     Strongest,
 }
 
+// Which synthesized sound (GameAudio) a turret plays every shot
+public enum TurretSound
+{
+    Cannon,
+    Minigun,
+    Heavy,
+    Artillery,
+    Rocket,
+    Shock,
+}
+
 // Stats for one type of turret. Balance turrets by editing these assets, not their prefabs.
 [CreateAssetMenu(fileName = "TurretDefinition", menuName = "Horror Defense/Turret Definition")]
 public class TurretDefinition : ScriptableObject
@@ -67,4 +78,8 @@ public class TurretDefinition : ScriptableObject
 
     [Tooltip("A ring that spreads from the turret to its range every shot")]
     public PulseRing pulsePrefab;
+
+    [Header("Sound")]
+    [Tooltip("Played every shot, made by GameAudio")]
+    public TurretSound sound = TurretSound.Cannon;
 }
