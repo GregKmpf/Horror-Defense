@@ -202,7 +202,7 @@ A Matriarca tira metade da base, e Cannons e Miniguns sozinhos não a derrubam: 
 | Menu principal, com níveis de dificuldade, ranking e informações | 0,5 | 🟡 Menu e Sobre prontos. Dificuldade na branch [`menu-dificuldade`][menu-dificuldade], falta o ranking |
 | Modelagem das estruturas, dos inimigos e do cenário: quantidade e variedade | 1,0 | ✅ Seis torres, quatro tipos de Mimic e cenário caprichado |
 | Movimentação dos inimigos, comportamento das estruturas e projéteis | 2,5 | ✅ |
-| Interatividade: controle, velocidade, gerenciamento de alvos e colisões | 2,5 | ✅ Construção e venda de torres, alvo preferido por torre, velocidade 1x/2x, câmera livre (mover, girar, inclinar e zoom: [#23](https://github.com/GregKmpf/Horror-Defense/pull/23)), pause e colisões |
+| Interatividade: controle, velocidade, gerenciamento de alvos e colisões | 2,5 | ✅ Construção e venda de torres, alvo preferido por torre, velocidade 1x/2x, câmera livre (mover, girar, inclinar e zoom: [#24](https://github.com/GregKmpf/Horror-Defense/pull/24)), pause e colisões |
 | Efeitos visuais e recursos sonoros | 1,0 | 🟡 Faltam os sons |
 | Demo em vídeo | 0,5 | ❌ |
 | **Individual:** contribuições no GitHub e domínio na apresentação | 2,0 | Avaliado por integrante |
