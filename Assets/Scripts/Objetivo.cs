@@ -1,6 +1,11 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+// A base que os inimigos tentam alcançar. Um inimigo chega quando o collider dele entra no BoxCollider da base,
+// um trigger nas portas do celeiro (OnTriggerEnter): ele some e a base perde o Base Damage do EnemyDefinition dele.
+// A base fica na camada Base, que só colide com a camada Enemy. O inimigo tem um Rigidbody cinemático, então a
+// base não precisa de um.
+[RequireComponent(typeof(BoxCollider))]
 public class Objetivo : MonoBehaviour
 {
     [Header("Vida da base")]
@@ -17,6 +22,7 @@ public class Objetivo : MonoBehaviour
     {
         Instancia = this;
         vidaAtual = vidaMaxima;
+        GetComponent<BoxCollider>().isTrigger = true;
     }
 
     void OnEnable()
@@ -27,6 +33,15 @@ public class Objetivo : MonoBehaviour
     void OnDisable()
     {
         Enemy.AnyReachedBase -= AoInimigoChegar;
+    }
+
+    void OnTriggerEnter(Collider outro)
+    {
+        Enemy inimigo = outro.GetComponentInParent<Enemy>();
+        if (inimigo != null && inimigo.IsAlive)
+        {
+            inimigo.ReachBase();
+        }
     }
 
     void AoInimigoChegar(Enemy inimigo)
@@ -50,10 +65,16 @@ public class Objetivo : MonoBehaviour
         }
     }
 
-    // Desenha uma esfera vermelha na Scene View para você ver a posição
+    // Desenha o trigger da base em vermelho na Scene View, onde os inimigos chegam
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 1.5f);
+
+        BoxCollider caixa = GetComponent<BoxCollider>();
+        if (caixa != null)
+        {
+            Gizmos.matrix = transform.localToWorldMatrix;
+            Gizmos.DrawWireCube(caixa.center, caixa.size);
+        }
     }
 }

@@ -6,7 +6,7 @@ Every enemy is a **Prefab Variant** of `_Template/Enemy_Base.prefab`, so they al
 <Name>.prefab              layer: Enemy
 ├─ Enemy                   health, death, events → <Name>.asset (EnemyDefinition)
 ├─ EnemyMovement           walks an EnemyPath, stays on the Ground layer
-├─ SphereCollider          trigger, what projectiles and clicks hit
+├─ SphereCollider          trigger, what projectiles, clicks and the base's trigger hit
 ├─ Rigidbody               kinematic
 └─ Visual                  model, Animator, effects and enemy-specific scripts
 ```
@@ -41,6 +41,7 @@ enemy lives in its own folder here, e.g. `Mimic/`.
 | Towers       | `Enemy.Active`, `IsAlive`, `RemainingDistance` (smallest = closest to base), `Center` (where they aim) |
 | Projectiles  | Collide with the trigger `SphereCollider` on the Enemy layer, then call `TakeDamage()` |
 | Economy      | `Enemy.AnyDied` → add `enemy.definition.bounty`                              |
+| Base         | `Objetivo` calls `enemy.ReachBase()` when the enemy's collider enters its trigger |
 | Base health  | `Enemy.AnyReachedBase` → subtract `enemy.definition.baseDamage`              |
 
 Subscribe to the static events in `OnEnable` and unsubscribe in `OnDisable`.
