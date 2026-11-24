@@ -25,6 +25,31 @@ enemy lives in its own folder here, e.g. `Mimic/`.
    and assign it to the prefab's `Enemy` component.
 5. To test it, drop the prefab in the scene, set **Starting Path** on its `Enemy` component and press Play.
 
+## Mimic types
+
+Four kinds of Mimic, from a small, fast swarm to a slow boss. The other three are **Prefab Variants** of
+`Mimic/Mimic.prefab`, so they share its scripts and only change numbers, sizes and materials:
+
+| Type      | Health | Speed   | Bounty | Base damage | Hover | Hitbox radius | Legs                          | Colour                       |
+|-----------|-------:|--------:|-------:|------------:|------:|--------------:|-------------------------------|------------------------------|
+| Crawler   | 40     | 8 m/s   | 5      | 1           | 1.8 m | 0.4 m         | 8, thin, reach 5 m            | Pale bone                    |
+| Mimic     | 100    | 5 m/s   | 10     | 1           | 3 m   | 0.5 m         | 12, reach 9 m                 | Black                        |
+| Brute     | 400    | 3 m/s   | 30     | 3           | 4.5 m | 0.9 m         | 12, thick, reach 12.5 m       | Dark rust                    |
+| Matriarch | 1500   | 2 m/s   | 100    | 10          | 6.5 m | 1.4 m         | 16, very thick, reach 17 m    | Black, with a glowing red heart |
+
+Health and speed are before the difficulty's multipliers. Each type has, in `Mimic/`:
+
+| File                            | What it sets                                                                 |
+|---------------------------------|------------------------------------------------------------------------------|
+| `<Type>.asset`                  | Health, speed, bounty and base damage (`EnemyDefinition`)                     |
+| `<Type>.prefab`                 | Hover height (`EnemyMovement` → Ground Offset), hitbox (`SphereCollider` radius), body size and material, death duration, and how many legs and how far they reach (`MimicLegs`) |
+| `Prefabs/<Type>Leg.prefab`      | Variant of `MimicLeg`: strand width and material, how high the leg arches, how fast it grows and wobbles |
+| `Materials/<Type>.mat`          | Colour of the legs and body. The Matriarch's body has its own, `MatriarchBody.mat`, with emission |
+
+To make another type, duplicate the closest one's three files (four with a body material), point the
+prefab at the new definition and leg, and add it to a wave. Keep **Ground Offset** below **Max Leg Distance**,
+or the legs can't reach the ground. The bigger the hitbox, the easier it is for projectiles to hit.
+
 ## Rules
 
 - Stats go in the Enemy Definition asset, not on the prefab.
@@ -71,10 +96,12 @@ index into that list: `0` sends the whole group over the bridge, `-1` sends each
 path in turn, so the group comes from every entrance at once. The turn carries on between groups and
 waves. With the list empty, the `WaveManager` uses every `EnemyPath` in the scene, sorted by name.
 
-| Difficulty | Wave 1      | Wave 2                       | Wave 3     | Wave 4     |
-|------------|-------------|------------------------------|------------|------------|
-| Easy       | 5, Bridge   | 4 West Bank, then 4 North Woods | 12, all | -          |
-| Hard       | 8, all      | 6 West Bank and 6 North Woods | 16, all   | 20, all    |
+| Difficulty | Wave 1                     | Wave 2                                                   | Wave 3                                                           | Wave 4                                                             |
+|------------|----------------------------|----------------------------------------------------------|------------------------------------------------------------------|--------------------------------------------------------------------|
+| Easy       | 5 Mimics, Bridge           | 4 Mimics West Bank, then 6 Crawlers North Woods          | 10 Mimics and 8 Crawlers, all; a Brute West Bank; the Matriarch North Woods | -                                                    |
+| Hard       | 8 Mimics and 6 Crawlers, all | 6 Mimics West Bank, 8 Crawlers North Woods, 2 Brutes West Bank | 12 Mimics, 12 Crawlers and 3 Brutes, all                    | 14 Mimics, 14 Crawlers and 4 Brutes, all; the Matriarch North Woods |
+
+The Matriarch walks the shortest path, North Woods, so the slowest enemy still arrives in time.
 
 ### Trail
 
