@@ -32,6 +32,10 @@ Ao rodar a cena `AbandonedFarm` direto, sem passar pelo menu, o jogo usa a dific
 | Tecla | Ação |
 |---|---|
 | Scroll do mouse | Zoom em direção ao cursor |
+| Clique esquerdo num anel no chão | Abre o menu daquela posição: construir uma torre, ou trocar o alvo e vender a que já está lá |
+| Clique direito | Fecha o menu |
+| `1x` / `2x` (canto inferior direito) | Velocidade do jogo |
+| Chamar agora (abaixo da onda) | Começa a próxima onda sem esperar |
 | `Esc` | Pausa: continuar, reiniciar ou voltar ao menu |
 
 ## 📁 Estrutura
@@ -44,6 +48,7 @@ Ao rodar a cena `AbandonedFarm` direto, sem passar pelo menu, o jogo usa a dific
 | `Assets/Enemies` | Inimigos e o modelo para criar novos. Detalhes em [`Assets/Enemies/README.md`](Assets/Enemies/README.md) |
 | `Assets/Turrets` | Torres, projéteis e efeitos. Detalhes em [`Assets/Turrets/README.md`](Assets/Turrets/README.md) |
 | `Assets/Environment` | A fazenda e a atmosfera noturna (céu, névoa, materiais) |
+| `Assets/UI` | Interface durante o jogo (`GameUI.prefab`). Detalhes em [`Assets/UI/README.md`](Assets/UI/README.md) |
 | `Docs/Screenshots` | Imagens usadas nos PRs |
 
 ## 📦 Entrega
@@ -64,11 +69,10 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 
 ### Resumo da situação
 
-* **Feito:** cenário noturno, base, três entradas de inimigos com caminhos marcados no chão, seis tipos de torre, projéteis com detecção de colisão, ondas, duas dificuldades, tempo limite, vitória e derrota, menu inicial, menu de pause e efeitos visuais.
+* **Feito:** cenário noturno, base, três entradas de inimigos com caminhos marcados no chão, seis tipos de torre, projéteis com detecção de colisão, ondas, duas dificuldades, tempo limite, vitória e derrota com telas de fim, menu inicial, menu de pause, HUD, construção de torres pelo jogador com dinheiro, controle de velocidade e efeitos visuais.
 * **Fora da `main`:** escolha da dificuldade no menu, na branch [`menu-dificuldade`][menu-dificuldade], ainda sem PR.
-* **Não iniciado:** ranking, sons, interface para o jogador construir torres, telas de vitória e derrota, HUD, build e vídeo.
+* **Não iniciado:** ranking, sons, build e vídeo.
 * **Atenção:**
-  * Quando a partida termina, o jogo só congela e mostra o resultado no Console. Não há tela de fim nem HUD com o tempo restante, a onda ou a vida da base.
   * Com os números atuais, a base não chega a ser destruída: tem 100 de vida, o Mimic tira 1 e a dificuldade Difícil tem 56 inimigos. Um inimigo que chega à base também conta para encerrar a onda, então dá para vencer sem defender.
 
 ### Jogo e menu
@@ -114,7 +118,7 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 | Detectar inimigos por alcance | ✅ | [#3][pr3], [#6][pr6] |
 | Selecionar um alvo | ✅ | Prioridades First, Last, Closest e Strongest: [#3][pr3], [#6][pr6] |
 | Atacar, causar dano e aguardar um intervalo | ✅ | [#3][pr3], [#6][pr6] |
-| Jogador posiciona ou ativa as estruturas durante o jogo | 🟡 | `TurretSlot.Build()` existe ([#6][pr6]) e os slots já aparecem no jogo e podem ser apontados pelo mouse ([#16][pr16]), mas falta a interface. Hoje só há um Cannon fixo no `TurretSlot 1` |
+| Jogador posiciona ou ativa as estruturas durante o jogo | ✅ | Clicando num anel no chão, o jogador escolhe a torre e paga com o dinheiro ganho matando inimigos. Também escolhe o alvo preferido de cada torre e pode vendê-la: [#17][pr17] |
 
 ### Inimigos
 
@@ -149,13 +153,13 @@ A torre só mira e dispara. O dano vem do projétil (`Assets/Scripts/Turrets/Pro
 
 ### Vitória e derrota
 
-O `GameManager` ([#8][pr8]) controla a partida. Ao terminar, ele congela o tempo e dispara os eventos `onVictory` e `onDefeat`, que ainda não têm nada ligado. Ele também já tem `Restart()` e `GoToMenu()` para os botões da futura tela de fim.
+O `GameManager` ([#8][pr8]) controla a partida. Ao terminar, ele congela o tempo e dispara o evento `GameEnded`, que abre a tela de fim com o resumo da partida e os botões para jogar de novo ou voltar ao menu ([#17][pr17]).
 
 | Requisito | Status | Observação |
 |---|---|---|
-| Vitória ao resistir às ondas ou cumprir a missão | 🟡 | Vence ao acabarem todas as ondas, mas sem tela. Inimigos que chegam à base também contam para acabar a onda |
-| Derrota quando a vida da base chega a zero | 🟡 | Funciona, mas sem tela. Com 100 de vida na base e 1 de dano por Mimic, não acontece em nenhuma das dificuldades |
-| Tempo máximo para a missão, com derrota ao esgotar | 🟡 | 240 s no Fácil e 200 s no Difícil, com derrota ao esgotar. O tempo restante não aparece na tela |
+| Vitória ao resistir às ondas ou cumprir a missão | ✅ | Vence ao acabarem todas as ondas, com tela de vitória: [#17][pr17]. Inimigos que chegam à base também contam para acabar a onda |
+| Derrota quando a vida da base chega a zero | 🟡 | Funciona, com tela de derrota: [#17][pr17]. Com 100 de vida na base e 1 de dano por Mimic, não acontece em nenhuma das dificuldades |
+| Tempo máximo para a missão, com derrota ao esgotar | ✅ | 240 s no Fácil e 200 s no Difícil, com derrota ao esgotar. O tempo restante fica no HUD e fica vermelho nos últimos 30 s: [#17][pr17] |
 
 ### Efeitos e som
 
@@ -182,7 +186,7 @@ O `GameManager` ([#8][pr8]) controla a partida. Ao terminar, ele congela o tempo
 | Menu principal, com níveis de dificuldade, ranking e informações | 0,5 | 🟡 Menu e Sobre prontos. Dificuldade na branch [`menu-dificuldade`][menu-dificuldade], falta o ranking |
 | Modelagem das estruturas, dos inimigos e do cenário: quantidade e variedade | 1,0 | 🟡 Boa variedade de torres e cenário caprichado, só um inimigo |
 | Movimentação dos inimigos, comportamento das estruturas e projéteis | 2,5 | ✅ |
-| Interatividade: controle, velocidade, gerenciamento de alvos e colisões | 2,5 | 🟡 Alvos, colisões, zoom e pause prontos. Falta o jogador construir torres |
+| Interatividade: controle, velocidade, gerenciamento de alvos e colisões | 2,5 | ✅ Construção e venda de torres, alvo preferido por torre, velocidade 1x/2x, zoom, pause e colisões |
 | Efeitos visuais e recursos sonoros | 1,0 | 🟡 Faltam os sons |
 | Demo em vídeo | 0,5 | ❌ |
 | **Individual:** contribuições no GitHub e domínio na apresentação | 2,0 | Avaliado por integrante |
@@ -219,19 +223,21 @@ O `GameManager` ([#8][pr8]) controla a partida. Ao terminar, ele congela o tempo
 | [#13][pr13] | Leva o [#12][pr12] para a `main` | Em `main` |
 | [#15][pr15] | Três entradas de inimigos, com caminhos marcados no chão e passadiço na ponte | Aberto |
 | [#16][pr16] | 12 posições para torres, marcadas no chão | Aberto, depende do [#15][pr15] |
+| [#17][pr17] | Interface durante o jogo: HUD, construção de torres, economia, velocidade e telas de fim | Aberto, depende do [#16][pr16] |
 | [`menu-dificuldade`][menu-dificuldade] | Escolha da dificuldade no menu | Branch sem PR |
 
 ## 💡 Extras Planejados
 
 Ideias do grupo que não são exigidas pelo trabalho:
 
-- [ ] Upgrade e venda de torres (`TurretSlot.Clear()` já existe)
-- [ ] Economia: recursos ganhos ao derrotar monstros (`cost` e `bounty` já existem nos dados, falta o sistema)
+- [x] Venda de torres: [#17][pr17]
+- [ ] Upgrade de torres
+- [x] Economia: dinheiro ganho ao derrotar monstros e gasto nas torres: [#17][pr17]
 - [x] Pós-processamento com iluminação sombria, vinheta e névoa: [#12][pr12]
 - [ ] Animações de ataque, movimentação e destruição
 - [x] Tela de pause: [#10][pr10]
-- [ ] HUD com vida da base, recursos, número da onda, tempo restante e seleção de torres (o `WaveManager` e o `GameManager` já expõem esses dados)
-- [ ] Telas de vitória e game over com opção de reiniciar (o `GameManager` já tem os eventos e os métodos)
+- [x] HUD com vida da base, dinheiro, número da onda, tempo restante e seleção de torres: [#17][pr17]
+- [x] Telas de vitória e derrota com opção de reiniciar: [#17][pr17]
 - [ ] Balanceamento do dano das torres contra a vida e a velocidade dos inimigos, e do dano dos inimigos contra a vida da base
 - [ ] Otimização para manter o FPS em ondas grandes
 
@@ -260,4 +266,5 @@ A lista de recursos de terceiros fica em [`Assets/Credits/THIRD_PARTY_ASSETS.txt
 [pr13]: https://github.com/GregKmpf/Horror-Defense/pull/13
 [pr15]: https://github.com/GregKmpf/Horror-Defense/pull/15
 [pr16]: https://github.com/GregKmpf/Horror-Defense/pull/16
+[pr17]: https://github.com/GregKmpf/Horror-Defense/pull/17
 [menu-dificuldade]: https://github.com/GregKmpf/Horror-Defense/tree/menu-dificuldade

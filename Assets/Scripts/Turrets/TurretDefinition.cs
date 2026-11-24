@@ -18,6 +18,10 @@ public class TurretDefinition : ScriptableObject
     public string displayName;
     public Sprite icon;
 
+    [Tooltip("One line for the build menu: what the turret is good at")]
+    [TextArea]
+    public string description;
+
     [Tooltip("The turret that gets spawned when this is built on a slot")]
     public Turret prefab;
 

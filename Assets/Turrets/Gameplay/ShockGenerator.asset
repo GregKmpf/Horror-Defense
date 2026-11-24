@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: ShockGenerator
   m_EditorClassIdentifier: Assembly-CSharp::TurretDefinition
   displayName: Shock Generator
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: ddeeaf48e036348f4899652c782ff758, type: 3}
+  description: Um raio em cada inimigo ao alcance.
   prefab: {fileID: 5272325792763033906, guid: f40ed7433cd54764f82955407ed3b5de, type: 3}
   cost: 150
   range: 8

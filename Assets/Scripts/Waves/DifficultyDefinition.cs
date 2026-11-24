@@ -55,6 +55,11 @@ public class DifficultyDefinition : ScriptableObject
     [Min(0f)]
     public float timeBetweenWaves = 8f;
 
+    [Header("Economy")]
+    [Tooltip("Money the player starts with, to build the first turrets. Each kill adds the enemy's Bounty")]
+    [Min(0)]
+    public int startingMoney = 300;
+
     [Header("Enemies")]
     [Tooltip("Multiplies every enemy's Max Health from its EnemyDefinition")]
     [Min(0.01f)]
