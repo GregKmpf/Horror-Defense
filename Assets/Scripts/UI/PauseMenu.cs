@@ -86,6 +86,12 @@ public class PauseMenu : MonoBehaviour
     // Update continua rodando mesmo com o tempo parado, por isso o ESC funciona para despausar
     private void Update()
     {
+        // Com a partida encerrada a tela de fim já está aberta, e "Continuar" descongelaria o jogo
+        if (!Pausado && GameManager.Instance != null && !GameManager.Instance.IsPlaying)
+        {
+            return;
+        }
+
         if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             if (Pausado)
@@ -138,7 +144,7 @@ public class PauseMenu : MonoBehaviour
     private void Retomar()
     {
         Pausado = false;
-        Time.timeScale = 1f;
+        GameSpeed.Resume();           // volta à velocidade escolhida no HUD (1x ou 2x)
         AudioListener.pause = false;
         if (painel != null)
         {
