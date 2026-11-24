@@ -104,7 +104,7 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 | Requisito | Status | Observação |
 |---|---|---|
 | Área de jogo limitada | ✅ | Fazenda Abandonada: [#1][pr1], restaurada no [#5][pr5] e corrigida no [#11][pr11] |
-| Base a ser defendida | ✅ | `Objetivo`, com 100 de vida: [#5][pr5] |
+| Base a ser defendida | ✅ | `Objetivo`, com 100 de vida: [#5][pr5]. Um trigger nas portas norte do celeiro marca onde os inimigos chegam: [#19](https://github.com/GregKmpf/Horror-Defense/pull/19) |
 | Um ou mais pontos de entrada | ✅ | Três: o rio a leste da ponte, o platô do trailer (oeste) e a mata ao norte: [#15][pr15] |
 | Caminho até a base | ✅ | Um `EnemyPath` por entrada, em `EnemyPaths`, todos até as portas norte do celeiro. Um rastro vermelho no chão mostra cada um, e a ponte tem um passadiço invisível para os inimigos andarem sobre ela: [#15][pr15] |
 | Posições para as estruturas defensivas | ✅ | 12 `TurretSlot` ao longo dos três caminhos, cada um marcado no chão por um anel tracejado: [#16][pr16]. Os 4 primeiros vieram do [#6][pr6] |
@@ -148,7 +148,7 @@ A torre só mira e dispara. O dano vem do projétil (`Assets/Scripts/Turrets/Pro
 | Requisito | Status | Observação |
 |---|---|---|
 | Impacto entre projéteis e inimigos | ✅ | `Projectile.OnTriggerEnter`: [#6][pr6] |
-| Chegada dos inimigos à base | 🟡 | Funciona pelo fim do caminho, sem colisão. O [#5][pr5] removeu o trigger que o `Objetivo` tinha, então será preciso recolocá-lo |
+| Chegada dos inimigos à base | ✅ | `Objetivo.OnTriggerEnter` entre o `BoxCollider` (trigger) nas portas norte do celeiro e o `SphereCollider` do inimigo. A camada `Base` só colide com a camada `Enemy`. Se um inimigo chegar ao fim do caminho sem tocar o trigger, ele conta mesmo assim e o Console mostra um aviso: [#19](https://github.com/GregKmpf/Horror-Defense/pull/19) |
 | Destruição ou remoção dos inimigos | ✅ | Por vida zero, e o dano só vem do impacto do projétil: [#6][pr6] |
 
 ### Vitória e derrota
