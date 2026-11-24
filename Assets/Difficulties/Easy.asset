@@ -25,13 +25,21 @@ MonoBehaviour:
       count: 5
       spawnInterval: 2
       delay: 0
+      path: 0
   - groups:
     - prefab: {fileID: 2419891550475240363, guid: a50d1c41b127bcacf8f337c9e160563d, type: 3}
-      count: 8
+      count: 4
       spawnInterval: 1.5
       delay: 0
+      path: 1
+    - prefab: {fileID: 2419891550475240363, guid: a50d1c41b127bcacf8f337c9e160563d, type: 3}
+      count: 4
+      spawnInterval: 1.5
+      delay: 2
+      path: 2
   - groups:
     - prefab: {fileID: 2419891550475240363, guid: a50d1c41b127bcacf8f337c9e160563d, type: 3}
       count: 12
       spawnInterval: 1.2
       delay: 0
+      path: -1
