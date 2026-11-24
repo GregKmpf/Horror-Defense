@@ -17,6 +17,7 @@ MonoBehaviour:
   timeLimit: 200
   timeBeforeFirstWave: 10
   timeBetweenWaves: 5
+  startingMoney: 300
   healthMultiplier: 1.5
   speedMultiplier: 1.2
   waves:
@@ -25,18 +26,27 @@ MonoBehaviour:
       count: 8
       spawnInterval: 1.5
       delay: 0
+      path: -1
   - groups:
     - prefab: {fileID: 2419891550475240363, guid: a50d1c41b127bcacf8f337c9e160563d, type: 3}
-      count: 12
+      count: 6
       spawnInterval: 1.2
       delay: 0
+      path: 1
+    - prefab: {fileID: 2419891550475240363, guid: a50d1c41b127bcacf8f337c9e160563d, type: 3}
+      count: 6
+      spawnInterval: 1.2
+      delay: 0
+      path: 2
   - groups:
     - prefab: {fileID: 2419891550475240363, guid: a50d1c41b127bcacf8f337c9e160563d, type: 3}
       count: 16
       spawnInterval: 1
       delay: 0
+      path: -1
   - groups:
     - prefab: {fileID: 2419891550475240363, guid: a50d1c41b127bcacf8f337c9e160563d, type: 3}
       count: 20
       spawnInterval: 0.8
       delay: 0
+      path: -1

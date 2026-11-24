@@ -28,6 +28,18 @@ public class Turret : MonoBehaviour
 
     public Enemy Target { get; private set; }
 
+    // Which enemy it shoots at first. Starts as the definition's priority, and the player can change it on each
+    // turret through the build UI
+    public TargetPriority Priority
+    {
+        get => priorityOverride ?? definition.priority;
+        set
+        {
+            priorityOverride = value;
+            nextRetarget = 0f;
+        }
+    }
+
     const float RetargetInterval = 0.25f;
 
     static readonly List<Enemy> Candidates = new List<Enemy>();
@@ -38,6 +50,7 @@ public class Turret : MonoBehaviour
     float nextRetarget;
     float nextShot;
     int nextMuzzle;
+    TargetPriority? priorityOverride;
 
     bool CanAim => tower != null || gun != null;
 
@@ -199,7 +212,7 @@ public class Turret : MonoBehaviour
     // The smallest score is the best target
     float Score(Enemy enemy)
     {
-        switch (definition.priority)
+        switch (Priority)
         {
             case TargetPriority.Last:
                 return -enemy.RemainingDistance;

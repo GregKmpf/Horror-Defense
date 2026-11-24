@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
-        Time.timeScale = 1f;
+        GameSpeed.Reset();
 
         if (waves == null)
         {
