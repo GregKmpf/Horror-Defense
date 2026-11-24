@@ -123,16 +123,67 @@ distance it covers in one step. Enemies need a collider on the **Enemy** layer t
 
 ## Build slots
 
-A `TurretSlot` is a predefined spot where a turret can be built. **Slots are placed by hand**: make an empty
-GameObject where a turret should go, add `TurretSlot`, and rotate it the way the turret should face. A green square
-means free and a red one means taken.
+A `TurretSlot` is a predefined spot where a turret can be built. **Slots are placed by hand**: drag
+`Gameplay/TurretSlot.prefab` into the scene under `TurretSlots`, where a turret should go, and rotate it the way the
+turret should face. In the Scene view a green square means free and a red one means taken.
+
+```
+TurretSlot.prefab           layer: TurretSlot
+├─ TurretSlot               builds and removes the turret, keeps the highlight
+├─ BoxCollider              trigger around where the turret stands, for the mouse to point at
+└─ Marker
+   ├─ GroundRing            a dashed ring on the ground, 2 m radius → Effects/FX_SlotRing.mat
+   └─ TurretSlotMarker      what the ring looks like. Only listens to TurretSlot's events
+```
 
 - `Build(definition)` spawns the turret there. It doesn't charge for it, the economy decides whether the player can
   afford it.
 - `Clear()` removes the turret and frees the slot.
-- `TurretSlot.All` lists every slot, for a build UI to highlight and pick from.
+- `SetHighlight(Hovered / Selected / None)` is for whatever points at slots (the build UI). The slot only keeps the
+  state and fires `HighlightChanged`; the marker shows it.
+- `Changed` fires when a turret is built or removed.
+- `TurretSlot.All` lists every slot.
 
-The Abandoned Farm has four slots under `TurretSlots`, on the bank west of the barn where the route comes ashore.
+To find the slot under the mouse, raycast on the **TurretSlot** layer (`TurretSlot.LayerName`) with
+`QueryTriggerInteraction.Collide`. The layer collides with nothing (Project Settings → Physics), it's only there for
+raycasts, so it never gets in the way of projectiles or enemies.
+
+### On the ground
+
+`TurretSlotMarker` shows the slot to the player as a ring around where the turret goes:
+
+| Slot                     | Ring                                                         |
+|--------------------------|--------------------------------------------------------------|
+| Free                     | Pale and faint, slowly breathing, so the player sees where to build |
+| Pointed at (`Hovered`)   | Amber and thicker                                            |
+| Selected                 | Bright amber and thicker                                     |
+| Has a turret             | Hidden, until the slot is pointed at or selected             |
+
+The colours, widths and breathing are on the marker. `GroundRing` lays its points on the first thing on the Ground
+layer below them, so the ring follows the ground instead of floating or sinking. It's a general circle on the ground:
+change its `Radius` and it rebuilds, e.g. to show a turret's range.
+
+### On the Abandoned Farm
+
+Twelve slots under `TurretSlots`, at least 5 m apart (a turret is about 4 m across with its barrel), on flat, dry
+ground clear of the barn, the props and the paths. Each one faces the nearest path. Coverage is how many metres of each
+path are within 12 m (a Cannon's range) and inside the gun's pitch limits:
+
+| Slot | Where                               | Bridge | West Bank | North Woods |
+|------|-------------------------------------|-------:|----------:|------------:|
+| 1    | South yard, facing the jetty        | 28     |           |             |
+| 2    | South shore, facing the bridge      | 16     |           |             |
+| 3    | Corral, south                       | 17     |           |             |
+| 4    | Corral, north                       | 21     |           |             |
+| 5    | West of the barn's doors            | 31     | 28        | 14          |
+| 6    | East of the barn's doors            | 13     | 13        | 17          |
+| 7    | North yard, east                    | 9      | 9         | 22          |
+| 8    | North yard, west                    | 8      | 19        |             |
+| 9    | North of the windmill               |        | 21        |             |
+| 10   | River bank, west of the windmill    |        | 21        |             |
+| 11   | Valley                              |        |           | 18          |
+| 12   | Woods                               |        |           | 20          |
+
 `TurretSlot 1` has a Cannon as its **Starting Turret** so there is a turret in the game until the build UI exists. Clear
 that field when the UI is added.
 
@@ -156,7 +207,7 @@ materials are additive URP particle shaders.
 
 | System       | Uses                                                                       |
 |--------------|----------------------------------------------------------------------------|
-| Build UI     | `TurretSlot.All`, `slot.IsFree`, `slot.Build(definition)`, `definition.cost` |
+| Build UI     | Raycast on the TurretSlot layer, `slot.SetHighlight()`, `slot.IsFree`, `slot.Build(definition)`, `definition.cost` |
 | Economy      | Charge `definition.cost` before calling `Build`                            |
 | Enemies      | A collider on the Enemy layer. Turrets read `Enemy.Active` and `Center`, projectiles call `TakeDamage()` |
 

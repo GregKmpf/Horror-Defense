@@ -103,7 +103,7 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 | Base a ser defendida | ✅ | `Objetivo`, com 100 de vida: [#5][pr5] |
 | Um ou mais pontos de entrada | ✅ | Três: o rio a leste da ponte, o platô do trailer (oeste) e a mata ao norte: [#15][pr15] |
 | Caminho até a base | ✅ | Um `EnemyPath` por entrada, em `EnemyPaths`, todos até as portas norte do celeiro. Um rastro vermelho no chão mostra cada um, e a ponte tem um passadiço invisível para os inimigos andarem sobre ela: [#15][pr15] |
-| Posições para as estruturas defensivas | ✅ | 4 `TurretSlot` na cena: [#6][pr6]. Os slots 1 e 2 saíram do caminho da ponte no [#15][pr15] |
+| Posições para as estruturas defensivas | ✅ | 12 `TurretSlot` ao longo dos três caminhos, cada um marcado no chão por um anel tracejado: [#16][pr16]. Os 4 primeiros vieram do [#6][pr6] |
 | Cenário com pelo menos o tamanho de 30 inimigos enfileirados | ✅ | Rotas de 144 m (ponte), 96 m (oeste) e 75 m (norte), e corpo do Mimic com cerca de 1 m (collider). As pernas o deixam bem mais largo, vale confirmar a escala visualmente |
 
 ### Estruturas defensivas
@@ -114,7 +114,7 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 | Detectar inimigos por alcance | ✅ | [#3][pr3], [#6][pr6] |
 | Selecionar um alvo | ✅ | Prioridades First, Last, Closest e Strongest: [#3][pr3], [#6][pr6] |
 | Atacar, causar dano e aguardar um intervalo | ✅ | [#3][pr3], [#6][pr6] |
-| Jogador posiciona ou ativa as estruturas durante o jogo | 🟡 | `TurretSlot.Build()` existe ([#6][pr6]), mas falta a interface. Hoje só há um Cannon fixo no `TurretSlot 1` |
+| Jogador posiciona ou ativa as estruturas durante o jogo | 🟡 | `TurretSlot.Build()` existe ([#6][pr6]) e os slots já aparecem no jogo e podem ser apontados pelo mouse ([#16][pr16]), mas falta a interface. Hoje só há um Cannon fixo no `TurretSlot 1` |
 
 ### Inimigos
 
@@ -218,6 +218,7 @@ O `GameManager` ([#8][pr8]) controla a partida. Ao terminar, ele congela o tempo
 | [#12][pr12] | Noite com lua, neblina, lâmpadas e grama nova | Em `main`, pelo [#13][pr13] |
 | [#13][pr13] | Leva o [#12][pr12] para a `main` | Em `main` |
 | [#15][pr15] | Três entradas de inimigos, com caminhos marcados no chão e passadiço na ponte | Aberto |
+| [#16][pr16] | 12 posições para torres, marcadas no chão | Aberto, depende do [#15][pr15] |
 | [`menu-dificuldade`][menu-dificuldade] | Escolha da dificuldade no menu | Branch sem PR |
 
 ## 💡 Extras Planejados
@@ -258,4 +259,5 @@ A lista de recursos de terceiros fica em [`Assets/Credits/THIRD_PARTY_ASSETS.txt
 [pr12]: https://github.com/GregKmpf/Horror-Defense/pull/12
 [pr13]: https://github.com/GregKmpf/Horror-Defense/pull/13
 [pr15]: https://github.com/GregKmpf/Horror-Defense/pull/15
+[pr16]: https://github.com/GregKmpf/Horror-Defense/pull/16
 [menu-dificuldade]: https://github.com/GregKmpf/Horror-Defense/tree/menu-dificuldade

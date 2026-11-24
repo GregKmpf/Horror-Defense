@@ -1,18 +1,39 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-// A predefined spot where a turret can be built. Place them by hand in the scene, the turret appears at
-// the slot's position and facing.
+public enum SlotHighlight
+{
+    None,
+    [Tooltip("The mouse is over it")]
+    Hovered,
+    [Tooltip("The player clicked it and its menu is open")]
+    Selected,
+}
+
+// A predefined spot where a turret can be built. Place them by hand in the scene (the TurretSlot prefab), the
+// turret appears at the slot's position and facing.
+// The prefab is on the TurretSlot layer with a trigger around where the turret stands, for the mouse to point
+// at, and a TurretSlotMarker that shows the slot on the ground. Whatever points at slots (the build UI) sets
+// their Highlight; the marker only reacts to it.
 public class TurretSlot : MonoBehaviour
 {
     // Every slot in the loaded scenes, for the build UI to highlight and pick from
     public static readonly List<TurretSlot> All = new List<TurretSlot>();
 
+    public const string LayerName = "TurretSlot";
+
     [Tooltip("Only for testing: builds this turret when the scene starts, without paying for it")]
     public TurretDefinition startingTurret;
 
+    // A turret was built on the slot or removed from it
+    public event Action<TurretSlot> Changed;
+
+    public event Action<TurretSlot> HighlightChanged;
+
     public Turret Occupant { get; private set; }
     public bool IsFree => Occupant == null;
+    public SlotHighlight Highlight { get; private set; }
 
     void OnEnable()
     {
@@ -48,6 +69,7 @@ public class TurretSlot : MonoBehaviour
 
         Occupant = Instantiate(definition.prefab, transform.position, transform.rotation, transform);
         Occupant.definition = definition;
+        Changed?.Invoke(this);
         return Occupant;
     }
 
@@ -58,6 +80,16 @@ public class TurretSlot : MonoBehaviour
         {
             Destroy(Occupant.gameObject);
             Occupant = null;
+            Changed?.Invoke(this);
+        }
+    }
+
+    public void SetHighlight(SlotHighlight highlight)
+    {
+        if (highlight != Highlight)
+        {
+            Highlight = highlight;
+            HighlightChanged?.Invoke(this);
         }
     }
 
