@@ -181,7 +181,7 @@ A Matriarca tira metade da base, e Cannons e Miniguns sozinhos não a derrubam: 
 
 | Requisito | Status | Observação |
 |---|---|---|
-| Efeitos visuais | ✅ | Torres: clarão, projéteis com rastro, impactos, explosões e pulso ([#3][pr3], [#6][pr6]). Fazenda: noite com lua, neblina, névoa no chão, lâmpadas que piscam e pós-processamento ([#12][pr12]). Menu: título que falha e vinheta ([#10][pr10]) |
+| Efeitos visuais | ✅ | Torres: clarão, projéteis com rastro, impactos, explosões e pulso ([#3][pr3], [#6][pr6]). Fazenda: noite com lua, neblina, névoa no chão, lâmpadas que piscam e pós-processamento ([#12][pr12]), com sombras até 150 m da câmera, onde a neblina já esconde tudo ([#22](https://github.com/GregKmpf/Horror-Defense/pull/22)). Menu: título que falha e vinheta ([#10][pr10]) |
 | Recursos sonoros | ❌ | Não há áudio no projeto, e os sons contam na nota. O pause já pausa o `AudioListener` |
 
 ### Repositório e apresentação
