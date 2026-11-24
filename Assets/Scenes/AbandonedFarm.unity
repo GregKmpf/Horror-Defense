@@ -497,7 +497,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4386695874901734665, guid: 7878b2ff80d52c668b4352b44b3f0c3a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.4999924
+      value: 3.85
       objectReference: {fileID: 0}
     - target: {fileID: 4386695874901734665, guid: 7878b2ff80d52c668b4352b44b3f0c3a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -505,7 +505,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4386695874901734665, guid: 7878b2ff80d52c668b4352b44b3f0c3a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.4999952
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: 4386695874901734665, guid: 7878b2ff80d52c668b4352b44b3f0c3a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -559,7 +559,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4386695874901734665, guid: 7878b2ff80d52c668b4352b44b3f0c3a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.999998
+      value: -7.73
       objectReference: {fileID: 0}
     - target: {fileID: 4386695874901734665, guid: 7878b2ff80d52c668b4352b44b3f0c3a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -567,7 +567,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4386695874901734665, guid: 7878b2ff80d52c668b4352b44b3f0c3a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -16.499996
+      value: -13.56
       objectReference: {fileID: 0}
     - target: {fileID: 4386695874901734665, guid: 7878b2ff80d52c668b4352b44b3f0c3a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8245,7 +8245,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1470715247}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.4922893, y: 0.219980985, z: -0.130152389, w: 0.832057655}
+  m_LocalRotation: {x: 0.4922893, y: 0.21998098, z: -0.13015239, w: 0.83205765}
   m_LocalPosition: {x: -4.01, y: 85.21, z: -40.91}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
