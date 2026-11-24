@@ -25,6 +25,10 @@ Builds da `main` no commit [`8c6a63e`](https://github.com/GregKmpf/Horror-Defens
 | Windows | [Windows.zip](https://drive.google.com/file/d/1UBEektrAGNDCISWeeoX_gIDmzKmmaKTo/view?usp=sharing) | Extraia o `.zip` e rode `Windows/HorrorDefense.exe` |
 | Linux | [Linux.tar.gz](https://drive.google.com/file/d/1C1jouVm5jD21cnipmZU1BM3oVLd_VZA3/view?usp=sharing) | Extraia com `tar xzf Linux.tar.gz` e rode `Linux/HorrorDefense.x86_64` |
 
+## 🎬 Vídeo Demonstrativo
+
+[Assistir à demo no Google Drive](https://drive.google.com/file/d/1ehzKzTwczypZHuRfbPgCKYTMMnHeEeE4/view?usp=sharing)
+
 ## 🚀 Como Executar o Projeto
 
 1. Clone o repositório:
@@ -70,7 +74,7 @@ Ao rodar a cena `AbandonedFarm` direto, sem passar pelo menu, o jogo usa a dific
 ## 📦 Entrega
 
 * **Executável do jogo:** [Windows](https://drive.google.com/file/d/1UBEektrAGNDCISWeeoX_gIDmzKmmaKTo/view?usp=sharing) e [Linux](https://drive.google.com/file/d/1C1jouVm5jD21cnipmZU1BM3oVLd_VZA3/view?usp=sharing). Como abrir em [Baixar o Jogo](#-baixar-o-jogo)
-* **Vídeo demonstrativo:** _link pendente_
+* **Vídeo demonstrativo:** [Google Drive](https://drive.google.com/file/d/1ehzKzTwczypZHuRfbPgCKYTMMnHeEeE4/view?usp=sharing)
 
 ## 📋 Requisitos do Trabalho
 
@@ -85,8 +89,7 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 
 ### Resumo da situação
 
-* **Feito:** cenário noturno, base, três entradas de inimigos com caminhos marcados no chão, seis tipos de torre, quatro tipos de inimigo, projéteis com detecção de colisão, ondas, duas dificuldades, tempo limite, vitória e derrota com telas de fim, menu inicial com escolha da dificuldade, ranking e informações, menu de pause, HUD, construção de torres pelo jogador com dinheiro, controle de velocidade, câmera livre, efeitos visuais, música e efeitos sonoros, e build para Windows e Linux.
-* **Não iniciado:** vídeo.
+* **Feito:** cenário noturno, base, três entradas de inimigos com caminhos marcados no chão, seis tipos de torre, quatro tipos de inimigo, projéteis com detecção de colisão, ondas, duas dificuldades, tempo limite, vitória e derrota com telas de fim, menu inicial com escolha da dificuldade, ranking e informações, menu de pause, HUD, construção de torres pelo jogador com dinheiro, controle de velocidade, câmera livre, efeitos visuais, música e efeitos sonoros, build para Windows e Linux, e vídeo demonstrativo.
 
 ### Jogo e menu
 
@@ -202,7 +205,7 @@ A Matriarca tira metade da base, e Cannons e Miniguns sozinhos não a derrubam: 
 | Commits de todos os integrantes | ✅ | Os três já têm commits |
 | Somente código-fonte e dependências pertinentes | ✅ | O `Assets.tar.gz` foi removido no [#8][pr8] |
 | Link do executável no README | ✅ | [Baixar o Jogo](#-baixar-o-jogo) |
-| Link do vídeo demonstrativo no README | ❌ | |
+| Link do vídeo demonstrativo no README | ✅ | [Vídeo Demonstrativo](#-vídeo-demonstrativo) |
 | Apresentação de 10 min + até 5 min de perguntas | ❌ | Em 24/11/2026. Exige domínio do projeto por todo o trio |
 
 ## 🎯 Critérios de Avaliação
@@ -214,7 +217,7 @@ A Matriarca tira metade da base, e Cannons e Miniguns sozinhos não a derrubam: 
 | Movimentação dos inimigos, comportamento das estruturas e projéteis | 2,5 | ✅ |
 | Interatividade: controle, velocidade, gerenciamento de alvos e colisões | 2,5 | ✅ Construção e venda de torres, alvo preferido por torre, velocidade 1x/2x, câmera livre (mover, girar, inclinar e zoom: [#24](https://github.com/GregKmpf/Horror-Defense/pull/24)), pause e colisões |
 | Efeitos visuais e recursos sonoros | 1,0 | ✅ Noite com neblina, lâmpadas e pós-processamento, efeitos das torres, música e efeitos sonoros: [#12][pr12], [#25][pr25] |
-| Demo em vídeo | 0,5 | ❌ |
+| Demo em vídeo | 0,5 | ✅ [Vídeo Demonstrativo](#-vídeo-demonstrativo) |
 | **Individual:** contribuições no GitHub e domínio na apresentação | 2,0 | Avaliado por integrante |
 | **Total** | **10,0** | |
 | **Extra:** suporte a Realidade Virtual ou Aumentada | +1,0 | Opcional, não iniciado |
