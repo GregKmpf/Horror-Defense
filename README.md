@@ -69,11 +69,9 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 
 ### Resumo da situação
 
-* **Feito:** cenário noturno, base, três entradas de inimigos com caminhos marcados no chão, seis tipos de torre, projéteis com detecção de colisão, ondas, duas dificuldades, tempo limite, vitória e derrota com telas de fim, menu inicial, menu de pause, HUD, construção de torres pelo jogador com dinheiro, controle de velocidade e efeitos visuais.
+* **Feito:** cenário noturno, base, três entradas de inimigos com caminhos marcados no chão, seis tipos de torre, quatro tipos de inimigo, projéteis com detecção de colisão, ondas, duas dificuldades, tempo limite, vitória e derrota com telas de fim, menu inicial, menu de pause, HUD, construção de torres pelo jogador com dinheiro, controle de velocidade e efeitos visuais.
 * **Fora da `main`:** escolha da dificuldade no menu, na branch [`menu-dificuldade`][menu-dificuldade], ainda sem PR.
 * **Não iniciado:** ranking, sons, build e vídeo.
-* **Atenção:**
-  * Com os números atuais, a base não chega a ser destruída: tem 100 de vida, o Mimic tira 1 e a dificuldade Difícil tem 56 inimigos. Um inimigo que chega à base também conta para encerrar a onda, então dá para vencer sem defender.
 
 ### Jogo e menu
 
@@ -92,19 +90,19 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 |---|---|---|
 | Uma ou mais ondas de inimigos | ✅ | `WaveManager`: [#8][pr8]. Cada grupo de uma onda vem de uma entrada, ou de todas, alternando: [#15][pr15] |
 | Pelo menos 2 níveis de dificuldade | ✅ | Fácil e Difícil (`Assets/Difficulties`): [#8][pr8] |
-| Pelo menos 5 inimigos no nível mais simples | ✅ | Fácil: 3 ondas, com 5, 8 e 12 Mimics (25 no total) |
+| Pelo menos 5 inimigos no nível mais simples | ✅ | Fácil: 3 ondas, com 5, 10 e 20 inimigos (35 no total) |
 
-| Dificuldade | Ondas | Inimigos | Vida | Velocidade | Tempo limite | Antes da 1ª onda | Entre ondas |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| Fácil | 3 | 25 | ×1,0 | ×1,0 | 240 s | 15 s | 8 s |
-| Difícil | 4 | 56 | ×1,5 | ×1,2 | 200 s | 10 s | 5 s |
+| Dificuldade | Ondas | Inimigos | Vida | Velocidade | Tempo limite | Antes da 1ª onda | Entre ondas | Dinheiro inicial |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Fácil | 3 | 35 | ×1,0 | ×1,0 | 240 s | 15 s | 8 s | $450 |
+| Difícil | 4 | 83 | ×1,2 | ×1,1 | 300 s | 10 s | 5 s | $450 |
 
 ### Ambiente e área de jogo
 
 | Requisito | Status | Observação |
 |---|---|---|
 | Área de jogo limitada | ✅ | Fazenda Abandonada: [#1][pr1], restaurada no [#5][pr5] e corrigida no [#11][pr11] |
-| Base a ser defendida | ✅ | `Objetivo`, com 100 de vida: [#5][pr5] |
+| Base a ser defendida | ✅ | `Objetivo`, com 100 de vida: [#5][pr5]. Um trigger nas portas norte do celeiro marca onde os inimigos chegam: [#19](https://github.com/GregKmpf/Horror-Defense/pull/19) |
 | Um ou mais pontos de entrada | ✅ | Três: o rio a leste da ponte, o platô do trailer (oeste) e a mata ao norte: [#15][pr15] |
 | Caminho até a base | ✅ | Um `EnemyPath` por entrada, em `EnemyPaths`, todos até as portas norte do celeiro. Um rastro vermelho no chão mostra cada um, e a ponte tem um passadiço invisível para os inimigos andarem sobre ela: [#15][pr15] |
 | Posições para as estruturas defensivas | ✅ | 12 `TurretSlot` ao longo dos três caminhos, cada um marcado no chão por um anel tracejado: [#16][pr16]. Os 4 primeiros vieram do [#6][pr6] |
@@ -128,8 +126,8 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 | Ter vida e receber dano | ✅ | `Enemy`: [#2][pr2] |
 | Ser removido com vida zero | ✅ | `Enemy`: [#2][pr2] |
 | Causar consequência ao chegar à base | ✅ | Tira vida do `Objetivo`: [#5][pr5] |
-| Quantidade e características variam com a dificuldade | ✅ | Número de inimigos e multiplicadores de vida e velocidade: [#8][pr8] |
-| Pelo menos 2 comportamentos distintos (recomendado) | 🟡 | Só existe o Mimic. O modelo `Enemy_Base` já facilita criar outros |
+| Quantidade e características variam com a dificuldade | ✅ | Número e tipos de inimigos, e multiplicadores de vida e velocidade: [#8][pr8], [#20](https://github.com/GregKmpf/Horror-Defense/pull/20). O Fácil tem 1 Brute, o Difícil tem 8 |
+| Pelo menos 2 comportamentos distintos (recomendado) | ✅ | Quatro tipos de Mimic: **Crawler** (pequeno, rápido e frágil), **Mimic**, **Brute** (grande, lento e resistente) e **Matriarca** (enorme e muito lenta, chega no fim da última onda). Cada um tem vida, velocidade, recompensa, dano à base, tamanho, pernas e cor próprios: [#20](https://github.com/GregKmpf/Horror-Defense/pull/20). Detalhes em [`Assets/Enemies/README.md`](Assets/Enemies/README.md#mimic-types) |
 
 ### Ataques e projéteis
 
@@ -148,7 +146,7 @@ A torre só mira e dispara. O dano vem do projétil (`Assets/Scripts/Turrets/Pro
 | Requisito | Status | Observação |
 |---|---|---|
 | Impacto entre projéteis e inimigos | ✅ | `Projectile.OnTriggerEnter`: [#6][pr6] |
-| Chegada dos inimigos à base | 🟡 | Funciona pelo fim do caminho, sem colisão. O [#5][pr5] removeu o trigger que o `Objetivo` tinha, então será preciso recolocá-lo |
+| Chegada dos inimigos à base | ✅ | `Objetivo.OnTriggerEnter` entre o `BoxCollider` (trigger) nas portas norte do celeiro e o `SphereCollider` do inimigo. A camada `Base` só colide com a camada `Enemy`. Se um inimigo chegar ao fim do caminho sem tocar o trigger, ele conta mesmo assim e o Console mostra um aviso: [#19](https://github.com/GregKmpf/Horror-Defense/pull/19) |
 | Destruição ou remoção dos inimigos | ✅ | Por vida zero, e o dano só vem do impacto do projétil: [#6][pr6] |
 
 ### Vitória e derrota
@@ -157,9 +155,22 @@ O `GameManager` ([#8][pr8]) controla a partida. Ao terminar, ele congela o tempo
 
 | Requisito | Status | Observação |
 |---|---|---|
-| Vitória ao resistir às ondas ou cumprir a missão | ✅ | Vence ao acabarem todas as ondas, com tela de vitória: [#17][pr17]. Inimigos que chegam à base também contam para acabar a onda |
-| Derrota quando a vida da base chega a zero | 🟡 | Funciona, com tela de derrota: [#17][pr17]. Com 100 de vida na base e 1 de dano por Mimic, não acontece em nenhuma das dificuldades |
-| Tempo máximo para a missão, com derrota ao esgotar | ✅ | 240 s no Fácil e 200 s no Difícil, com derrota ao esgotar. O tempo restante fica no HUD e fica vermelho nos últimos 30 s: [#17][pr17] |
+| Vitória ao resistir às ondas ou cumprir a missão | ✅ | Vence ao acabarem todas as ondas, com tela de vitória: [#17][pr17]. Inimigos que chegam à base também contam para acabar a onda, mas cada um tira vida dela |
+| Derrota quando a vida da base chega a zero | ✅ | Com tela de derrota: [#17][pr17]. Cada inimigo que chega tira dos 100 de vida da base: 5 (Crawler), 10 (Mimic), 25 (Brute) ou 50 (Matriarca). Sem torres, a base cai na 2ª onda nas duas dificuldades: [#21](https://github.com/GregKmpf/Horror-Defense/pull/21) |
+| Tempo máximo para a missão, com derrota ao esgotar | ✅ | 240 s no Fácil e 300 s no Difícil, que tem uma onda a mais, com derrota ao esgotar. As ondas levam cerca de 145 s e 220 s. O tempo restante fica no HUD e fica vermelho nos últimos 30 s: [#17][pr17], [#21](https://github.com/GregKmpf/Horror-Defense/pull/21) |
+
+#### Balanceamento
+
+Testado com um script que joga partidas inteiras no editor, comprando torres numa ordem fixa assim que tem dinheiro, com o trigger da base do [#19](https://github.com/GregKmpf/Horror-Defense/pull/19): [#21](https://github.com/GregKmpf/Horror-Defense/pull/21).
+
+| Defesa | Fácil | Difícil |
+|---|---|---|
+| Nenhuma torre | Derrota na 2ª onda | Derrota na 2ª onda |
+| 2 Cannons e nada mais | Derrota na 3ª onda | - |
+| Cannons e Miniguns nas portas do celeiro, depois mais torres | Vitória com 50 de vida (a Matriarca passa) | Vitória com 45 de vida (a Matriarca passa) |
+| Portas do celeiro e Artillery no caminho da Matriarca | Vitória com 100 de vida | Vitória com 25 de vida (a Artillery chega tarde e a Matriarca passa) |
+
+A Matriarca tira metade da base, e Cannons e Miniguns sozinhos não a derrubam: é o trabalho da Artillery.
 
 ### Efeitos e som
 
@@ -184,7 +195,7 @@ O `GameManager` ([#8][pr8]) controla a partida. Ao terminar, ele congela o tempo
 | Critério | Pontos | Situação |
 |---|---:|---|
 | Menu principal, com níveis de dificuldade, ranking e informações | 0,5 | 🟡 Menu e Sobre prontos. Dificuldade na branch [`menu-dificuldade`][menu-dificuldade], falta o ranking |
-| Modelagem das estruturas, dos inimigos e do cenário: quantidade e variedade | 1,0 | 🟡 Boa variedade de torres e cenário caprichado, só um inimigo |
+| Modelagem das estruturas, dos inimigos e do cenário: quantidade e variedade | 1,0 | ✅ Seis torres, quatro tipos de Mimic e cenário caprichado |
 | Movimentação dos inimigos, comportamento das estruturas e projéteis | 2,5 | ✅ |
 | Interatividade: controle, velocidade, gerenciamento de alvos e colisões | 2,5 | ✅ Construção e venda de torres, alvo preferido por torre, velocidade 1x/2x, zoom, pause e colisões |
 | Efeitos visuais e recursos sonoros | 1,0 | 🟡 Faltam os sons |
@@ -238,7 +249,7 @@ Ideias do grupo que não são exigidas pelo trabalho:
 - [x] Tela de pause: [#10][pr10]
 - [x] HUD com vida da base, dinheiro, número da onda, tempo restante e seleção de torres: [#17][pr17]
 - [x] Telas de vitória e derrota com opção de reiniciar: [#17][pr17]
-- [ ] Balanceamento do dano das torres contra a vida e a velocidade dos inimigos, e do dano dos inimigos contra a vida da base
+- [x] Balanceamento do dano das torres contra a vida e a velocidade dos inimigos, e do dano dos inimigos contra a vida da base: [#21](https://github.com/GregKmpf/Horror-Defense/pull/21)
 - [ ] Otimização para manter o FPS em ondas grandes
 
 **Em aberto:** gerar build para Linux, Windows ou ambos? O trabalho deixa a plataforma livre, e a Unity gera uma build separada para cada sistema.

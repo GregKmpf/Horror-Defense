@@ -4,7 +4,8 @@ using UnityEngine;
 
 // The part of an enemy every other system talks to: the wave manager spawns it and calls Init, towers pick
 // targets from Active and their projectiles call TakeDamage when they collide with the enemy's collider, the
-// economy and the base listen to AnyDied and AnyReachedBase.
+// base calls ReachBase when the same collider enters its trigger, the economy and the base listen to AnyDied
+// and AnyReachedBase.
 // Anything specific to one enemy goes under the prefab's Visual child and only reacts to the events here.
 [RequireComponent(typeof(EnemyMovement))]
 public class Enemy : MonoBehaviour
@@ -46,7 +47,7 @@ public class Enemy : MonoBehaviour
     {
         hitbox = GetComponent<Collider>();
         Movement = GetComponent<EnemyMovement>();
-        Movement.ReachedEnd += ReachBase;
+        Movement.ReachedEnd += ReachEndOfPath;
     }
 
     void Start()
@@ -105,7 +106,8 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject, deathDuration);
     }
 
-    void ReachBase()
+    // Called by the base (Objetivo) when this enemy's collider enters its trigger
+    public void ReachBase()
     {
         if (!IsAlive)
         {
@@ -115,6 +117,20 @@ public class Enemy : MonoBehaviour
         Deactivate();
         AnyReachedBase?.Invoke(this);
         Destroy(gameObject);
+    }
+
+    // Paths end inside the base's trigger, so an enemy should touch it first. If one gets here anyway, the base
+    // has no trigger or it doesn't cover the end of this path: count the enemy so the wave isn't stuck waiting
+    void ReachEndOfPath()
+    {
+        if (!IsAlive)
+        {
+            return;
+        }
+
+        Debug.LogWarning($"{name} reached the end of its path without touching the base's trigger. " +
+                         "Check that the Objetivo's collider covers where the paths end", this);
+        ReachBase();
     }
 
     void Deactivate()
