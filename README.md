@@ -31,9 +31,14 @@ Ao rodar a cena `AbandonedFarm` direto, sem passar pelo menu, o jogo usa a dific
 
 | Tecla | Ação |
 |---|---|
+| `W` `A` `S` `D` ou setas | Move a câmera pelo mapa. Com `Shift`, mais rápido |
+| Arrastar com o botão do meio | Arrasta o mapa |
+| Arrastar com o botão direito | Gira a câmera em volta do ponto que ela olha e muda a inclinação |
+| `Q` / `E` | Gira a câmera para a esquerda / direita |
 | Scroll do mouse | Zoom em direção ao cursor |
+| `Home` | Volta a câmera para a posição inicial |
 | Clique esquerdo num anel no chão | Abre o menu daquela posição: construir uma torre, ou trocar o alvo e vender a que já está lá |
-| Clique direito | Fecha o menu |
+| Clique direito, sem arrastar | Fecha o menu |
 | `1x` / `2x` (canto inferior direito) | Velocidade do jogo |
 | Chamar agora (abaixo da onda) | Começa a próxima onda sem esperar |
 | `Esc` | Pausa: continuar, reiniciar ou voltar ao menu |
@@ -71,7 +76,7 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 
 ### Resumo da situação
 
-* **Feito:** cenário noturno, base, três entradas de inimigos com caminhos marcados no chão, seis tipos de torre, quatro tipos de inimigo, projéteis com detecção de colisão, ondas, duas dificuldades, tempo limite, vitória e derrota com telas de fim, menu inicial, menu de pause, HUD, construção de torres pelo jogador com dinheiro, controle de velocidade e efeitos visuais.
+* **Feito:** cenário noturno, base, três entradas de inimigos com caminhos marcados no chão, seis tipos de torre, quatro tipos de inimigo, projéteis com detecção de colisão, ondas, duas dificuldades, tempo limite, vitória e derrota com telas de fim, menu inicial, menu de pause, HUD, construção de torres pelo jogador com dinheiro, controle de velocidade, câmera livre e efeitos visuais.
 * **Fora da `main`:** escolha da dificuldade no menu, na branch [`menu-dificuldade`][menu-dificuldade], ainda sem PR.
 * **Não iniciado:** build e vídeo.
 
@@ -199,7 +204,7 @@ A Matriarca tira metade da base, e Cannons e Miniguns sozinhos não a derrubam: 
 | Menu principal, com níveis de dificuldade, ranking e informações | 0,5 | 🟡 Menu e Sobre prontos. Dificuldade na branch [`menu-dificuldade`][menu-dificuldade], falta o ranking |
 | Modelagem das estruturas, dos inimigos e do cenário: quantidade e variedade | 1,0 | ✅ Seis torres, quatro tipos de Mimic e cenário caprichado |
 | Movimentação dos inimigos, comportamento das estruturas e projéteis | 2,5 | ✅ |
-| Interatividade: controle, velocidade, gerenciamento de alvos e colisões | 2,5 | ✅ Construção e venda de torres, alvo preferido por torre, velocidade 1x/2x, zoom, pause e colisões |
+| Interatividade: controle, velocidade, gerenciamento de alvos e colisões | 2,5 | ✅ Construção e venda de torres, alvo preferido por torre, velocidade 1x/2x, câmera livre (mover, girar, inclinar e zoom: [#24](https://github.com/GregKmpf/Horror-Defense/pull/24)), pause e colisões |
 | Efeitos visuais e recursos sonoros | 1,0 | ✅ |
 | Demo em vídeo | 0,5 | ❌ |
 | **Individual:** contribuições no GitHub e domínio na apresentação | 2,0 | Avaliado por integrante |
