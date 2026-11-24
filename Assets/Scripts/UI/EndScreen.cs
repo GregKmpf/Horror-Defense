@@ -17,6 +17,7 @@ public class EndScreen : MonoBehaviour
     public Color defeatColor = new Color(0.75f, 0.12f, 0.09f);
 
     GameManager game;
+    int score;
 
     void Start()
     {
@@ -28,6 +29,7 @@ public class EndScreen : MonoBehaviour
         }
 
         game.GameEnded += Show;
+        Enemy.AnyDied += CountScore;
         restartButton.onClick.AddListener(game.Restart);
         menuButton.onClick.AddListener(game.GoToMenu);
         menuButton.gameObject.SetActive(!string.IsNullOrEmpty(game.menuScene));
@@ -35,9 +37,19 @@ public class EndScreen : MonoBehaviour
 
     void OnDestroy()
     {
+        Enemy.AnyDied -= CountScore;
         if (game != null)
         {
             game.GameEnded -= Show;
+        }
+    }
+
+    void CountScore(Enemy enemy)
+    {
+        GameManager manager = GameManager.Instance;
+        if (enemy.definition != null && manager != null && manager.IsPlaying)
+        {
+            score += enemy.definition.bounty;
         }
     }
 
@@ -63,10 +75,15 @@ public class EndScreen : MonoBehaviour
                 break;
         }
 
+        int place = Ranking.Salvar(game.Difficulty, score, game.TimeElapsed);
+        string placeText = place > 0 ? $"{place}º" : "fora do top 5";
+
         int health = Objetivo.Instancia != null ? Objetivo.Instancia.vidaAtual : 0;
         int maxHealth = Objetivo.Instancia != null ? Objetivo.Instancia.vidaMaxima : 0;
         stats.text =
             $"Dificuldade  <b>{game.Difficulty.displayName}</b>\n" +
+            $"Pontos  <b>{score}</b>\n" +
+            $"Ranking  <b>{placeText}</b>\n" + 
             $"Tempo  <b>{UIFormat.Time(game.TimeElapsed)}</b>\n" +
             $"Inimigos mortos  <b>{game.EnemiesKilled}</b>\n" +
             $"Chegaram ao celeiro  <b>{game.EnemiesReachedBase}</b>\n" +
