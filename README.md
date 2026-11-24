@@ -69,11 +69,11 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 
 ### Resumo da situação
 
-* **Feito:** cenário noturno, base, três entradas de inimigos com caminhos marcados no chão, seis tipos de torre, projéteis com detecção de colisão, ondas, duas dificuldades, tempo limite, vitória e derrota com telas de fim, menu inicial, menu de pause, HUD, construção de torres pelo jogador com dinheiro, controle de velocidade e efeitos visuais.
+* **Feito:** cenário noturno, base, três entradas de inimigos com caminhos marcados no chão, seis tipos de torre, quatro tipos de inimigo, projéteis com detecção de colisão, ondas, duas dificuldades, tempo limite, vitória e derrota com telas de fim, menu inicial, menu de pause, HUD, construção de torres pelo jogador com dinheiro, controle de velocidade e efeitos visuais.
 * **Fora da `main`:** escolha da dificuldade no menu, na branch [`menu-dificuldade`][menu-dificuldade], ainda sem PR.
 * **Não iniciado:** ranking, sons, build e vídeo.
 * **Atenção:**
-  * Com os números atuais, a base não chega a ser destruída: tem 100 de vida, o Mimic tira 1 e a dificuldade Difícil tem 56 inimigos. Um inimigo que chega à base também conta para encerrar a onda, então dá para vencer sem defender.
+  * Com os números atuais, a base quase não perde vida: tem 100, e cada inimigo que chega tira de 1 (Crawler e Mimic) a 10 (Matriarca). Sem nenhuma torre, o Fácil termina em vitória. Um inimigo que chega à base também conta para encerrar a onda.
 
 ### Jogo e menu
 
@@ -92,12 +92,12 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 |---|---|---|
 | Uma ou mais ondas de inimigos | ✅ | `WaveManager`: [#8][pr8]. Cada grupo de uma onda vem de uma entrada, ou de todas, alternando: [#15][pr15] |
 | Pelo menos 2 níveis de dificuldade | ✅ | Fácil e Difícil (`Assets/Difficulties`): [#8][pr8] |
-| Pelo menos 5 inimigos no nível mais simples | ✅ | Fácil: 3 ondas, com 5, 8 e 12 Mimics (25 no total) |
+| Pelo menos 5 inimigos no nível mais simples | ✅ | Fácil: 3 ondas, com 5, 10 e 20 inimigos (35 no total) |
 
 | Dificuldade | Ondas | Inimigos | Vida | Velocidade | Tempo limite | Antes da 1ª onda | Entre ondas |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| Fácil | 3 | 25 | ×1,0 | ×1,0 | 240 s | 15 s | 8 s |
-| Difícil | 4 | 56 | ×1,5 | ×1,2 | 200 s | 10 s | 5 s |
+| Fácil | 3 | 35 | ×1,0 | ×1,0 | 240 s | 15 s | 8 s |
+| Difícil | 4 | 90 | ×1,5 | ×1,2 | 200 s | 10 s | 5 s |
 
 ### Ambiente e área de jogo
 
@@ -128,8 +128,8 @@ Requisitos do Trabalho Prático de CCC300 – Computação Gráfica e Realidade 
 | Ter vida e receber dano | ✅ | `Enemy`: [#2][pr2] |
 | Ser removido com vida zero | ✅ | `Enemy`: [#2][pr2] |
 | Causar consequência ao chegar à base | ✅ | Tira vida do `Objetivo`: [#5][pr5] |
-| Quantidade e características variam com a dificuldade | ✅ | Número de inimigos e multiplicadores de vida e velocidade: [#8][pr8] |
-| Pelo menos 2 comportamentos distintos (recomendado) | 🟡 | Só existe o Mimic. O modelo `Enemy_Base` já facilita criar outros |
+| Quantidade e características variam com a dificuldade | ✅ | Número e tipos de inimigos, e multiplicadores de vida e velocidade: [#8][pr8], [#20](https://github.com/GregKmpf/Horror-Defense/pull/20). O Fácil tem 1 Brute, o Difícil tem 9 |
+| Pelo menos 2 comportamentos distintos (recomendado) | ✅ | Quatro tipos de Mimic: **Crawler** (pequeno, rápido e frágil), **Mimic**, **Brute** (grande, lento e resistente) e **Matriarca** (enorme e muito lenta, chega no fim da última onda). Cada um tem vida, velocidade, recompensa, dano à base, tamanho, pernas e cor próprios: [#20](https://github.com/GregKmpf/Horror-Defense/pull/20). Detalhes em [`Assets/Enemies/README.md`](Assets/Enemies/README.md#mimic-types) |
 
 ### Ataques e projéteis
 
@@ -184,7 +184,7 @@ O `GameManager` ([#8][pr8]) controla a partida. Ao terminar, ele congela o tempo
 | Critério | Pontos | Situação |
 |---|---:|---|
 | Menu principal, com níveis de dificuldade, ranking e informações | 0,5 | 🟡 Menu e Sobre prontos. Dificuldade na branch [`menu-dificuldade`][menu-dificuldade], falta o ranking |
-| Modelagem das estruturas, dos inimigos e do cenário: quantidade e variedade | 1,0 | 🟡 Boa variedade de torres e cenário caprichado, só um inimigo |
+| Modelagem das estruturas, dos inimigos e do cenário: quantidade e variedade | 1,0 | ✅ Seis torres, quatro tipos de Mimic e cenário caprichado |
 | Movimentação dos inimigos, comportamento das estruturas e projéteis | 2,5 | ✅ |
 | Interatividade: controle, velocidade, gerenciamento de alvos e colisões | 2,5 | ✅ Construção e venda de torres, alvo preferido por torre, velocidade 1x/2x, zoom, pause e colisões |
 | Efeitos visuais e recursos sonoros | 1,0 | 🟡 Faltam os sons |

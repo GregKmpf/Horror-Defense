@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc35840dbb8941e687e8b7a5c4e1c7f9, type: 3}
   m_Name: Easy
   m_EditorClassIdentifier: Assembly-CSharp::DifficultyDefinition
-  displayName: Fácil
-  description: Três ondas de Mimics.
+  displayName: "F\xE1cil"
+  description: "Tr\xEAs ondas de Mimics, com Crawlers r\xE1pidos, um Brute e a Matriarca
+    no fim."
   timeLimit: 240
   timeBeforeFirstWave: 15
   timeBetweenWaves: 8
@@ -33,14 +34,29 @@ MonoBehaviour:
       spawnInterval: 1.5
       delay: 0
       path: 1
-    - prefab: {fileID: 2419891550475240363, guid: a50d1c41b127bcacf8f337c9e160563d, type: 3}
-      count: 4
-      spawnInterval: 1.5
+    - prefab: {fileID: 8594091676651007360, guid: 1488c1bdad436a6c48c671fc39324ce5, type: 3}
+      count: 6
+      spawnInterval: 0.8
       delay: 2
       path: 2
   - groups:
     - prefab: {fileID: 2419891550475240363, guid: a50d1c41b127bcacf8f337c9e160563d, type: 3}
-      count: 12
+      count: 10
       spawnInterval: 1.2
       delay: 0
       path: -1
+    - prefab: {fileID: 8594091676651007360, guid: 1488c1bdad436a6c48c671fc39324ce5, type: 3}
+      count: 8
+      spawnInterval: 0.6
+      delay: 2
+      path: -1
+    - prefab: {fileID: 5632709747882192884, guid: e0f3d8a2ef5a9c721af5368158d6578e, type: 3}
+      count: 1
+      spawnInterval: 0
+      delay: 2
+      path: 1
+    - prefab: {fileID: 5335146105570663095, guid: 7c402547f500088d4ae766be007a7bcc, type: 3}
+      count: 1
+      spawnInterval: 0
+      delay: 4
+      path: 2
