@@ -12,6 +12,8 @@ public class MenuPrincipal : MonoBehaviour
     [SerializeField] private GameObject painelPrincipal;
     [SerializeField] private GameObject painelSobre;
     [SerializeField] private GameObject painelDificuldade;
+    [SerializeField] private GameObject painelRanking;
+    [SerializeField] private TMP_Text textoRanking;
 
     [Header("Dificuldades (assets da pasta Difficulties)")]
     [SerializeField] private DifficultyDefinition dificuldadeFacil;
@@ -27,6 +29,7 @@ public class MenuPrincipal : MonoBehaviour
         Principal,
         Sobre,
         Dificuldade,
+        Ranking,
     }
 
     private void Awake()
@@ -73,6 +76,15 @@ public class MenuPrincipal : MonoBehaviour
     public void IniciarDificil()
     {
         Iniciar(dificuldadeDificil);
+    }
+
+    public void MostrarRanking()
+    {
+        // O texto é montado só aqui, para sempre mostrar os dados mais recentes
+        textoRanking.text =
+            $"{dificuldadeFacil.displayName.ToUpper()}\n{Ranking.Texto(dificuldadeFacil)}\n" +
+            $"{dificuldadeDificil.displayName.ToUpper()}\n{Ranking.Texto(dificuldadeDificil)}";
+        Mostrar(Painel.Ranking);
     }
 
     public void MostrarSobre()
@@ -123,6 +135,10 @@ public class MenuPrincipal : MonoBehaviour
         if (painelDificuldade != null)
         {
             painelDificuldade.SetActive(painel == Painel.Dificuldade);
+        }
+        if (painelRanking != null)
+        {
+            painelRanking.SetActive(painel == Painel.Ranking);
         }
     }
 }
