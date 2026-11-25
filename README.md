@@ -206,7 +206,7 @@ A Matriarca tira metade da base, e Cannons e Miniguns sozinhos não a derrubam: 
 | Somente código-fonte e dependências pertinentes | ✅ | O `Assets.tar.gz` foi removido no [#8][pr8] |
 | Link do executável no README | ✅ | [Baixar o Jogo](#-baixar-o-jogo) |
 | Link do vídeo demonstrativo no README | ✅ | [Vídeo Demonstrativo](#-vídeo-demonstrativo) |
-| Apresentação de 10 min + até 5 min de perguntas | ❌ | Em 24/11/2026. Exige domínio do projeto por todo o trio |
+| Apresentação de 10 min + até 5 min de perguntas | ✅ | Em 24/11/2026. Exige domínio do projeto por todo o trio |
 
 ## 🎯 Critérios de Avaliação
 
